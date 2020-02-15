@@ -22,4 +22,29 @@ class MainViewController: UIViewController {
     return mainVC
   }
 
+  @IBAction func pickerClicked(_ sender: Any) {
+    
+  }
+  
+}
+
+// MARK: Life Cycle
+extension  MainViewController {
+  
+  override func viewDidLoad() {
+    super.viewDidLoad()
+    self.setup()
+    self.stylize()
+  }
+  
+  /// Setup should only be called once
+  func setup() {
+    
+  }
+  
+  /// Stylize should only be called once
+  func stylize() {
+    
+  }
+  
 }

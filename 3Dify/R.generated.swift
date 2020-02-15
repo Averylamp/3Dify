@@ -89,12 +89,14 @@ struct R: Rswift.Validatable {
   }
 
   #if os(iOS) || os(tvOS)
-  /// This `R.storyboard` struct is generated, and contains static references to 2 storyboards.
+  /// This `R.storyboard` struct is generated, and contains static references to 3 storyboards.
   struct storyboard {
     /// Storyboard `LaunchScreen`.
     static let launchScreen = _R.storyboard.launchScreen()
     /// Storyboard `MainViewController`.
     static let mainViewController = _R.storyboard.mainViewController()
+    /// Storyboard `PortraitPhotoPickerViewController`.
+    static let portraitPhotoPickerViewController = _R.storyboard.portraitPhotoPickerViewController()
 
     #if os(iOS) || os(tvOS)
     /// `UIStoryboard(name: "LaunchScreen", bundle: ...)`
@@ -110,9 +112,24 @@ struct R: Rswift.Validatable {
     }
     #endif
 
+    #if os(iOS) || os(tvOS)
+    /// `UIStoryboard(name: "PortraitPhotoPickerViewController", bundle: ...)`
+    static func portraitPhotoPickerViewController(_: Void = ()) -> UIKit.UIStoryboard {
+      return UIKit.UIStoryboard(resource: R.storyboard.portraitPhotoPickerViewController)
+    }
+    #endif
+
     fileprivate init() {}
   }
   #endif
+
+  /// This `R.reuseIdentifier` struct is generated, and contains static references to 1 reuse identifiers.
+  struct reuseIdentifier {
+    /// Reuse identifier `PHPhotoCollectionViewCell`.
+    static let phPhotoCollectionViewCell: Rswift.ReuseIdentifier<PortraitPhotoCollectionViewCell> = Rswift.ReuseIdentifier(identifier: "PHPhotoCollectionViewCell")
+
+    fileprivate init() {}
+  }
 
   fileprivate struct intern: Rswift.Validatable {
     fileprivate static func validate() throws {
@@ -143,6 +160,9 @@ struct _R: Rswift.Validatable {
       #if os(iOS) || os(tvOS)
       try mainViewController.validate()
       #endif
+      #if os(iOS) || os(tvOS)
+      try portraitPhotoPickerViewController.validate()
+      #endif
     }
 
     #if os(iOS) || os(tvOS)
@@ -167,6 +187,22 @@ struct _R: Rswift.Validatable {
 
       let bundle = R.hostingBundle
       let name = "MainViewController"
+
+      static func validate() throws {
+        if #available(iOS 11.0, tvOS 11.0, *) {
+        }
+      }
+
+      fileprivate init() {}
+    }
+    #endif
+
+    #if os(iOS) || os(tvOS)
+    struct portraitPhotoPickerViewController: Rswift.StoryboardResourceWithInitialControllerType, Rswift.Validatable {
+      typealias InitialController = PortraitPhotoPickerViewController
+
+      let bundle = R.hostingBundle
+      let name = "PortraitPhotoPickerViewController"
 
       static func validate() throws {
         if #available(iOS 11.0, tvOS 11.0, *) {

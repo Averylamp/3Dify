@@ -14,7 +14,20 @@
                     <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="sWq-cf-XDq">
+                                <rect key="frame" x="185.5" y="782" width="43" height="30"/>
+                                <state key="normal" title="Picker"/>
+                                <connections>
+                                    <action selector="pickerClicked:" destination="BYZ-38-t0r" eventType="touchUpInside" id="ADl-w2-GXk"/>
+                                </connections>
+                            </button>
+                        </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <constraints>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="sWq-cf-XDq" secondAttribute="bottom" constant="50" id="JrG-BM-qZd"/>
+                            <constraint firstItem="sWq-cf-XDq" firstAttribute="centerX" secondItem="6Tk-OE-BBY" secondAttribute="centerX" id="UdO-P4-J5z"/>
+                        </constraints>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
                 </viewController>
