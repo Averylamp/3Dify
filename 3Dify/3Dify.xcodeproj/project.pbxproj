@@ -19,7 +19,13 @@
 		BB0D3E4B23F7FA6E002AD13E /* MainNavigationController.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = BB0D3E4A23F7FA6E002AD13E /* MainNavigationController.storyboard */; };
 		BB0D3E4E23F85853002AD13E /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB0D3E4D23F85853002AD13E /* SceneDelegate.swift */; };
 		BB0D3E5023F87235002AD13E /* PortraitPhotoPickerProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB0D3E4F23F87235002AD13E /* PortraitPhotoPickerProtocol.swift */; };
-		BB0D3E5323F87452002AD13E /* PHAssetExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB0D3E5223F87452002AD13E /* PHAssetExtensions.swift */; };
+		BB0D3E5323F87452002AD13E /* PHAsset+Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB0D3E5223F87452002AD13E /* PHAsset+Utils.swift */; };
+		BB0D3E5923F87885002AD13E /* DifyCloudVisualizerViewController.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = BB0D3E5823F87885002AD13E /* DifyCloudVisualizerViewController.storyboard */; };
+		BB0D3E5C23F878D1002AD13E /* DifyCloudVisualizerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB0D3E5B23F878D1002AD13E /* DifyCloudVisualizerViewController.swift */; };
+		BB75B66523F87B5C00A13363 /* CGImageSource+Depth.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB75B66423F87B5C00A13363 /* CGImageSource+Depth.swift */; };
+		BB75B66723F87B9C00A13363 /* AVDepthData+Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB75B66623F87B9C00A13363 /* AVDepthData+Utils.swift */; };
+		BB75B66923F87C9100A13363 /* CIImage+Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB75B66823F87C9100A13363 /* CIImage+Utils.swift */; };
+		BB75B66B23F87D1400A13363 /* DifyPointCloud.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB75B66A23F87D1400A13363 /* DifyPointCloud.swift */; };
 		BBBF081123F7D99600E177DF /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = BBBF081023F7D99600E177DF /* AppDelegate.swift */; };
 		BBBF081523F7D99600E177DF /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BBBF081423F7D99600E177DF /* MainViewController.swift */; };
 		BBBF081823F7D99600E177DF /* MainViewController.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = BBBF081623F7D99600E177DF /* MainViewController.storyboard */; };
@@ -60,7 +66,13 @@
 		BB0D3E4A23F7FA6E002AD13E /* MainNavigationController.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = MainNavigationController.storyboard; sourceTree = "<group>"; };
 		BB0D3E4D23F85853002AD13E /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
 		BB0D3E4F23F87235002AD13E /* PortraitPhotoPickerProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PortraitPhotoPickerProtocol.swift; sourceTree = "<group>"; };
-		BB0D3E5223F87452002AD13E /* PHAssetExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PHAssetExtensions.swift; sourceTree = "<group>"; };
+		BB0D3E5223F87452002AD13E /* PHAsset+Utils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "PHAsset+Utils.swift"; sourceTree = "<group>"; };
+		BB0D3E5823F87885002AD13E /* DifyCloudVisualizerViewController.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = DifyCloudVisualizerViewController.storyboard; sourceTree = "<group>"; };
+		BB0D3E5B23F878D1002AD13E /* DifyCloudVisualizerViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DifyCloudVisualizerViewController.swift; sourceTree = "<group>"; };
+		BB75B66423F87B5C00A13363 /* CGImageSource+Depth.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "CGImageSource+Depth.swift"; sourceTree = "<group>"; };
+		BB75B66623F87B9C00A13363 /* AVDepthData+Utils.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "AVDepthData+Utils.swift"; sourceTree = "<group>"; };
+		BB75B66823F87C9100A13363 /* CIImage+Utils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CIImage+Utils.swift"; sourceTree = "<group>"; };
+		BB75B66A23F87D1400A13363 /* DifyPointCloud.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DifyPointCloud.swift; sourceTree = "<group>"; };
 		BBBF080D23F7D99600E177DF /* 3Dify.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = 3Dify.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		BBBF081023F7D99600E177DF /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		BBBF081423F7D99600E177DF /* MainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
@@ -153,6 +165,7 @@
 			isa = PBXGroup;
 			children = (
 				BB0D3E4623F7F399002AD13E /* DifyPoint.swift */,
+				BB75B66A23F87D1400A13363 /* DifyPointCloud.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -169,9 +182,21 @@
 		BB0D3E5123F87447002AD13E /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
-				BB0D3E5223F87452002AD13E /* PHAssetExtensions.swift */,
+				BB0D3E5223F87452002AD13E /* PHAsset+Utils.swift */,
+				BB75B66423F87B5C00A13363 /* CGImageSource+Depth.swift */,
+				BB75B66623F87B9C00A13363 /* AVDepthData+Utils.swift */,
+				BB75B66823F87C9100A13363 /* CIImage+Utils.swift */,
 			);
 			path = Extensions;
+			sourceTree = "<group>";
+		};
+		BB0D3E5A23F87889002AD13E /* Dify Cloud Visualizer */ = {
+			isa = PBXGroup;
+			children = (
+				BB0D3E5B23F878D1002AD13E /* DifyCloudVisualizerViewController.swift */,
+				BB0D3E5823F87885002AD13E /* DifyCloudVisualizerViewController.storyboard */,
+			);
+			path = "Dify Cloud Visualizer";
 			sourceTree = "<group>";
 		};
 		BBBF080423F7D99600E177DF = {
@@ -204,6 +229,7 @@
 				BB0D3E4D23F85853002AD13E /* SceneDelegate.swift */,
 				BB0D3E5123F87447002AD13E /* Extensions */,
 				BB0D3E4523F7F389002AD13E /* Model */,
+				BB0D3E5A23F87889002AD13E /* Dify Cloud Visualizer */,
 				BB0D3E4023F7F313002AD13E /*  Networking */,
 				BB0D3E3823F7E215002AD13E /* Main View Controller */,
 				BB0D3E4C23F7FB08002AD13E /* Main Nav VC */,
@@ -346,6 +372,7 @@
 				BB0D3E4B23F7FA6E002AD13E /* MainNavigationController.storyboard in Resources */,
 				BBBF081823F7D99600E177DF /* MainViewController.storyboard in Resources */,
 				BB0D3E3C23F7E341002AD13E /* PortraitPhotoPickerViewController.storyboard in Resources */,
+				BB0D3E5923F87885002AD13E /* DifyCloudVisualizerViewController.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -449,16 +476,21 @@
 			buildActionMask = 2147483647;
 			files = (
 				BB0D3E4923F7FA64002AD13E /* MainNavigationController.swift in Sources */,
+				BB75B66B23F87D1400A13363 /* DifyPointCloud.swift in Sources */,
 				BB0D3E3F23F7F29C002AD13E /* PortraitPhotoCollectionViewCell.swift in Sources */,
 				BB0D3E5023F87235002AD13E /* PortraitPhotoPickerProtocol.swift in Sources */,
+				BB0D3E5C23F878D1002AD13E /* DifyCloudVisualizerViewController.swift in Sources */,
 				BB0D3E3A23F7E335002AD13E /* PortraitPhotoPickerViewController.swift in Sources */,
 				BB0D3E4423F7F349002AD13E /* DifyAPI.swift in Sources */,
 				BBBF081523F7D99600E177DF /* MainViewController.swift in Sources */,
-				BB0D3E5323F87452002AD13E /* PHAssetExtensions.swift in Sources */,
+				BB0D3E5323F87452002AD13E /* PHAsset+Utils.swift in Sources */,
 				BB0D3E4E23F85853002AD13E /* SceneDelegate.swift in Sources */,
+				BB75B66923F87C9100A13363 /* CIImage+Utils.swift in Sources */,
 				BBBF081123F7D99600E177DF /* AppDelegate.swift in Sources */,
+				BB75B66523F87B5C00A13363 /* CGImageSource+Depth.swift in Sources */,
 				BB0D3E4223F7F323002AD13E /* Result.swift in Sources */,
 				BB0D3E4723F7F399002AD13E /* DifyPoint.swift in Sources */,
+				BB75B66723F87B9C00A13363 /* AVDepthData+Utils.swift in Sources */,
 				BB0D3E3723F7DD24002AD13E /* R.generated.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -636,7 +668,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = R4DQ2L3FBV;
 				INFOPLIST_FILE = 3Dify/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.2;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -656,7 +688,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = R4DQ2L3FBV;
 				INFOPLIST_FILE = 3Dify/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.2;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",

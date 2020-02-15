@@ -89,8 +89,10 @@ struct R: Rswift.Validatable {
   }
 
   #if os(iOS) || os(tvOS)
-  /// This `R.storyboard` struct is generated, and contains static references to 4 storyboards.
+  /// This `R.storyboard` struct is generated, and contains static references to 5 storyboards.
   struct storyboard {
+    /// Storyboard `DifyCloudVisualizerViewController`.
+    static let difyCloudVisualizerViewController = _R.storyboard.difyCloudVisualizerViewController()
     /// Storyboard `LaunchScreen`.
     static let launchScreen = _R.storyboard.launchScreen()
     /// Storyboard `MainNavigationController`.
@@ -99,6 +101,13 @@ struct R: Rswift.Validatable {
     static let mainViewController = _R.storyboard.mainViewController()
     /// Storyboard `PortraitPhotoPickerViewController`.
     static let portraitPhotoPickerViewController = _R.storyboard.portraitPhotoPickerViewController()
+
+    #if os(iOS) || os(tvOS)
+    /// `UIStoryboard(name: "DifyCloudVisualizerViewController", bundle: ...)`
+    static func difyCloudVisualizerViewController(_: Void = ()) -> UIKit.UIStoryboard {
+      return UIKit.UIStoryboard(resource: R.storyboard.difyCloudVisualizerViewController)
+    }
+    #endif
 
     #if os(iOS) || os(tvOS)
     /// `UIStoryboard(name: "LaunchScreen", bundle: ...)`
@@ -188,6 +197,9 @@ struct _R: Rswift.Validatable {
   struct storyboard: Rswift.Validatable {
     static func validate() throws {
       #if os(iOS) || os(tvOS)
+      try difyCloudVisualizerViewController.validate()
+      #endif
+      #if os(iOS) || os(tvOS)
       try launchScreen.validate()
       #endif
       #if os(iOS) || os(tvOS)
@@ -200,6 +212,22 @@ struct _R: Rswift.Validatable {
       try portraitPhotoPickerViewController.validate()
       #endif
     }
+
+    #if os(iOS) || os(tvOS)
+    struct difyCloudVisualizerViewController: Rswift.StoryboardResourceWithInitialControllerType, Rswift.Validatable {
+      typealias InitialController = DifyCloudVisualizerViewController
+
+      let bundle = R.hostingBundle
+      let name = "DifyCloudVisualizerViewController"
+
+      static func validate() throws {
+        if #available(iOS 11.0, tvOS 11.0, *) {
+        }
+      }
+
+      fileprivate init() {}
+    }
+    #endif
 
     #if os(iOS) || os(tvOS)
     struct launchScreen: Rswift.StoryboardResourceWithInitialControllerType, Rswift.Validatable {
