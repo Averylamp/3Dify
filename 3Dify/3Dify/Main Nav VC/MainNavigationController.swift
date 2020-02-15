@@ -19,6 +19,7 @@ class MainNavigationController: UINavigationController {
     guard let mainNavVC = storyboard.instantiateInitialViewController() else {
       fatalError("Unable to instantiate \(vcName)")
     }
+  
     return mainNavVC
   }
   

@@ -89,8 +89,10 @@ struct R: Rswift.Validatable {
   }
 
   #if os(iOS) || os(tvOS)
-  /// This `R.storyboard` struct is generated, and contains static references to 4 storyboards.
+  /// This `R.storyboard` struct is generated, and contains static references to 5 storyboards.
   struct storyboard {
+    /// Storyboard `DifyCloudVisualizerViewController`.
+    static let difyCloudVisualizerViewController = _R.storyboard.difyCloudVisualizerViewController()
     /// Storyboard `LaunchScreen`.
     static let launchScreen = _R.storyboard.launchScreen()
     /// Storyboard `MainNavigationController`.
@@ -99,6 +101,13 @@ struct R: Rswift.Validatable {
     static let mainViewController = _R.storyboard.mainViewController()
     /// Storyboard `PortraitPhotoPickerViewController`.
     static let portraitPhotoPickerViewController = _R.storyboard.portraitPhotoPickerViewController()
+
+    #if os(iOS) || os(tvOS)
+    /// `UIStoryboard(name: "DifyCloudVisualizerViewController", bundle: ...)`
+    static func difyCloudVisualizerViewController(_: Void = ()) -> UIKit.UIStoryboard {
+      return UIKit.UIStoryboard(resource: R.storyboard.difyCloudVisualizerViewController)
+    }
+    #endif
 
     #if os(iOS) || os(tvOS)
     /// `UIStoryboard(name: "LaunchScreen", bundle: ...)`
@@ -132,6 +141,30 @@ struct R: Rswift.Validatable {
   }
   #endif
 
+  /// This `R.image` struct is generated, and contains static references to 2 images.
+  struct image {
+    /// Image `icon-many-images`.
+    static let iconManyImages = Rswift.ImageResource(bundle: R.hostingBundle, name: "icon-many-images")
+    /// Image `icon-single-image`.
+    static let iconSingleImage = Rswift.ImageResource(bundle: R.hostingBundle, name: "icon-single-image")
+
+    #if os(iOS) || os(tvOS)
+    /// `UIImage(named: "icon-many-images", bundle: ..., traitCollection: ...)`
+    static func iconManyImages(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
+      return UIKit.UIImage(resource: R.image.iconManyImages, compatibleWith: traitCollection)
+    }
+    #endif
+
+    #if os(iOS) || os(tvOS)
+    /// `UIImage(named: "icon-single-image", bundle: ..., traitCollection: ...)`
+    static func iconSingleImage(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
+      return UIKit.UIImage(resource: R.image.iconSingleImage, compatibleWith: traitCollection)
+    }
+    #endif
+
+    fileprivate init() {}
+  }
+
   /// This `R.reuseIdentifier` struct is generated, and contains static references to 1 reuse identifiers.
   struct reuseIdentifier {
     /// Reuse identifier `PortraitPhotoCollectionViewCell`.
@@ -164,6 +197,9 @@ struct _R: Rswift.Validatable {
   struct storyboard: Rswift.Validatable {
     static func validate() throws {
       #if os(iOS) || os(tvOS)
+      try difyCloudVisualizerViewController.validate()
+      #endif
+      #if os(iOS) || os(tvOS)
       try launchScreen.validate()
       #endif
       #if os(iOS) || os(tvOS)
@@ -176,6 +212,22 @@ struct _R: Rswift.Validatable {
       try portraitPhotoPickerViewController.validate()
       #endif
     }
+
+    #if os(iOS) || os(tvOS)
+    struct difyCloudVisualizerViewController: Rswift.StoryboardResourceWithInitialControllerType, Rswift.Validatable {
+      typealias InitialController = DifyCloudVisualizerViewController
+
+      let bundle = R.hostingBundle
+      let name = "DifyCloudVisualizerViewController"
+
+      static func validate() throws {
+        if #available(iOS 11.0, tvOS 11.0, *) {
+        }
+      }
+
+      fileprivate init() {}
+    }
+    #endif
 
     #if os(iOS) || os(tvOS)
     struct launchScreen: Rswift.StoryboardResourceWithInitialControllerType, Rswift.Validatable {
@@ -233,6 +285,8 @@ struct _R: Rswift.Validatable {
       let name = "PortraitPhotoPickerViewController"
 
       static func validate() throws {
+        if UIKit.UIImage(named: "icon-many-images", in: R.hostingBundle, compatibleWith: nil) == nil { throw Rswift.ValidationError(description: "[R.swift] Image named 'icon-many-images' is used in storyboard 'PortraitPhotoPickerViewController', but couldn't be loaded.") }
+        if UIKit.UIImage(named: "icon-single-image", in: R.hostingBundle, compatibleWith: nil) == nil { throw Rswift.ValidationError(description: "[R.swift] Image named 'icon-single-image' is used in storyboard 'PortraitPhotoPickerViewController', but couldn't be loaded.") }
         if #available(iOS 11.0, tvOS 11.0, *) {
         }
       }

@@ -9,9 +9,8 @@
         <!--Main Navigation Controller-->
         <scene sceneID="O0K-Mx-fim">
             <objects>
-                <navigationController id="Abu-kY-zk4" customClass="MainNavigationController" customModule="_Dify" customModuleProvider="target" sceneMemberID="viewController">
+                <navigationController navigationBarHidden="YES" id="Abu-kY-zk4" customClass="MainNavigationController" customModule="_Dify" customModuleProvider="target" sceneMemberID="viewController">
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="XMQ-MO-WLX">
-                        <rect key="frame" x="0.0" y="44" width="414" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
                 </navigationController>

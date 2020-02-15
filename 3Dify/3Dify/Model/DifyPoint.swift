@@ -10,8 +10,7 @@ import Foundation
 import UIKit
 
 struct DifyPoint {
-  let red: CGFloat
-  let green: CGFloat
-  let blue: CGFloat
-  
+  // swiftlint:disable identifier_name
+  var x: Float, y: Float, z: Float
+  var r: Float, g: Float, b: Float
 }

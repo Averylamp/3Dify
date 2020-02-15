@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		1D6186DA3E24B5A33BF89395 /* Pods_3Dify.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1FC7A6A898C0771DE716DF08 /* Pods_3Dify.framework */; };
 		BB0D3E3723F7DD24002AD13E /* R.generated.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB0D3E3623F7DD24002AD13E /* R.generated.swift */; };
 		BB0D3E3A23F7E335002AD13E /* PortraitPhotoPickerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB0D3E3923F7E335002AD13E /* PortraitPhotoPickerViewController.swift */; };
 		BB0D3E3C23F7E341002AD13E /* PortraitPhotoPickerViewController.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = BB0D3E3B23F7E341002AD13E /* PortraitPhotoPickerViewController.storyboard */; };
@@ -17,14 +16,23 @@
 		BB0D3E4723F7F399002AD13E /* DifyPoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB0D3E4623F7F399002AD13E /* DifyPoint.swift */; };
 		BB0D3E4923F7FA64002AD13E /* MainNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB0D3E4823F7FA64002AD13E /* MainNavigationController.swift */; };
 		BB0D3E4B23F7FA6E002AD13E /* MainNavigationController.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = BB0D3E4A23F7FA6E002AD13E /* MainNavigationController.storyboard */; };
+		BB0D3E4E23F85853002AD13E /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB0D3E4D23F85853002AD13E /* SceneDelegate.swift */; };
+		BB0D3E5023F87235002AD13E /* PortraitPhotoPickerProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB0D3E4F23F87235002AD13E /* PortraitPhotoPickerProtocol.swift */; };
+		BB0D3E5323F87452002AD13E /* PHAsset+Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB0D3E5223F87452002AD13E /* PHAsset+Utils.swift */; };
+		BB0D3E5923F87885002AD13E /* DifyCloudVisualizerViewController.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = BB0D3E5823F87885002AD13E /* DifyCloudVisualizerViewController.storyboard */; };
+		BB0D3E5C23F878D1002AD13E /* DifyCloudVisualizerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB0D3E5B23F878D1002AD13E /* DifyCloudVisualizerViewController.swift */; };
+		BB75B66523F87B5C00A13363 /* CGImageSource+Depth.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB75B66423F87B5C00A13363 /* CGImageSource+Depth.swift */; };
+		BB75B66723F87B9C00A13363 /* AVDepthData+Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB75B66623F87B9C00A13363 /* AVDepthData+Utils.swift */; };
+		BB75B66923F87C9100A13363 /* CIImage+Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB75B66823F87C9100A13363 /* CIImage+Utils.swift */; };
+		BB75B66B23F87D1400A13363 /* DifyPointCloud.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB75B66A23F87D1400A13363 /* DifyPointCloud.swift */; };
 		BBBF081123F7D99600E177DF /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = BBBF081023F7D99600E177DF /* AppDelegate.swift */; };
-		BBBF081323F7D99600E177DF /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = BBBF081223F7D99600E177DF /* SceneDelegate.swift */; };
 		BBBF081523F7D99600E177DF /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BBBF081423F7D99600E177DF /* MainViewController.swift */; };
 		BBBF081823F7D99600E177DF /* MainViewController.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = BBBF081623F7D99600E177DF /* MainViewController.storyboard */; };
 		BBBF081A23F7D99800E177DF /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = BBBF081923F7D99800E177DF /* Assets.xcassets */; };
 		BBBF081D23F7D99800E177DF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = BBBF081B23F7D99800E177DF /* LaunchScreen.storyboard */; };
 		BBBF082823F7D99800E177DF /* _DifyTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BBBF082723F7D99800E177DF /* _DifyTests.swift */; };
 		BBBF083323F7D99800E177DF /* _DifyUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BBBF083223F7D99800E177DF /* _DifyUITests.swift */; };
+		E032B25CEF5EB457D4CF2EBA /* Pods_3Dify.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A0DC16568E858D44160AAF44 /* Pods_3Dify.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -45,8 +53,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		1FC7A6A898C0771DE716DF08 /* Pods_3Dify.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_3Dify.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		6E5BAE1A033272969F429A82 /* Pods-3Dify.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-3Dify.release.xcconfig"; path = "Target Support Files/Pods-3Dify/Pods-3Dify.release.xcconfig"; sourceTree = "<group>"; };
+		A0DC16568E858D44160AAF44 /* Pods_3Dify.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_3Dify.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		BB0D3E3623F7DD24002AD13E /* R.generated.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = R.generated.swift; sourceTree = "<group>"; };
 		BB0D3E3923F7E335002AD13E /* PortraitPhotoPickerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PortraitPhotoPickerViewController.swift; sourceTree = "<group>"; };
 		BB0D3E3B23F7E341002AD13E /* PortraitPhotoPickerViewController.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = PortraitPhotoPickerViewController.storyboard; sourceTree = "<group>"; };
@@ -56,9 +63,17 @@
 		BB0D3E4623F7F399002AD13E /* DifyPoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DifyPoint.swift; sourceTree = "<group>"; };
 		BB0D3E4823F7FA64002AD13E /* MainNavigationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainNavigationController.swift; sourceTree = "<group>"; };
 		BB0D3E4A23F7FA6E002AD13E /* MainNavigationController.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = MainNavigationController.storyboard; sourceTree = "<group>"; };
+		BB0D3E4D23F85853002AD13E /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
+		BB0D3E4F23F87235002AD13E /* PortraitPhotoPickerProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PortraitPhotoPickerProtocol.swift; sourceTree = "<group>"; };
+		BB0D3E5223F87452002AD13E /* PHAsset+Utils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "PHAsset+Utils.swift"; sourceTree = "<group>"; };
+		BB0D3E5823F87885002AD13E /* DifyCloudVisualizerViewController.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = DifyCloudVisualizerViewController.storyboard; sourceTree = "<group>"; };
+		BB0D3E5B23F878D1002AD13E /* DifyCloudVisualizerViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DifyCloudVisualizerViewController.swift; sourceTree = "<group>"; };
+		BB75B66423F87B5C00A13363 /* CGImageSource+Depth.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "CGImageSource+Depth.swift"; sourceTree = "<group>"; };
+		BB75B66623F87B9C00A13363 /* AVDepthData+Utils.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "AVDepthData+Utils.swift"; sourceTree = "<group>"; };
+		BB75B66823F87C9100A13363 /* CIImage+Utils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CIImage+Utils.swift"; sourceTree = "<group>"; };
+		BB75B66A23F87D1400A13363 /* DifyPointCloud.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DifyPointCloud.swift; sourceTree = "<group>"; };
 		BBBF080D23F7D99600E177DF /* 3Dify.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = 3Dify.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		BBBF081023F7D99600E177DF /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		BBBF081223F7D99600E177DF /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
 		BBBF081423F7D99600E177DF /* MainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
 		BBBF081723F7D99600E177DF /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/MainViewController.storyboard; sourceTree = "<group>"; };
 		BBBF081923F7D99800E177DF /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -70,7 +85,8 @@
 		BBBF082E23F7D99800E177DF /* 3DifyUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = 3DifyUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		BBBF083223F7D99800E177DF /* _DifyUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = _DifyUITests.swift; sourceTree = "<group>"; };
 		BBBF083423F7D99800E177DF /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		FEA4E8AD793E1A93B5A609DE /* Pods-3Dify.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-3Dify.debug.xcconfig"; path = "Target Support Files/Pods-3Dify/Pods-3Dify.debug.xcconfig"; sourceTree = "<group>"; };
+		D3DEDF51F338BF208C3F48B8 /* Pods-3Dify.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-3Dify.release.xcconfig"; path = "Target Support Files/Pods-3Dify/Pods-3Dify.release.xcconfig"; sourceTree = "<group>"; };
+		FB4E6C96D52A6E22147EAECA /* Pods-3Dify.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-3Dify.debug.xcconfig"; path = "Target Support Files/Pods-3Dify/Pods-3Dify.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -78,7 +94,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				1D6186DA3E24B5A33BF89395 /* Pods_3Dify.framework in Frameworks */,
+				E032B25CEF5EB457D4CF2EBA /* Pods_3Dify.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -99,21 +115,21 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		5C6D084F055E7FDD0F8233F9 /* Frameworks */ = {
-			isa = PBXGroup;
-			children = (
-				1FC7A6A898C0771DE716DF08 /* Pods_3Dify.framework */,
-			);
-			name = Frameworks;
-			sourceTree = "<group>";
-		};
 		6D7D04EC63D5A0C16D596F71 /* Pods */ = {
 			isa = PBXGroup;
 			children = (
-				FEA4E8AD793E1A93B5A609DE /* Pods-3Dify.debug.xcconfig */,
-				6E5BAE1A033272969F429A82 /* Pods-3Dify.release.xcconfig */,
+				FB4E6C96D52A6E22147EAECA /* Pods-3Dify.debug.xcconfig */,
+				D3DEDF51F338BF208C3F48B8 /* Pods-3Dify.release.xcconfig */,
 			);
 			path = Pods;
+			sourceTree = "<group>";
+		};
+		A55D6B249BFD136A9E093B05 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				A0DC16568E858D44160AAF44 /* Pods_3Dify.framework */,
+			);
+			name = Frameworks;
 			sourceTree = "<group>";
 		};
 		BB0D3E3823F7E215002AD13E /* Main View Controller */ = {
@@ -121,8 +137,6 @@
 			children = (
 				BBBF081423F7D99600E177DF /* MainViewController.swift */,
 				BBBF081623F7D99600E177DF /* MainViewController.storyboard */,
-				BB0D3E4823F7FA64002AD13E /* MainNavigationController.swift */,
-				BB0D3E4A23F7FA6E002AD13E /* MainNavigationController.storyboard */,
 			);
 			path = "Main View Controller";
 			sourceTree = "<group>";
@@ -130,9 +144,10 @@
 		BB0D3E3D23F7E345002AD13E /* Portrait Photo Picker */ = {
 			isa = PBXGroup;
 			children = (
+				BB0D3E4F23F87235002AD13E /* PortraitPhotoPickerProtocol.swift */,
 				BB0D3E3923F7E335002AD13E /* PortraitPhotoPickerViewController.swift */,
-				BB0D3E3E23F7F29C002AD13E /* PortraitPhotoCollectionViewCell.swift */,
 				BB0D3E3B23F7E341002AD13E /* PortraitPhotoPickerViewController.storyboard */,
+				BB0D3E3E23F7F29C002AD13E /* PortraitPhotoCollectionViewCell.swift */,
 			);
 			path = "Portrait Photo Picker";
 			sourceTree = "<group>";
@@ -150,8 +165,38 @@
 			isa = PBXGroup;
 			children = (
 				BB0D3E4623F7F399002AD13E /* DifyPoint.swift */,
+				BB75B66A23F87D1400A13363 /* DifyPointCloud.swift */,
 			);
 			path = Model;
+			sourceTree = "<group>";
+		};
+		BB0D3E4C23F7FB08002AD13E /* Main Nav VC */ = {
+			isa = PBXGroup;
+			children = (
+				BB0D3E4823F7FA64002AD13E /* MainNavigationController.swift */,
+				BB0D3E4A23F7FA6E002AD13E /* MainNavigationController.storyboard */,
+			);
+			path = "Main Nav VC";
+			sourceTree = "<group>";
+		};
+		BB0D3E5123F87447002AD13E /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				BB0D3E5223F87452002AD13E /* PHAsset+Utils.swift */,
+				BB75B66423F87B5C00A13363 /* CGImageSource+Depth.swift */,
+				BB75B66623F87B9C00A13363 /* AVDepthData+Utils.swift */,
+				BB75B66823F87C9100A13363 /* CIImage+Utils.swift */,
+			);
+			path = Extensions;
+			sourceTree = "<group>";
+		};
+		BB0D3E5A23F87889002AD13E /* Dify Cloud Visualizer */ = {
+			isa = PBXGroup;
+			children = (
+				BB0D3E5B23F878D1002AD13E /* DifyCloudVisualizerViewController.swift */,
+				BB0D3E5823F87885002AD13E /* DifyCloudVisualizerViewController.storyboard */,
+			);
+			path = "Dify Cloud Visualizer";
 			sourceTree = "<group>";
 		};
 		BBBF080423F7D99600E177DF = {
@@ -163,7 +208,7 @@
 				BBBF083123F7D99800E177DF /* 3DifyUITests */,
 				BBBF080E23F7D99600E177DF /* Products */,
 				6D7D04EC63D5A0C16D596F71 /* Pods */,
-				5C6D084F055E7FDD0F8233F9 /* Frameworks */,
+				A55D6B249BFD136A9E093B05 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -181,10 +226,13 @@
 			isa = PBXGroup;
 			children = (
 				BBBF081023F7D99600E177DF /* AppDelegate.swift */,
-				BBBF081223F7D99600E177DF /* SceneDelegate.swift */,
+				BB0D3E4D23F85853002AD13E /* SceneDelegate.swift */,
+				BB0D3E5123F87447002AD13E /* Extensions */,
 				BB0D3E4523F7F389002AD13E /* Model */,
+				BB0D3E5A23F87889002AD13E /* Dify Cloud Visualizer */,
 				BB0D3E4023F7F313002AD13E /*  Networking */,
 				BB0D3E3823F7E215002AD13E /* Main View Controller */,
+				BB0D3E4C23F7FB08002AD13E /* Main Nav VC */,
 				BB0D3E3D23F7E345002AD13E /* Portrait Photo Picker */,
 				BBBF081923F7D99800E177DF /* Assets.xcassets */,
 				BBBF081B23F7D99800E177DF /* LaunchScreen.storyboard */,
@@ -218,13 +266,13 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = BBBF083723F7D99800E177DF /* Build configuration list for PBXNativeTarget "3Dify" */;
 			buildPhases = (
-				5A54C3F8BBD07C50D4C2ED7D /* [CP] Check Pods Manifest.lock */,
+				0A786BD23E762DDBC7C702E2 /* [CP] Check Pods Manifest.lock */,
 				BB0D3E3523F7DC7D002AD13E /* ShellScript */,
 				BBBF080923F7D99600E177DF /* Sources */,
 				BBBF080A23F7D99600E177DF /* Frameworks */,
 				BBBF080B23F7D99600E177DF /* Resources */,
-				8C79CA5A1321D551B11A3A4D /* [CP] Embed Pods Frameworks */,
 				BB0D3E3423F7DC51002AD13E /* ShellScript */,
+				AB211FDA92BDB313C1FCBD0C /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -324,6 +372,7 @@
 				BB0D3E4B23F7FA6E002AD13E /* MainNavigationController.storyboard in Resources */,
 				BBBF081823F7D99600E177DF /* MainViewController.storyboard in Resources */,
 				BB0D3E3C23F7E341002AD13E /* PortraitPhotoPickerViewController.storyboard in Resources */,
+				BB0D3E5923F87885002AD13E /* DifyCloudVisualizerViewController.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -344,7 +393,7 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		5A54C3F8BBD07C50D4C2ED7D /* [CP] Check Pods Manifest.lock */ = {
+		0A786BD23E762DDBC7C702E2 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -366,7 +415,7 @@
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
-		8C79CA5A1321D551B11A3A4D /* [CP] Embed Pods Frameworks */ = {
+		AB211FDA92BDB313C1FCBD0C /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -413,7 +462,7 @@
 			outputFileListPaths = (
 			);
 			outputPaths = (
-				$SRCROOT/R.generated.swift,
+				"$SRCROOT/R.generated.swift",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -427,14 +476,21 @@
 			buildActionMask = 2147483647;
 			files = (
 				BB0D3E4923F7FA64002AD13E /* MainNavigationController.swift in Sources */,
+				BB75B66B23F87D1400A13363 /* DifyPointCloud.swift in Sources */,
 				BB0D3E3F23F7F29C002AD13E /* PortraitPhotoCollectionViewCell.swift in Sources */,
+				BB0D3E5023F87235002AD13E /* PortraitPhotoPickerProtocol.swift in Sources */,
+				BB0D3E5C23F878D1002AD13E /* DifyCloudVisualizerViewController.swift in Sources */,
 				BB0D3E3A23F7E335002AD13E /* PortraitPhotoPickerViewController.swift in Sources */,
 				BB0D3E4423F7F349002AD13E /* DifyAPI.swift in Sources */,
 				BBBF081523F7D99600E177DF /* MainViewController.swift in Sources */,
+				BB0D3E5323F87452002AD13E /* PHAsset+Utils.swift in Sources */,
+				BB0D3E4E23F85853002AD13E /* SceneDelegate.swift in Sources */,
+				BB75B66923F87C9100A13363 /* CIImage+Utils.swift in Sources */,
 				BBBF081123F7D99600E177DF /* AppDelegate.swift in Sources */,
+				BB75B66523F87B5C00A13363 /* CGImageSource+Depth.swift in Sources */,
 				BB0D3E4223F7F323002AD13E /* Result.swift in Sources */,
-				BBBF081323F7D99600E177DF /* SceneDelegate.swift in Sources */,
 				BB0D3E4723F7F399002AD13E /* DifyPoint.swift in Sources */,
+				BB75B66723F87B9C00A13363 /* AVDepthData+Utils.swift in Sources */,
 				BB0D3E3723F7DD24002AD13E /* R.generated.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -606,13 +662,13 @@
 		};
 		BBBF083823F7D99800E177DF /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = FEA4E8AD793E1A93B5A609DE /* Pods-3Dify.debug.xcconfig */;
+			baseConfigurationReference = FB4E6C96D52A6E22147EAECA /* Pods-3Dify.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = R4DQ2L3FBV;
 				INFOPLIST_FILE = 3Dify/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.2;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -626,13 +682,13 @@
 		};
 		BBBF083923F7D99800E177DF /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 6E5BAE1A033272969F429A82 /* Pods-3Dify.release.xcconfig */;
+			baseConfigurationReference = D3DEDF51F338BF208C3F48B8 /* Pods-3Dify.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = R4DQ2L3FBV;
 				INFOPLIST_FILE = 3Dify/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.2;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",

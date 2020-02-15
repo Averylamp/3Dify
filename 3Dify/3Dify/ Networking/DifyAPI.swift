@@ -30,7 +30,7 @@ extension NetworkingDifyAPI: DifyAPI {
 
   func sendImage(image: UIImage, completion: @escaping (Result<[DifyPoint], DifyAPIError>) -> Void) {
     print("Initiating request")
-    let params = ["todo":1] as Dictionary<String, Int>
+    let params = ["todo": 1] as [String: Int]
 
     var request = URLRequest(url: URL(string: "http://127.0.0.1:5000/upload/photo")!)
     request.httpMethod = "POST"
@@ -38,10 +38,12 @@ extension NetworkingDifyAPI: DifyAPI {
     request.addValue("application/json", forHTTPHeaderField: "Content-Type")
     
     let session = URLSession.shared
-    let task = session.dataTask(with: request, completionHandler: { data, response, error -> Void in
+    let task = session.dataTask(with: request, completionHandler: { data, response, _ -> Void in
         print(response!)
         do {
-            let json = try JSONSerialization.jsonObject(with: data!) as! Dictionary<String, AnyObject>
+          guard let json = try JSONSerialization.jsonObject(with: data!) as? [String: AnyObject] else {
+            fatalError("JSON Serialization failed")
+          }
             print(json)
         } catch {
             print("error")
@@ -50,5 +52,4 @@ extension NetworkingDifyAPI: DifyAPI {
     task.resume()
     print("Completed request")
   }
-  
 }
