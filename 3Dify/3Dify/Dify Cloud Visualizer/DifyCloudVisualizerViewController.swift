@@ -9,6 +9,7 @@
 import UIKit
 import Photos
 import SceneKit
+import Vision
 
 // swiftlint:ignore identifier_name
 
@@ -90,6 +91,41 @@ extension  DifyCloudVisualizerViewController {
   
 }
 
+// MARK: Vision
+extension DifyCloudVisualizerViewController {
+    private func vision(img: UIImage) {
+        var orientation:Int32 = 0
+        
+        // detect image orientation, we need it to be accurate for the face detection to work
+        switch img.imageOrientation {
+        case .up:
+            orientation = 1
+        case .right:
+            orientation = 6
+        case .down:
+            orientation = 3
+        case .left:
+            orientation = 8
+        default:
+            orientation = 1
+        }
+        
+        let faceLandmarksRequest = VNDetectFaceLandmarksRequest(completionHandler: self.handleFaceFeatures)
+        
+        let imageRequestHandler = VNImageRequestHandler(cgImage: img.cgImage!, orientation: CGImagePropertyOrientation(rawValue: CGImagePropertyOrientation.RawValue(orientation))! ,options: [:])
+    }
+    
+    func handleFaceFeatures(request: VNRequest, error: Error?) {
+        guard let observations = request.results as? [VNFaceObservation] else { fatalError("Could not process Vision request") }
+        
+        DispatchQueue.main.async {
+            for feature in observations {
+                // Do something with features
+            }
+        }
+    }
+}
+
 // MARK: Loading
 extension DifyCloudVisualizerViewController {
   private func loadImage() {
@@ -116,7 +152,6 @@ extension DifyCloudVisualizerViewController {
       }
     }
   }
-  
 }
 
 // MARK: Drawing
