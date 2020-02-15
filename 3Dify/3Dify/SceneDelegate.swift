@@ -16,9 +16,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     // Use this method to optionally configure and attach the UIWindow `window` to the provided UIWindowScene `scene`.
     // If using a storyboard, the `window` property will automatically be initialized and attached to the scene.
     // This delegate does not imply the connecting scene or session are new (see `application:configurationForConnectingSceneSession` instead).
-    print("HERE1")
     if let windowScene = scene as? UIWindowScene {
-      print("HERE2")
       let window = UIWindow(windowScene: windowScene)
       guard let navVC  = MainNavigationController.instantiate() else {
         fatalError("Failed to create main navigation VC")

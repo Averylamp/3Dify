@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import Photos
 
 class MainViewController: UIViewController {
 
@@ -26,8 +27,8 @@ class MainViewController: UIViewController {
     guard let portraitPickerVC = PortraitPhotoPickerViewController.instantiate() else {
       fatalError("Failed to create portrait picker")
     }
-    
-    self.navigationController?.pushViewController(portraitPickerVC, animated: true)
+    self.present(portraitPickerVC, animated: true, completion: nil)
+//    self.navigationController?.pushViewController(portraitPickerVC, animated: true)
   }
   
 }
@@ -43,7 +44,21 @@ extension  MainViewController {
   
   /// Setup should only be called once
   func setup() {
-    
+    let status = PHPhotoLibrary.authorizationStatus()
+    switch status {
+    case .denied, .notDetermined, .restricted:
+      self.requestPhotoLibraryPermissions()
+    default:
+      print("Photo Library Permission granted")
+
+    }
+
+  }
+  
+  func requestPhotoLibraryPermissions() {
+    PHPhotoLibrary.requestAuthorization { (status) in
+      print(status)
+    }
   }
   
   /// Stylize should only be called once

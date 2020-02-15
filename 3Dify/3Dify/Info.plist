@@ -51,5 +51,7 @@
 			</array>
 		</dict>
 	</dict>
+	<key>NSPhotoLibraryUsageDescription</key>
+	<string>We need to access your photos</string>
 </dict>
 </plist>
