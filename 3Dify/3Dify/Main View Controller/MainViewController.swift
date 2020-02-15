@@ -27,8 +27,9 @@ class MainViewController: UIViewController {
     guard let portraitPickerVC = PortraitPhotoPickerViewController.instantiate() else {
       fatalError("Failed to create portrait picker")
     }
+    portraitPickerVC.pickerDelegate = self
     self.present(portraitPickerVC, animated: true, completion: nil)
-//    self.navigationController?.pushViewController(portraitPickerVC, animated: true)
+    
   }
   
 }
@@ -66,4 +67,11 @@ extension  MainViewController {
     
   }
   
+}
+
+extension MainViewController: PortraitPhotoPickerProtocol {
+  
+  func didPickPortraitPhoto(phAsset: PHAsset) {
+    
+  }
 }

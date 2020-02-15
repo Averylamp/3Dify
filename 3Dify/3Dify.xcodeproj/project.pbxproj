@@ -19,6 +19,7 @@
 		BB0D3E4B23F7FA6E002AD13E /* MainNavigationController.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = BB0D3E4A23F7FA6E002AD13E /* MainNavigationController.storyboard */; };
 		BB0D3E4E23F85853002AD13E /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB0D3E4D23F85853002AD13E /* SceneDelegate.swift */; };
 		BB0D3E5023F87235002AD13E /* PortraitPhotoPickerProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB0D3E4F23F87235002AD13E /* PortraitPhotoPickerProtocol.swift */; };
+		BB0D3E5323F87452002AD13E /* PHAssetExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB0D3E5223F87452002AD13E /* PHAssetExtensions.swift */; };
 		BBBF081123F7D99600E177DF /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = BBBF081023F7D99600E177DF /* AppDelegate.swift */; };
 		BBBF081523F7D99600E177DF /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BBBF081423F7D99600E177DF /* MainViewController.swift */; };
 		BBBF081823F7D99600E177DF /* MainViewController.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = BBBF081623F7D99600E177DF /* MainViewController.storyboard */; };
@@ -59,6 +60,7 @@
 		BB0D3E4A23F7FA6E002AD13E /* MainNavigationController.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = MainNavigationController.storyboard; sourceTree = "<group>"; };
 		BB0D3E4D23F85853002AD13E /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
 		BB0D3E4F23F87235002AD13E /* PortraitPhotoPickerProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PortraitPhotoPickerProtocol.swift; sourceTree = "<group>"; };
+		BB0D3E5223F87452002AD13E /* PHAssetExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PHAssetExtensions.swift; sourceTree = "<group>"; };
 		BBBF080D23F7D99600E177DF /* 3Dify.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = 3Dify.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		BBBF081023F7D99600E177DF /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		BBBF081423F7D99600E177DF /* MainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
@@ -164,6 +166,14 @@
 			path = "Main Nav VC";
 			sourceTree = "<group>";
 		};
+		BB0D3E5123F87447002AD13E /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				BB0D3E5223F87452002AD13E /* PHAssetExtensions.swift */,
+			);
+			path = Extensions;
+			sourceTree = "<group>";
+		};
 		BBBF080423F7D99600E177DF = {
 			isa = PBXGroup;
 			children = (
@@ -192,6 +202,7 @@
 			children = (
 				BBBF081023F7D99600E177DF /* AppDelegate.swift */,
 				BB0D3E4D23F85853002AD13E /* SceneDelegate.swift */,
+				BB0D3E5123F87447002AD13E /* Extensions */,
 				BB0D3E4523F7F389002AD13E /* Model */,
 				BB0D3E4023F7F313002AD13E /*  Networking */,
 				BB0D3E3823F7E215002AD13E /* Main View Controller */,
@@ -443,6 +454,7 @@
 				BB0D3E3A23F7E335002AD13E /* PortraitPhotoPickerViewController.swift in Sources */,
 				BB0D3E4423F7F349002AD13E /* DifyAPI.swift in Sources */,
 				BBBF081523F7D99600E177DF /* MainViewController.swift in Sources */,
+				BB0D3E5323F87452002AD13E /* PHAssetExtensions.swift in Sources */,
 				BB0D3E4E23F85853002AD13E /* SceneDelegate.swift in Sources */,
 				BBBF081123F7D99600E177DF /* AppDelegate.swift in Sources */,
 				BB0D3E4223F7F323002AD13E /* Result.swift in Sources */,
