@@ -9,10 +9,24 @@
 import UIKit
 
 @UIApplicationMain
-class AppDelegate: UIResponder, UIApplicationDelegate {
+final class AppDelegate: UIResponder {
+  var window: UIWindow?
+}
+extension AppDelegate: UIApplicationDelegate {
 
   func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
     // Override point for customization after application launch.
+    
+    window = UIWindow(frame: UIScreen.main.bounds)
+    guard let navVC  = MainNavigationController.instantiate() else {
+      fatalError("Failed to create main navigation VC")
+    }
+    guard let controller = MainViewController.instantiate() else {
+      fatalError("Failed to create initial VC")
+    }
+    navVC.setViewControllers([controller], animated: false)
+    window?.rootViewController = navVC
+    window?.makeKeyAndVisible()
     return true
   }
 
