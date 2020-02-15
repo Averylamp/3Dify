@@ -10,4 +10,5 @@ import UIKit
 
 class PortraitPhotoCollectionViewCell: UICollectionViewCell {
     
+  @IBOutlet weak var imageView: UIImageView!
 }

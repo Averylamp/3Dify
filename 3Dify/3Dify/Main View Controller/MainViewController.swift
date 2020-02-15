@@ -23,7 +23,11 @@ class MainViewController: UIViewController {
   }
 
   @IBAction func pickerClicked(_ sender: Any) {
+    guard let portraitPickerVC = PortraitPhotoPickerViewController.instantiate() else {
+      fatalError("Failed to create portrait picker")
+    }
     
+    self.navigationController?.pushViewController(portraitPickerVC, animated: true)
   }
   
 }

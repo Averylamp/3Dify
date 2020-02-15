@@ -15,7 +15,7 @@ enum DifyAPIError: Error {
 
 protocol DifyAPI {
   func sendImage(image: UIImage,
-                    completion: @escaping(Result<[DifyPoint], DifyAPIError>) -> Void)
+                 completion: @escaping(Result<[DifyPoint], DifyAPIError>) -> Void)
 }
 
 class NetworkingDifyAPI {

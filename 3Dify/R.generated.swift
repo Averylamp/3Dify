@@ -89,10 +89,12 @@ struct R: Rswift.Validatable {
   }
 
   #if os(iOS) || os(tvOS)
-  /// This `R.storyboard` struct is generated, and contains static references to 3 storyboards.
+  /// This `R.storyboard` struct is generated, and contains static references to 4 storyboards.
   struct storyboard {
     /// Storyboard `LaunchScreen`.
     static let launchScreen = _R.storyboard.launchScreen()
+    /// Storyboard `MainNavigationController`.
+    static let mainNavigationController = _R.storyboard.mainNavigationController()
     /// Storyboard `MainViewController`.
     static let mainViewController = _R.storyboard.mainViewController()
     /// Storyboard `PortraitPhotoPickerViewController`.
@@ -102,6 +104,13 @@ struct R: Rswift.Validatable {
     /// `UIStoryboard(name: "LaunchScreen", bundle: ...)`
     static func launchScreen(_: Void = ()) -> UIKit.UIStoryboard {
       return UIKit.UIStoryboard(resource: R.storyboard.launchScreen)
+    }
+    #endif
+
+    #if os(iOS) || os(tvOS)
+    /// `UIStoryboard(name: "MainNavigationController", bundle: ...)`
+    static func mainNavigationController(_: Void = ()) -> UIKit.UIStoryboard {
+      return UIKit.UIStoryboard(resource: R.storyboard.mainNavigationController)
     }
     #endif
 
@@ -125,8 +134,8 @@ struct R: Rswift.Validatable {
 
   /// This `R.reuseIdentifier` struct is generated, and contains static references to 1 reuse identifiers.
   struct reuseIdentifier {
-    /// Reuse identifier `PHPhotoCollectionViewCell`.
-    static let phPhotoCollectionViewCell: Rswift.ReuseIdentifier<PortraitPhotoCollectionViewCell> = Rswift.ReuseIdentifier(identifier: "PHPhotoCollectionViewCell")
+    /// Reuse identifier `PortraitPhotoCollectionViewCell`.
+    static let portraitPhotoCollectionViewCell: Rswift.ReuseIdentifier<PortraitPhotoCollectionViewCell> = Rswift.ReuseIdentifier(identifier: "PortraitPhotoCollectionViewCell")
 
     fileprivate init() {}
   }
@@ -158,6 +167,9 @@ struct _R: Rswift.Validatable {
       try launchScreen.validate()
       #endif
       #if os(iOS) || os(tvOS)
+      try mainNavigationController.validate()
+      #endif
+      #if os(iOS) || os(tvOS)
       try mainViewController.validate()
       #endif
       #if os(iOS) || os(tvOS)
@@ -171,6 +183,22 @@ struct _R: Rswift.Validatable {
 
       let bundle = R.hostingBundle
       let name = "LaunchScreen"
+
+      static func validate() throws {
+        if #available(iOS 11.0, tvOS 11.0, *) {
+        }
+      }
+
+      fileprivate init() {}
+    }
+    #endif
+
+    #if os(iOS) || os(tvOS)
+    struct mainNavigationController: Rswift.StoryboardResourceWithInitialControllerType, Rswift.Validatable {
+      typealias InitialController = MainNavigationController
+
+      let bundle = R.hostingBundle
+      let name = "MainNavigationController"
 
       static func validate() throws {
         if #available(iOS 11.0, tvOS 11.0, *) {
