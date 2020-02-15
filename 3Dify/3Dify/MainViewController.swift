@@ -9,17 +9,17 @@
 import UIKit
 
 class MainViewController: UIViewController {
-  
+
   /// Factory method for creating this view controller.
   ///
   /// - Returns: Returns an instance of this view controller.
   class func instantiate() -> MainViewController? {
     let vcName = String(describing: MainViewController.self)
-    let storyboard = R.storyboard.<#name#>
-    guard let <#Name#> = storyboard.instantiateInitialViewController() else {
+    let storyboard = R.storyboard.mainViewController
+    guard let mainVC  = storyboard.instantiateInitialViewController() else {
       fatalError("Unable to instantiate \(vcName)")
     }
-    return <#Name#>
+    return mainVC
   }
-  
+
 }

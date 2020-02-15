@@ -3,11 +3,12 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 50;
+	objectVersion = 51;
 	objects = {
 
 /* Begin PBXBuildFile section */
 		1D6186DA3E24B5A33BF89395 /* Pods_3Dify.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1FC7A6A898C0771DE716DF08 /* Pods_3Dify.framework */; };
+		BB0D3E3723F7DD24002AD13E /* R.generated.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB0D3E3623F7DD24002AD13E /* R.generated.swift */; };
 		BBBF081123F7D99600E177DF /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = BBBF081023F7D99600E177DF /* AppDelegate.swift */; };
 		BBBF081323F7D99600E177DF /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = BBBF081223F7D99600E177DF /* SceneDelegate.swift */; };
 		BBBF081523F7D99600E177DF /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BBBF081423F7D99600E177DF /* MainViewController.swift */; };
@@ -38,6 +39,7 @@
 /* Begin PBXFileReference section */
 		1FC7A6A898C0771DE716DF08 /* Pods_3Dify.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_3Dify.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		6E5BAE1A033272969F429A82 /* Pods-3Dify.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-3Dify.release.xcconfig"; path = "Target Support Files/Pods-3Dify/Pods-3Dify.release.xcconfig"; sourceTree = "<group>"; };
+		BB0D3E3623F7DD24002AD13E /* R.generated.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = R.generated.swift; sourceTree = "<group>"; };
 		BBBF080D23F7D99600E177DF /* 3Dify.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = 3Dify.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		BBBF081023F7D99600E177DF /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		BBBF081223F7D99600E177DF /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -95,13 +97,13 @@
 				FEA4E8AD793E1A93B5A609DE /* Pods-3Dify.debug.xcconfig */,
 				6E5BAE1A033272969F429A82 /* Pods-3Dify.release.xcconfig */,
 			);
-			name = Pods;
 			path = Pods;
 			sourceTree = "<group>";
 		};
 		BBBF080423F7D99600E177DF = {
 			isa = PBXGroup;
 			children = (
+				BB0D3E3623F7DD24002AD13E /* R.generated.swift */,
 				BBBF080F23F7D99600E177DF /* 3Dify */,
 				BBBF082623F7D99800E177DF /* 3DifyTests */,
 				BBBF083123F7D99800E177DF /* 3DifyUITests */,
@@ -161,10 +163,12 @@
 			buildConfigurationList = BBBF083723F7D99800E177DF /* Build configuration list for PBXNativeTarget "3Dify" */;
 			buildPhases = (
 				5A54C3F8BBD07C50D4C2ED7D /* [CP] Check Pods Manifest.lock */,
+				BB0D3E3523F7DC7D002AD13E /* ShellScript */,
 				BBBF080923F7D99600E177DF /* Sources */,
 				BBBF080A23F7D99600E177DF /* Frameworks */,
 				BBBF080B23F7D99600E177DF /* Resources */,
 				8C79CA5A1321D551B11A3A4D /* [CP] Embed Pods Frameworks */,
+				BB0D3E3423F7DC51002AD13E /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -321,6 +325,42 @@
 			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-3Dify/Pods-3Dify-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
+		BB0D3E3423F7DC51002AD13E /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "if which swiftlint >/dev/null; then\nswiftlint autocorrect .\nswiftlint lint .\nelse\necho \"warning: SwiftLint not installed, download from https://github.com/realm/SwiftLint\"\nfi\n";
+		};
+		BB0D3E3523F7DC7D002AD13E /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"$TEMP_DIR/rswift-lastrun",
+			);
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				$SRCROOT/R.generated.swift,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "# Type a script or drag a script file from your workspace to insert its path.\n\"$PODS_ROOT/R.swift/rswift\" generate \"$SRCROOT/R.generated.swift\"\n";
+		};
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
@@ -331,6 +371,7 @@
 				BBBF081523F7D99600E177DF /* MainViewController.swift in Sources */,
 				BBBF081123F7D99600E177DF /* AppDelegate.swift in Sources */,
 				BBBF081323F7D99600E177DF /* SceneDelegate.swift in Sources */,
+				BB0D3E3723F7DD24002AD13E /* R.generated.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

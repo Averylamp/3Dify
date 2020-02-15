@@ -1,0 +1,25 @@
+
+
+disabled_rules: 
+  - trailing_whitespace
+  - todo
+  - discarded_notification_center_observer
+excluded:
+  - Pods**
+  - R.generated.swift
+
+
+line_length:
+  warning: 180 
+  error: 240
+  ignores_interpolated_strings: true
+function_body_length: 100
+cyclomatic_complexity: 24
+file_length: 600
+type_name:
+  max_length:
+    warning: 60
+    error: 80
+
+identifier_name:
+  allowed_symbols: "_id"
