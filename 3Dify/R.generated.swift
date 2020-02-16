@@ -89,7 +89,7 @@ struct R: Rswift.Validatable {
   }
 
   #if os(iOS) || os(tvOS)
-  /// This `R.storyboard` struct is generated, and contains static references to 5 storyboards.
+  /// This `R.storyboard` struct is generated, and contains static references to 6 storyboards.
   struct storyboard {
     /// Storyboard `DifyCloudVisualizerViewController`.
     static let difyCloudVisualizerViewController = _R.storyboard.difyCloudVisualizerViewController()
@@ -99,6 +99,8 @@ struct R: Rswift.Validatable {
     static let mainNavigationController = _R.storyboard.mainNavigationController()
     /// Storyboard `MainViewController`.
     static let mainViewController = _R.storyboard.mainViewController()
+    /// Storyboard `PointCloudEditorViewController`.
+    static let pointCloudEditorViewController = _R.storyboard.pointCloudEditorViewController()
     /// Storyboard `PortraitPhotoPickerViewController`.
     static let portraitPhotoPickerViewController = _R.storyboard.portraitPhotoPickerViewController()
 
@@ -131,6 +133,13 @@ struct R: Rswift.Validatable {
     #endif
 
     #if os(iOS) || os(tvOS)
+    /// `UIStoryboard(name: "PointCloudEditorViewController", bundle: ...)`
+    static func pointCloudEditorViewController(_: Void = ()) -> UIKit.UIStoryboard {
+      return UIKit.UIStoryboard(resource: R.storyboard.pointCloudEditorViewController)
+    }
+    #endif
+
+    #if os(iOS) || os(tvOS)
     /// `UIStoryboard(name: "PortraitPhotoPickerViewController", bundle: ...)`
     static func portraitPhotoPickerViewController(_: Void = ()) -> UIKit.UIStoryboard {
       return UIKit.UIStoryboard(resource: R.storyboard.portraitPhotoPickerViewController)
@@ -141,12 +150,30 @@ struct R: Rswift.Validatable {
   }
   #endif
 
-  /// This `R.image` struct is generated, and contains static references to 2 images.
+  /// This `R.image` struct is generated, and contains static references to 4 images.
   struct image {
+    /// Image `3DifyBanner`.
+    static let difyBanner = Rswift.ImageResource(bundle: R.hostingBundle, name: "3DifyBanner")
+    /// Image `3DifyLogo`.
+    static let difyLogo = Rswift.ImageResource(bundle: R.hostingBundle, name: "3DifyLogo")
     /// Image `icon-many-images`.
     static let iconManyImages = Rswift.ImageResource(bundle: R.hostingBundle, name: "icon-many-images")
     /// Image `icon-single-image`.
     static let iconSingleImage = Rswift.ImageResource(bundle: R.hostingBundle, name: "icon-single-image")
+
+    #if os(iOS) || os(tvOS)
+    /// `UIImage(named: "3DifyBanner", bundle: ..., traitCollection: ...)`
+    static func difyBanner(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
+      return UIKit.UIImage(resource: R.image.difyBanner, compatibleWith: traitCollection)
+    }
+    #endif
+
+    #if os(iOS) || os(tvOS)
+    /// `UIImage(named: "3DifyLogo", bundle: ..., traitCollection: ...)`
+    static func difyLogo(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
+      return UIKit.UIImage(resource: R.image.difyLogo, compatibleWith: traitCollection)
+    }
+    #endif
 
     #if os(iOS) || os(tvOS)
     /// `UIImage(named: "icon-many-images", bundle: ..., traitCollection: ...)`
@@ -165,8 +192,10 @@ struct R: Rswift.Validatable {
     fileprivate init() {}
   }
 
-  /// This `R.reuseIdentifier` struct is generated, and contains static references to 1 reuse identifiers.
+  /// This `R.reuseIdentifier` struct is generated, and contains static references to 2 reuse identifiers.
   struct reuseIdentifier {
+    /// Reuse identifier `MainCollectionViewCell`.
+    static let mainCollectionViewCell: Rswift.ReuseIdentifier<MainPortraitCollectionViewCell> = Rswift.ReuseIdentifier(identifier: "MainCollectionViewCell")
     /// Reuse identifier `PortraitPhotoCollectionViewCell`.
     static let portraitPhotoCollectionViewCell: Rswift.ReuseIdentifier<PortraitPhotoCollectionViewCell> = Rswift.ReuseIdentifier(identifier: "PortraitPhotoCollectionViewCell")
 
@@ -209,6 +238,9 @@ struct _R: Rswift.Validatable {
       try mainViewController.validate()
       #endif
       #if os(iOS) || os(tvOS)
+      try pointCloudEditorViewController.validate()
+      #endif
+      #if os(iOS) || os(tvOS)
       try portraitPhotoPickerViewController.validate()
       #endif
     }
@@ -237,6 +269,7 @@ struct _R: Rswift.Validatable {
       let name = "LaunchScreen"
 
       static func validate() throws {
+        if UIKit.UIImage(named: "3DifyBanner", in: R.hostingBundle, compatibleWith: nil) == nil { throw Rswift.ValidationError(description: "[R.swift] Image named '3DifyBanner' is used in storyboard 'LaunchScreen', but couldn't be loaded.") }
         if #available(iOS 11.0, tvOS 11.0, *) {
         }
       }
@@ -267,6 +300,23 @@ struct _R: Rswift.Validatable {
 
       let bundle = R.hostingBundle
       let name = "MainViewController"
+
+      static func validate() throws {
+        if UIKit.UIImage(named: "3DifyBanner", in: R.hostingBundle, compatibleWith: nil) == nil { throw Rswift.ValidationError(description: "[R.swift] Image named '3DifyBanner' is used in storyboard 'MainViewController', but couldn't be loaded.") }
+        if #available(iOS 11.0, tvOS 11.0, *) {
+        }
+      }
+
+      fileprivate init() {}
+    }
+    #endif
+
+    #if os(iOS) || os(tvOS)
+    struct pointCloudEditorViewController: Rswift.StoryboardResourceWithInitialControllerType, Rswift.Validatable {
+      typealias InitialController = PointCloudEditorViewController
+
+      let bundle = R.hostingBundle
+      let name = "PointCloudEditorViewController"
 
       static func validate() throws {
         if #available(iOS 11.0, tvOS 11.0, *) {

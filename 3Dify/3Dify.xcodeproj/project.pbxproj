@@ -27,6 +27,9 @@
 		BB75B66B23F87D1400A13363 /* DifyPointCloud.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB75B66A23F87D1400A13363 /* DifyPointCloud.swift */; };
 		BB85347A23F90BA400D6C43A /* UIImage+Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB85347923F90BA400D6C43A /* UIImage+Utils.swift */; };
 		BB85347C23F90C0F00D6C43A /* CVPixelBuffer+CIImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB85347B23F90C0F00D6C43A /* CVPixelBuffer+CIImage.swift */; };
+		BBB8038A23F9374200228A40 /* PointCloudEditorViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BBB8038923F9374200228A40 /* PointCloudEditorViewController.swift */; };
+		BBB8038C23F9375400228A40 /* PointCloudEditorViewController.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = BBB8038B23F9375400228A40 /* PointCloudEditorViewController.storyboard */; };
+		BBB8038F23F93F5D00228A40 /* MainPortraitCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BBB8038E23F93F5D00228A40 /* MainPortraitCollectionViewCell.swift */; };
 		BBBF081123F7D99600E177DF /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = BBBF081023F7D99600E177DF /* AppDelegate.swift */; };
 		BBBF081523F7D99600E177DF /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BBBF081423F7D99600E177DF /* MainViewController.swift */; };
 		BBBF081823F7D99600E177DF /* MainViewController.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = BBBF081623F7D99600E177DF /* MainViewController.storyboard */; };
@@ -76,6 +79,9 @@
 		BB75B66A23F87D1400A13363 /* DifyPointCloud.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DifyPointCloud.swift; sourceTree = "<group>"; };
 		BB85347923F90BA400D6C43A /* UIImage+Utils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImage+Utils.swift"; sourceTree = "<group>"; };
 		BB85347B23F90C0F00D6C43A /* CVPixelBuffer+CIImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CVPixelBuffer+CIImage.swift"; sourceTree = "<group>"; };
+		BBB8038923F9374200228A40 /* PointCloudEditorViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PointCloudEditorViewController.swift; sourceTree = "<group>"; };
+		BBB8038B23F9375400228A40 /* PointCloudEditorViewController.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = PointCloudEditorViewController.storyboard; sourceTree = "<group>"; };
+		BBB8038E23F93F5D00228A40 /* MainPortraitCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainPortraitCollectionViewCell.swift; sourceTree = "<group>"; };
 		BBBF080D23F7D99600E177DF /* 3Dify.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = 3Dify.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		BBBF081023F7D99600E177DF /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		BBBF081423F7D99600E177DF /* MainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
@@ -141,6 +147,7 @@
 			children = (
 				BBBF081423F7D99600E177DF /* MainViewController.swift */,
 				BBBF081623F7D99600E177DF /* MainViewController.storyboard */,
+				BBB8038E23F93F5D00228A40 /* MainPortraitCollectionViewCell.swift */,
 			);
 			path = "Main View Controller";
 			sourceTree = "<group>";
@@ -205,6 +212,15 @@
 			path = "Dify Cloud Visualizer";
 			sourceTree = "<group>";
 		};
+		BBB8038D23F9375800228A40 /* Point Cloud Editor */ = {
+			isa = PBXGroup;
+			children = (
+				BBB8038923F9374200228A40 /* PointCloudEditorViewController.swift */,
+				BBB8038B23F9375400228A40 /* PointCloudEditorViewController.storyboard */,
+			);
+			path = "Point Cloud Editor";
+			sourceTree = "<group>";
+		};
 		BBBF080423F7D99600E177DF = {
 			isa = PBXGroup;
 			children = (
@@ -236,6 +252,7 @@
 				BB0D3E5123F87447002AD13E /* Extensions */,
 				BB0D3E4523F7F389002AD13E /* Model */,
 				BB0D3E5A23F87889002AD13E /* Dify Cloud Visualizer */,
+				BBB8038D23F9375800228A40 /* Point Cloud Editor */,
 				BB0D3E4023F7F313002AD13E /*  Networking */,
 				BB0D3E3823F7E215002AD13E /* Main View Controller */,
 				BB0D3E4C23F7FB08002AD13E /* Main Nav VC */,
@@ -376,6 +393,7 @@
 				BBBF081D23F7D99800E177DF /* LaunchScreen.storyboard in Resources */,
 				BBBF081A23F7D99800E177DF /* Assets.xcassets in Resources */,
 				BB0D3E4B23F7FA6E002AD13E /* MainNavigationController.storyboard in Resources */,
+				BBB8038C23F9375400228A40 /* PointCloudEditorViewController.storyboard in Resources */,
 				BBBF081823F7D99600E177DF /* MainViewController.storyboard in Resources */,
 				BB0D3E3C23F7E341002AD13E /* PortraitPhotoPickerViewController.storyboard in Resources */,
 				BB0D3E5923F87885002AD13E /* DifyCloudVisualizerViewController.storyboard in Resources */,
@@ -483,6 +501,7 @@
 			files = (
 				BB0D3E4923F7FA64002AD13E /* MainNavigationController.swift in Sources */,
 				BB75B66B23F87D1400A13363 /* DifyPointCloud.swift in Sources */,
+				BBB8038A23F9374200228A40 /* PointCloudEditorViewController.swift in Sources */,
 				BB0D3E3F23F7F29C002AD13E /* PortraitPhotoCollectionViewCell.swift in Sources */,
 				BB0D3E5023F87235002AD13E /* PortraitPhotoPickerProtocol.swift in Sources */,
 				BB0D3E5C23F878D1002AD13E /* DifyCloudVisualizerViewController.swift in Sources */,
@@ -495,6 +514,7 @@
 				BB75B66923F87C9100A13363 /* CIImage+Utils.swift in Sources */,
 				BB85347A23F90BA400D6C43A /* UIImage+Utils.swift in Sources */,
 				BBBF081123F7D99600E177DF /* AppDelegate.swift in Sources */,
+				BBB8038F23F93F5D00228A40 /* MainPortraitCollectionViewCell.swift in Sources */,
 				BB75B66523F87B5C00A13363 /* CGImageSource+Depth.swift in Sources */,
 				BB0D3E4223F7F323002AD13E /* Result.swift in Sources */,
 				BB0D3E4723F7F399002AD13E /* DifyPoint.swift in Sources */,
