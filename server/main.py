@@ -2,6 +2,7 @@ from flask import Flask, request
 from Dify_algorithm import rotate_z, choose_x_slice
 import json
 app = Flask(__name__)
+app.config['MAX_CONTENT_LENGTH'] = 500 * 1024 * 1024
 
 @app.route("/")
 def root():
