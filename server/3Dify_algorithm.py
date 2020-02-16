@@ -4,7 +4,7 @@ import itertools
 from collections import defaultdict
 import time
 
-numVoxels = 1000
+numVoxels = 40
 
 
 
@@ -164,9 +164,10 @@ def distance_voxelized(cloud_1, cloud_2):
 		range_y = range(cur_y - voxel_y, cur_y + voxel_y)
 		range_z = range(cur_z - voxel_z, cur_z + voxel_z)
 		for tx, ty, tz in itertools.product(range_x, range_y, range_z):
-			for point1 in voxel_map_1[top_corner]:
-				if (tx, ty, tz) in voxel_map_2:
-					total_distance += sum([cost(point1, point2) for point2 in voxel_map_2[(tx, ty, tz)]])
+			if (tx, ty, tz) in voxel_map_2:
+				p1 = voxel_map_1[top_corner][0]
+				p2 = voxel_map_2[(tx, ty, tz)][0]
+				total_distance += cost(p1, p2)
 	return total_distance
 
 if __name__ == "__main__":
