@@ -81,11 +81,14 @@ extension  MainViewController {
 extension MainViewController: PortraitPhotoPickerProtocol {
   
   func didPickPortraitPhoto(phAsset: PHAsset) {
-    guard let cloudVisualizerVC = DifyCloudVisualizerViewController.instantiate(phAsset: phAsset) else {
-      fatalError("Failed to instantiate Cloud Visualizer")
+    guard let modelEditorVC = PointCloudEditorViewController.instantiate(model: StoredModel(phAsset: phAsset)) else {
+      fatalError("Failed to instantiate model editor" )
     }
     
-    self.navigationController?.pushViewController(cloudVisualizerVC, animated: true)
+    self.delay(delay: 0.5) {
+      
+      self.navigationController?.pushViewController(modelEditorVC, animated: true)
+    }
     
   }
 }

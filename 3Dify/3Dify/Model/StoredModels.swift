@@ -14,14 +14,22 @@ enum StoredModelError: Error {
 }
 
 enum StoredModelCodingKeys: String, CodingKey {
-    case phAsset
-    case zThreshold
+  case phAsset
+  case zThreshold
+  case distance
 }
 
 class StoredModel: Codable {
   
   var phAsset: PHAsset
   var zThreshold: Float
+  var distance: Float
+  
+  init(phAsset: PHAsset) {
+    self.phAsset = phAsset
+    self.zThreshold = 0.4
+    self.distance = 0.5
+  }
   
   required init(from decoder: Decoder) throws {
     let values = try decoder.container(keyedBy: StoredModelCodingKeys.self)
@@ -32,6 +40,7 @@ class StoredModel: Codable {
     }
     self.phAsset = phAssetItem
     self.zThreshold = try values.decode(Float.self, forKey: .zThreshold)
+    self.distance = try values.decode(Float.self, forKey: .distance)
     
   }
   
@@ -39,6 +48,7 @@ class StoredModel: Codable {
     var container = encoder.container(keyedBy: StoredModelCodingKeys.self)
     try container.encode(self.phAsset.localIdentifier, forKey: .phAsset)
     try container.encode(zThreshold, forKey: .zThreshold)
+    try container.encode(distance, forKey: .distance)
   }
   
 }
