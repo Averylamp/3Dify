@@ -134,9 +134,9 @@ extension DifyCloudVisualizerViewController {
     guard let pixelDataColor = resizedColorImage.createCGImage().pixelData() else { fatalError() }
     
     // Applying Histogram Equalization
-    //        let depthImage = CIImage(cvPixelBuffer: depthPixelBuffer).applyingFilter("YUCIHistogramEqualization")
-    //        let context = CIContext(options: nil)
-    //        context.render(depthImage, to: depthPixelBuffer, bounds: depthImage.extent, colorSpace: nil)
+//    let depthImage = CIImage(cvPixelBuffer: depthPixelBuffer).applyingFilter("YUCIHistogramEqualization")
+//    let context = CIContext(options: nil)
+//    context.render(depthImage, to: depthPixelBuffer, bounds: depthImage.extent, colorSpace: nil)
     
     let pixelDataDepth: [Float32]
     pixelDataDepth = depthPixelBuffer.grayPixelData()
@@ -164,11 +164,17 @@ extension DifyCloudVisualizerViewController {
     let pCloud = DifyPointCloud()
     pCloud.pointCloud = pointCloud
     pCloud.colors = pixelDataColor
+    
     let pcNode = pCloud.pointCloudNode()
     pcNode.position = SCNVector3(x: 0, y: 0, z: 0)
     
     scene.rootNode.addChildNode(pcNode)
-    //    pcNode.runAction(SCNAction.repeatForever(SCNAction.rotateBy(x: 0, y: 2, z: 0, duration: 1)))
+    let lightNode = SCNNode()
+    lightNode.light = SCNLight()
+    lightNode.light!.type = .omni
+    lightNode.position = SCNVector3(x: 0, y: 3, z: 3)
+    scene.rootNode.addChildNode(lightNode)
+//    pcNode.runAction(SCNAction.repeatForever(SCNAction.rotateBy(x: 0, y: 2, z: 0, duration: 1)))
     
     // Draw with Sphere nodes
     //    print("Nodes: \(pointCloud.count)")

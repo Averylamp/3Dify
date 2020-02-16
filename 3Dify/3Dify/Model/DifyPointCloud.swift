@@ -26,6 +26,7 @@ import SceneKit
       vertices[index].r = Float(colors[index * 4]) / 255.0
       vertices[index].g = Float(colors[index * 4 + 1]) / 255.0
       vertices[index].b = Float(colors[index * 4 + 2]) / 255.0
+      print("(\(Float(point.x)),\(Float(point.y)),\(Float(point.z)),\(Float(colors[index * 4]) / 255.0),\(Float(colors[index * 4 + 1]) / 255.0),\(Float(colors[index * 4 + 2]) / 255.0))")
     }
     
     let node = buildNode(points: vertices)
@@ -70,7 +71,10 @@ import SceneKit
     element.maximumPointScreenSpaceRadius = 5
     
     let pointsGeometry = SCNGeometry(sources: [positionSource, colorSource], elements: [element])
-    
     return SCNNode(geometry: pointsGeometry)
+  }
+  
+  public func pointCloudNodeTriangulated() {
+    
   }
 }
