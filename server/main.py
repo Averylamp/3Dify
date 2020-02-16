@@ -19,7 +19,6 @@ def convert_points(points):
 @app.route("/upload/photo", methods=["POST"])
 def process_photo():
     input_data = request.data
-    print(input_data)
     input_data = json.loads(input_data)
     # Example input data:
     # {0: [(r,g,b,x,y,z), (r,g,b,x,y,z)],
