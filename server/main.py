@@ -1,6 +1,8 @@
 from flask import Flask, request
 from Dify_algorithm import rotate_z, choose_x_slice
+import json
 app = Flask(__name__)
+app.config['MAX_CONTENT_LENGTH'] = 500 * 1024 * 1024
 
 @app.route("/")
 def root():
@@ -17,7 +19,7 @@ def convert_points(points):
 
 @app.route("/upload/photo", methods=["POST"])
 def process_photo():
-    input_data = request.data
+    input_data = request.json
     # Example input data:
     # {0: [(r,g,b,x,y,z), (r,g,b,x,y,z)],
     #  1: [(r,g,b,x,y,z)]}
@@ -34,9 +36,9 @@ def process_photo():
     # Rotate 
     # Note: Assume user has rotated correctly.
     rotated_points_2 = rotate_z(points_2, 20)
-
+    print("Completed rotating points")
     result = choose_x_slice(points_1, rotated_points_2)
-
+    print("Completed x slice! Returning results...")
     return {"0": (result[1], result[2]), "1": (result[3], result[4])}
 
 if __name__ == "__main__":
