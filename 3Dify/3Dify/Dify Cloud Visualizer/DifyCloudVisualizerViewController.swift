@@ -129,6 +129,9 @@ extension DifyCloudVisualizerViewController {
 // MARK: Loading
 extension DifyCloudVisualizerViewController {
   private func loadImage() {
+    self.scene.rootNode.childNodes.forEach {
+      $0.removeFromParentNode()
+    }
     var count = 2
     self.phAsset.requestColorImage { image in
       self.image = image
@@ -169,9 +172,9 @@ extension DifyCloudVisualizerViewController {
     guard let pixelDataColor = resizedColorImage.createCGImage().pixelData() else { fatalError() }
     
     // Applying Histogram Equalization
-    //        let depthImage = CIImage(cvPixelBuffer: depthPixelBuffer).applyingFilter("YUCIHistogramEqualization")
-    //        let context = CIContext(options: nil)
-    //        context.render(depthImage, to: depthPixelBuffer, bounds: depthImage.extent, colorSpace: nil)
+//    let depthImage = CIImage(cvPixelBuffer: depthPixelBuffer).applyingFilter("YUCIHistogramEqualization")
+//    let context = CIContext(options: nil)
+//    context.render(depthImage, to: depthPixelBuffer, bounds: depthImage.extent, colorSpace: nil)
     
     let pixelDataDepth: [Float32]
     pixelDataDepth = depthPixelBuffer.grayPixelData()
@@ -199,38 +202,47 @@ extension DifyCloudVisualizerViewController {
     let pCloud = DifyPointCloud()
     pCloud.pointCloud = pointCloud
     pCloud.colors = pixelDataColor
+    pCloud.width = width
+    pCloud.height = height
     let pcNode = pCloud.pointCloudNode()
+//    let pcNode = pCloud.pointCloudNodeTriangulated()
     pcNode.position = SCNVector3(x: 0, y: 0, z: 0)
-    
+
     scene.rootNode.addChildNode(pcNode)
-    //    pcNode.runAction(SCNAction.repeatForever(SCNAction.rotateBy(x: 0, y: 2, z: 0, duration: 1)))
+//    pcNode.runAction(SCNAction.repeatForever(SCNAction.rotateBy(x: 0, y: 2, z: 0, duration: 1)))
     
-    // Draw with Sphere nodes
-    //    print("Nodes: \(pointCloud.count)")
-    //    pointCloud.enumerated().forEach {
-    //      let scale: Float = 0.001
-    //      let index = $0.offset * 4
-    //      let red = pixelDataColor[index]
-    //      let green = pixelDataColor[index + 1]
-    //      let blue = pixelDataColor[index + 2]
-    //
-    //      let pos = $0.element
-    //      // reducing the points
-    //      guard Int(pos.x / scale) % 10 == 0 else { return }
-    //      guard Int(pos.y / scale) % 10 == 0 else { return }
-    //      let clone = pointNode.clone()
-    //      clone.position = SCNVector3(pos.x, pos.y, pos.z)
-    //
-    //      // Creating a new geometry and a new material to color for each
-    //      // https://stackoverflow.com/questions/39902802/stop-sharing-nodes-geometry-with-its-clone-programmatically
-    //      guard let newGeometry = pointNode.geometry?.copy() as? SCNGeometry else { fatalError() }
-    //      guard let newMaterial = newGeometry.firstMaterial?.copy() as? SCNMaterial else { fatalError() }
-    //      newMaterial.diffuse.contents = UIColor(red: CGFloat(red)/255, green: CGFloat(green)/255, blue: CGFloat(blue)/255, alpha: 1)
-    //      newGeometry.materials = [newMaterial]
-    //      clone.geometry = newGeometry
-    //
-    //      scene.rootNode.addChildNode(clone)
-    //    }
+    let lightNode = SCNNode()
+    lightNode.light = SCNLight()
+    lightNode.light!.type = .omni
+    lightNode.position = SCNVector3(x: 0, y: 0, z: 0)
+    scene.rootNode.addChildNode(lightNode)
+//
+//    // Draw with Sphere nodes
+//    print("Nodes: \(pointCloud.count)")
+//    pointCloud.enumerated().forEach {
+//      let scale: Float = 0.001
+//      let index = $0.offset * 4
+//      let red = pixelDataColor[index]
+//      let green = pixelDataColor[index + 1]
+//      let blue = pixelDataColor[index + 2]
+//
+//      let pos = $0.element
+//      // reducing the points
+//      guard Int(pos.x / scale) % 10 == 0 else { return }
+//      guard Int(pos.y / scale) % 10 == 0 else { return }
+//      let clone = pointNode.clone()
+//      clone.position = SCNVector3(pos.x, pos.y, pos.z)
+//
+//      // Creating a new geometry and a new material to color for each
+//      // https://stackoverflow.com/questions/39902802/stop-sharing-nodes-geometry-with-its-clone-programmatically
+//      guard let newGeometry = pointNode.geometry?.copy() as? SCNGeometry else { fatalError() }
+//      guard let newMaterial = newGeometry.firstMaterial?.copy() as? SCNMaterial else { fatalError() }
+//      newMaterial.diffuse.contents = UIColor(red: CGFloat(red)/255, green: CGFloat(green)/255, blue: CGFloat(blue)/255, alpha: 1)
+//      newGeometry.materials = [newMaterial]
+//      clone.geometry = newGeometry
+//
+//      scene.rootNode.addChildNode(clone)
+//    }
   }
 }
 

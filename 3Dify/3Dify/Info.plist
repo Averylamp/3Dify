@@ -53,5 +53,7 @@
 	</dict>
 	<key>NSPhotoLibraryUsageDescription</key>
 	<string>We need to access your photos</string>
+	<key>UIFileSharingEnabled</key>
+	<true/>
 </dict>
 </plist>
