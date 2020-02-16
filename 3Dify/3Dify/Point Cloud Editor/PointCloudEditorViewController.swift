@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import NVActivityIndicatorView
 
 class PointCloudEditorViewController: UIViewController {
   
@@ -26,6 +27,7 @@ class PointCloudEditorViewController: UIViewController {
   
   var model: StoredModel!
   
+  let indicatorView = NVActivityIndicatorView(frame: CGRect.zero)
   var sceneVC: DifyCloudVisualizerViewController?
 
   /// Factory method for creating this view controller.
@@ -45,6 +47,19 @@ class PointCloudEditorViewController: UIViewController {
     self.updateSceneView()
   }
   @IBAction func continueButtonClicked(_ sender: Any) {
+    var found = false
+    for i in 0..<DataStore.shared.allModels.count {
+      if DataStore.shared.allModels[i].uid == self.model.uid {
+        found = true
+        DataStore.shared.allModels[i] = self.model
+        break
+      }
+    }
+    if !found {
+      DataStore.shared.allModels.append(self.model)
+    }
+    DataStore.shared.saveAllModelsToUserDefaults()
+    self.navigationController?.popViewController(animated: true)
   }
 }
 
@@ -59,10 +74,25 @@ extension  PointCloudEditorViewController {
   
   /// Setup should only be called once
   func setup() {
+
+    self.view.addSubview(indicatorView)
+    indicatorView.color = UIColor.white
+    indicatorView.type = .ballGridPulse
+    self.indicatorView.frame = CGRect(x: 0, y: 0, width: 50, height: 50)
+    
+    self.indicatorView.startAnimating()
+    self.delay(delay: 0.3) {
+      self.indicatorView.stopAnimating()
+    }
     
     self.backgroundSlider.value = self.model.zThreshold
     
     self.loadSceneView()
+  }
+  
+  override func viewDidAppear(_ animated: Bool) {
+    super.viewDidAppear(animated)
+    self.indicatorView.center = self.sceneViewContainer.center
   }
   
   func loadSceneView() {
@@ -115,7 +145,9 @@ extension  PointCloudEditorViewController {
       sceneVC.zScale = self.model.zScale
       sceneVC.zThreshold = self.model.zThreshold
       sceneVC.smoothing = self.model.smoothing
+      self.indicatorView.startAnimating()
       sceneVC.update()
+      self.indicatorView.stopAnimating()
     }
   }
   

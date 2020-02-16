@@ -14,6 +14,7 @@ class MainViewController: UIViewController {
   @IBOutlet weak var collectionView: UICollectionView!
   
   let flowLayout = UICollectionViewFlowLayout()
+  let cachingImageManager = PHCachingImageManager()
   
   /// Factory method for creating this view controller.
   ///
@@ -63,6 +64,12 @@ extension  MainViewController {
     flowLayout.scrollDirection = UICollectionView.ScrollDirection.vertical
     self.collectionView.collectionViewLayout = flowLayout
     self.loadCollectionData()
+    
+    NotificationCenter.default.addObserver(self, selector: #selector(MainViewController.modelsReloaded), name: .modelsReloaded, object: nil)
+  }
+  
+  @objc func modelsReloaded() {
+    self.loadCollectionData()
   }
   
   func requestPhotoLibraryPermissions() {
@@ -106,7 +113,7 @@ extension MainViewController: UICollectionViewDataSource {
   }
   
   func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-    return 10
+    return DataStore.shared.allModels.count
   }
   
   func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
@@ -119,6 +126,19 @@ extension MainViewController: UICollectionViewDataSource {
     cell.containingView.layer.borderWidth = 6
     cell.containingView.layer.cornerRadius = 20
     
+    let currentTag: Int = indexPath.row
+    cell.tag = currentTag
+    
+    let scale = UIScreen.main.scale
+    let assetGridThumbnailSize = CGSize(width: cell.frame.size.width * scale, height: cell.frame.size.height * scale)
+    self.cachingImageManager.requestImage(for: DataStore.shared.allModels[indexPath.row].phAsset,
+                                     targetSize: assetGridThumbnailSize,
+                                     contentMode: .aspectFill,
+                                     options: nil) { (image, _) in
+      if cell.tag == currentTag {
+        cell.imageView.image = image
+      }
+    }
     return cell
   }
   

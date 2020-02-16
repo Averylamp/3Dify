@@ -19,6 +19,7 @@ enum StoredModelCodingKeys: String, CodingKey {
   case zScale
   case distance
   case smoothing
+  case uid
 }
 
 class StoredModel: Codable {
@@ -28,6 +29,7 @@ class StoredModel: Codable {
   var zScale: Float
   var distance: Float
   var smoothing: Int
+  var uid: Int
   
   init(phAsset: PHAsset) {
     self.phAsset = phAsset
@@ -35,6 +37,7 @@ class StoredModel: Codable {
     self.zScale = 0.022
     self.distance = 0.5
     self.smoothing = 0
+    self.uid = Int.random(in: 0...1000000)
   }
   
   required init(from decoder: Decoder) throws {
@@ -49,6 +52,7 @@ class StoredModel: Codable {
     self.distance = try values.decode(Float.self, forKey: .distance)
     self.zScale = try values.decode(Float.self, forKey: .zScale)
     self.smoothing = try values.decode(Int.self, forKey: .smoothing)
+    self.uid = try values.decode(Int.self, forKey: .uid)
   }
   
   func encode(to encoder: Encoder) throws {
@@ -58,6 +62,7 @@ class StoredModel: Codable {
     try container.encode(distance, forKey: .distance)
     try container.encode(zScale, forKey: .zScale)
     try container.encode(smoothing, forKey: .smoothing)
+    try container.encode(uid, forKey: .uid)
   }
   
 }

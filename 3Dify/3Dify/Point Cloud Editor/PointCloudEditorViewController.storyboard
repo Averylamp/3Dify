@@ -22,7 +22,7 @@
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Epm-C9-6yQ">
                                 <rect key="frame" x="0.0" y="44" width="414" height="403"/>
-                                <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             </view>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" alignment="top" translatesAutoresizingMaskIntoConstraints="NO" id="Y0h-cp-hac">
                                 <rect key="frame" x="30" y="455" width="354" height="320"/>
@@ -39,6 +39,7 @@
                                         <constraints>
                                             <constraint firstAttribute="height" constant="40" id="eki-7r-Z7U"/>
                                         </constraints>
+                                        <color key="maximumTrackTintColor" white="1" alpha="0.40000000000000002" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                     </slider>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="background" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="y0r-xH-gbC">
                                         <rect key="frame" x="0.0" y="80" width="85" height="40"/>
@@ -52,6 +53,7 @@
                                         <constraints>
                                             <constraint firstAttribute="height" constant="40" id="bem-hQ-vGI"/>
                                         </constraints>
+                                        <color key="maximumTrackTintColor" white="1" alpha="0.40000000000000002" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                     </slider>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="depth" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="oa1-i6-DPp">
                                         <rect key="frame" x="0.0" y="160" width="42" height="40"/>
@@ -59,12 +61,13 @@
                                         <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="0.021999999999999999" minValue="0.019" maxValue="0.025000000000000001" translatesAutoresizingMaskIntoConstraints="NO" id="QDb-Lo-9lp">
+                                    <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="0.021999999999999999" minValue="0.017000000000000001" maxValue="0.027" translatesAutoresizingMaskIntoConstraints="NO" id="QDb-Lo-9lp">
                                         <rect key="frame" x="-2" y="200" width="358" height="41"/>
                                         <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="40" id="Xq9-UR-VkB"/>
                                         </constraints>
+                                        <color key="maximumTrackTintColor" white="1" alpha="0.40000000000000002" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                     </slider>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="smoothing" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lJk-EU-lXW">
                                         <rect key="frame" x="0.0" y="240" width="76" height="40"/>
@@ -78,6 +81,7 @@
                                         <constraints>
                                             <constraint firstAttribute="height" constant="40" id="0hK-Sn-Yig"/>
                                         </constraints>
+                                        <color key="maximumTrackTintColor" white="1" alpha="0.40000000000000002" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                     </slider>
                                 </subviews>
                                 <constraints>
