@@ -1,5 +1,5 @@
 from flask import Flask, request
-from 3Dify_algorithm import rotate_z, choose_x_slice
+from Dify_algorithm import rotate_z, choose_x_slice
 app = Flask(__name__)
 
 @app.route("/")
