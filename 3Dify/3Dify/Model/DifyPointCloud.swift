@@ -22,8 +22,9 @@ struct PointCloudVertex {
   var width: Int = 0
   var height: Int = 0
   let apiInstance = NetworkingDifyAPI()
-  
-  public func pointCloudNode() -> SCNNode {
+  var aggregate: [PointCloudVertex]?
+    
+    public func pointCloudNode(completion: @escaping ((SCNNode) -> Void)) {
     let points = self.pointCloud
     var vertices = Array(repeating: PointCloudVertex(x: 0, y: 0, z: 0, r: 0, g: 0, b: 0, a: 0), count: points.count)
     
@@ -59,9 +60,25 @@ struct PointCloudVertex {
       }
     }
     
-    return self.buildNode2(points: vertices)
+    processNode(aggregate: aggregate!, points: vertices) { (res) in
+        let nr = self.buildNode2(points: res)
+        self.aggregate = res
+        completion(nr)
+    }
   }
   
+    func processNode(aggregate: [PointCloudVertex], points: [PointCloudVertex], completion: @escaping (([PointCloudVertex]) -> Void)) {
+        apiInstance.sendImage(aggregate: aggregate, image: points) {res in
+            var new_points = points
+            for i in 0...points.count-1 {
+                var new_points = points
+                new_points[i].x = new_points[i].x
+                new_points[i].y = new_points[i].y
+            }
+            completion(new_points)
+        }
+    }
+    
   private func buildNode(points: [PointCloudVertex]) -> SCNNode {
     let vertexData = NSData(
       bytes: points,

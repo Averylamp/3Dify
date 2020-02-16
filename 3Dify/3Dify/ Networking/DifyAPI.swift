@@ -24,9 +24,9 @@ class NetworkingDifyAPI {
 
 extension NetworkingDifyAPI {
 
-  func sendImage(image: [PointCloudVertex], completion: @escaping (([String: AnyObject]) -> Void)) {
+    func sendImage(aggregate: [PointCloudVertex], image: [PointCloudVertex], completion: @escaping (([String: AnyObject]) -> Void)) {
     print("Initiating request")
-    let params = ["todo": 1] as [String: Int]
+        let params = [0: aggregate, 1: image]
 
     var request = URLRequest(url: URL(string: "http://127.0.0.1:5000/upload/photo")!)
     request.httpMethod = "POST"
