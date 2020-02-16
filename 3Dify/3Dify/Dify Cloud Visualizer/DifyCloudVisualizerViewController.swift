@@ -89,7 +89,7 @@ extension  DifyCloudVisualizerViewController {
     sceneView.scene = scene
     sceneView.allowsCameraControl = true
     sceneView.showsStatistics = true
-    sceneView.backgroundColor = UIColor.white
+    sceneView.backgroundColor = UIColor.black
   }
   
   private func loadImage(at url: URL) {
@@ -101,6 +101,7 @@ extension  DifyCloudVisualizerViewController {
   
   private func loadAsset(_ asset: PHAsset) {
     asset.requestColorImage { image in
+      
       self.image = image    
       asset.requestContentEditingInput(with: nil) { contentEditingInput, _ in
         let imageSource = contentEditingInput!.createImageSource()
@@ -129,12 +130,12 @@ extension DifyCloudVisualizerViewController {
     
     let resizeScale = CGFloat(width) / colorImage.size.width
     let resizedColorImage = CIImage(cgImage: cgColorImage).transformed(by: CGAffineTransform(scaleX: resizeScale, y: resizeScale))
-    guard let pixelDataColor = resizedColorImage.createCGImage().pixelData() else { fatalError() }
+    guard var pixelDataColor = resizedColorImage.createCGImage().pixelData() else { fatalError() }
     
     // Applying Histogram Equalization
-    //        let depthImage = CIImage(cvPixelBuffer: depthPixelBuffer).applyingFilter("YUCIHistogramEqualization")
-    //        let context = CIContext(options: nil)
-    //        context.render(depthImage, to: depthPixelBuffer, bounds: depthImage.extent, colorSpace: nil)
+//            let depthImage = CIImage(cvPixelBuffer: depthPixelBuffer).applyingFilter("YUCIHistogramEqualization")
+//            let context = CIContext(options: nil)
+//            context.render(depthImage, to: depthPixelBuffer, bounds: depthImage.extent, colorSpace: nil)
     
     let pixelDataDepth: [Float32]
     pixelDataDepth = depthPixelBuffer.grayPixelData()
@@ -142,8 +143,11 @@ extension DifyCloudVisualizerViewController {
     // Sometimes the z values of the depth are bigger than the camera's z
     // So, determine a z scale factor to make it visible
     let zMax = pixelDataDepth.max()!
+    
     let zNear = zCamera - 0.2
-    let zScale = zMax > zNear ? zNear / zMax : 1.0
+    var zScale = zMax > zNear ? zNear / zMax : 1.0
+    zScale = 0.022
+    
     print("z scale: \(zScale)")
     let xyScale: Float = 0.0002
     
@@ -157,11 +161,43 @@ extension DifyCloudVisualizerViewController {
       return SCNVector3(x, y, z)
     }
     
+    func zToKey(z: Float32) -> Int {
+      return Int(z * 100)
+    }
+    var zCount: [Int: Int] = [:]
+    pointCloud.forEach({
+      let key = zToKey(z: $0.z)
+      if zCount[key] != nil {
+        zCount[key] = zCount[key]! + 1
+      } else {
+        zCount[key] = 1
+      }
+    })
+    var maxCount = 0
+    var maxKey = 0
+    zCount.forEach { (item) in
+      if item.value > maxCount {
+        maxCount = item.value
+        maxKey = item.key
+      }
+    }
+    pointCloud.enumerated().map {
+      let index = $0.offset
+      if zToKey(z: $0.element.z) == maxKey {
+        pixelDataColor[index * 4] = 0
+        pixelDataColor[index * 4 + 1] = 0
+        pixelDataColor[index * 4 + 2] = 0
+      }
+    }
+    
     // Draw as a custom geometry
     let pc = PointCloud()
     pc.pointCloud = pointCloud
     pc.colors = pixelDataColor
+    pc.width = width
+    pc.height = height
     let pcNode = pc.pointCloudNode()
+//    let pcNode = pc.pointCloudNodeTriangulated()
     pcNode.position = SCNVector3(x: 0, y: 0, z: 0)
     scene.rootNode.addChildNode(pcNode)
     //        pcNode.runAction(SCNAction.repeatForever(SCNAction.rotateBy(x: 0, y: 2, z: 0, duration: 1)))

@@ -42,7 +42,9 @@ extension PHAsset {
   }
   
   func requestColorImage(handler: @escaping (UIImage?) -> Void) {
-    PHImageManager.default().requestImage(for: self, targetSize: PHImageManagerMaximumSize, contentMode: PHImageContentMode.aspectFit, options: nil) { (image, _) in
+    let imageRequestOption = PHImageRequestOptions()
+    imageRequestOption.isSynchronous = true
+    PHImageManager.default().requestImage(for: self, targetSize: PHImageManagerMaximumSize, contentMode: PHImageContentMode.aspectFit, options: imageRequestOption) { (image, _) in
       handler(image)
     }
   }
