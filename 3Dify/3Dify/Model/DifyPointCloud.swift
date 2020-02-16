@@ -46,7 +46,9 @@ struct PointCloudVertex {
   }
   
     private func filterVertices(points: [PointCloudVertex]) -> [PointCloudVertex] {
-        //return points.filter { $0.z > 0.05 && $0.z < 0.8}
+        let back_z = points[0].z
+        let fore_z = points[points.count/2].z
+        points.filter { $0.z > back_z && $0.z < fore_z + 0.7*(fore_z - back_z)}
         return points
     }
     
