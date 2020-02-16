@@ -13,9 +13,6 @@ times = []
 # numVoxels = 40
 
 
-def point_cloud_distance(cloud_1, cloud_2):
-	raise('Point cloud distance is not yet implemented.')
-
 def choose_y_slice(cloud_1, cloud_2, step_size=4):
 
 	cloud_1 = sorted(cloud_1, key=lambda y: y[4])
@@ -208,8 +205,8 @@ def point_cloud_distance(cloud_1, cloud_2, round_val=0.003):
 					if neighbor in cloud_dict:
 						total_distance += (point[0] - cloud_dict[neighbor][0])**2 + (point[1] - cloud_dict[neighbor][1])**2 + (point[2] - cloud_dict[neighbor][2])**2
 						found = True
-		# if not found:
-		# 	total_distance += 0.5 # arbitrary
+		if not found:
+			total_distance += 0.5 # arbitrary
 
 	return total_distance
 
@@ -243,7 +240,6 @@ if __name__ == "__main__":
 
 	# Rotate 
 	rotated_points_2 = rotate_z(points_2, 20)
-	print(rotated_points_2)
 	choose_x_slice(points_1, rotated_points_2)
 
     # result1 = []
