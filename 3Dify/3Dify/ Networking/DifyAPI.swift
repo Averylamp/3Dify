@@ -24,13 +24,17 @@ class NetworkingDifyAPI {
 
 extension NetworkingDifyAPI {
 
-  func sendImage(image: [PointCloudVertex], completion: @escaping (([String: AnyObject]) -> Void)) {
+    func sendImage(aggregate: [PointCloudVertex], image: [PointCloudVertex], completion: @escaping (([String: AnyObject]) -> Void)) {
+        
     print("Initiating request")
-    let params = ["todo": 1] as [String: Int]
+        let res1: [[Float]] = image.map{[$0.r, $0.g, $0.b, $0.x, $0.y, $0.z]}
+        let res2: [[Float]] = aggregate.map{[$0.r, $0.g, $0.b, $0.x, $0.y, $0.z]}
+        
+    let data_to_send = [0 : res1, 1: res2]
 
     var request = URLRequest(url: URL(string: "http://127.0.0.1:5000/upload/photo")!)
     request.httpMethod = "POST"
-    request.httpBody = try? JSONSerialization.data(withJSONObject: params, options: [])
+    request.httpBody = try? JSONSerialization.data(withJSONObject: data_to_send, options: [])
     request.addValue("application/json", forHTTPHeaderField: "Content-Type")
     
     let session = URLSession.shared
