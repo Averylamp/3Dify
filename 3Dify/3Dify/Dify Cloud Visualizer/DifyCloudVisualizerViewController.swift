@@ -20,7 +20,7 @@ class DifyCloudVisualizerViewController: UIViewController {
   
   let zCamera: Float = 0.3
   var zScale: Float = 0.022
-  var zThreshold: Float = 0.01
+  var zThreshold: Float = 0.5
 //  var distance: Float =
   private let scene = SCNScene()
   private var pointNode = SCNNode()
@@ -92,7 +92,7 @@ extension  DifyCloudVisualizerViewController {
     sceneView.scene = scene
     sceneView.allowsCameraControl = true
     sceneView.showsStatistics = true
-    sceneView.backgroundColor = UIColor.black
+    sceneView.backgroundColor = UIColor(red: 0.10, green: 0.07, blue: 0.27, alpha: 1.00)
   }
   
   private func loadImage(at url: URL) {
@@ -174,33 +174,6 @@ extension DifyCloudVisualizerViewController {
     let pcNode = pc.pointCloudNode()
     pcNode.position = SCNVector3(x: 0, y: 0, z: 0)
     self.scene.rootNode.addChildNode(pcNode)
-    
-    //        pcNode.runAction(SCNAction.repeatForever(SCNAction.rotateBy(x: 0, y: 2, z: 0, duration: 1)))
-    
-    // Draw with Sphere nodes
-    //        pointCloud.enumerated().forEach {
-    //            let index = $0.offset * 4
-    //            let r = pixelDataColor[index]
-    //            let g = pixelDataColor[index + 1]
-    //            let b = pixelDataColor[index + 2]
-    //
-    //            let pos = $0.element
-    //            // reducing the points
-    //            guard Int(pos.x / scale) % 10 == 0 else { return }
-    //            guard Int(pos.y / scale) % 10 == 0 else { return }
-    //            let clone = pointNode.clone()
-    //            clone.position = SCNVector3(pos.x, pos.y, pos.z)
-    //
-    //            // Creating a new geometry and a new material to color for each
-    //            // https://stackoverflow.com/questions/39902802/stop-sharing-nodes-geometry-with-its-clone-programmatically
-    //            guard let newGeometry = pointNode.geometry?.copy() as? SCNGeometry else { fatalError() }
-    //            guard let newMaterial = newGeometry.firstMaterial?.copy() as? SCNMaterial else { fatalError() }
-    //            newMaterial.diffuse.contents = UIColor(red: CGFloat(r)/255, green: CGFloat(g)/255, blue: CGFloat(b)/255, alpha: 1)
-    //            newGeometry.materials = [newMaterial]
-    //            clone.geometry = newGeometry
-    //
-    //            scene.rootNode.addChildNode(clone)
-    //        }
   }
   
   private func update() {
@@ -219,7 +192,6 @@ extension CGImage {
     
     let totalBytes = height * bytesPerRow
     var pixelData = [UInt8](repeating: 0, count: totalBytes)
-    
     guard let context = CGContext(
       data: &pixelData,
       width: width,
