@@ -23,29 +23,42 @@ class NetworkingDifyAPI {
 }
 
 extension NetworkingDifyAPI {
-
-  func sendImage(image: [PointCloudVertex], completion: @escaping (([String: AnyObject]) -> Void)) {
+  
+  func sendImage(aggregate: [PointCloudVertex], image: [PointCloudVertex], completion: @escaping (([String: AnyObject]) -> Void)) {
+    
     print("Initiating request")
-    let params = ["todo": 1] as [String: Int]
-
-    var request = URLRequest(url: URL(string: "http://127.0.0.1:5000/upload/photo")!)
+    let res1: [[Float]] = image.map {[$0.r, $0.g, $0.b, $0.x, $0.y, $0.z]}
+    let res2: [[Float]] = aggregate.map {[$0.r, $0.g, $0.b, $0.x, $0.y, $0.z]}
+    
+    let data_to_send: [String: Any] = ["0": [], "1": []]
+    
+    var request = URLRequest(url: URL(string: "http://seacow.averylamp.me:5000/upload/photo")!)
     request.httpMethod = "POST"
-    request.httpBody = try? JSONSerialization.data(withJSONObject: params, options: [])
+
+    guard let payload = try? JSONSerialization.data(withJSONObject: data_to_send, options: .prettyPrinted) else {
+      fatalError("Failed to serialize json")
+    }
+    
+    print(payload)
+    
+    request.httpBody = payload
     request.addValue("application/json", forHTTPHeaderField: "Content-Type")
     
     let session = URLSession.shared
-    let task = session.dataTask(with: request, completionHandler: { data, _, _ -> Void in
-//        print(response!)
-        do {
-          guard let json = try JSONSerialization.jsonObject(with: data!) as? [String: AnyObject] else {
-            fatalError("JSON Serialization failed")
-          }
-            completion(json)
-        } catch {
-            print("error")
+    
+    let task = session.dataTask(with: request, completionHandler: { data, response, error -> Void in
+          print(response)
+      do {
+        guard let data = data,
+          let json = try JSONSerialization.jsonObject(with: data) as? [String: AnyObject] else {
+          fatalError("JSON Serialization failed")
         }
+        completion(json)
+      } catch {
+        print(error)
+        print("error")
+      }
     })
     task.resume()
-    print("Completed request")
   }
 }

@@ -27,6 +27,24 @@
 		BB75B66B23F87D1400A13363 /* DifyPointCloud.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB75B66A23F87D1400A13363 /* DifyPointCloud.swift */; };
 		BB85347A23F90BA400D6C43A /* UIImage+Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB85347923F90BA400D6C43A /* UIImage+Utils.swift */; };
 		BB85347C23F90C0F00D6C43A /* CVPixelBuffer+CIImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB85347B23F90C0F00D6C43A /* CVPixelBuffer+CIImage.swift */; };
+		BB92683523F9460900D910E3 /* StoredModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB92683423F9460900D910E3 /* StoredModels.swift */; };
+		BB92684523F9502B00D910E3 /* IBMPlexSans-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = BB92683B23F9500D00D910E3 /* IBMPlexSans-Bold.ttf */; };
+		BB92684623F9502B00D910E3 /* IBMPlexSans-BoldItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = BB92683D23F9500D00D910E3 /* IBMPlexSans-BoldItalic.ttf */; };
+		BB92684723F9502B00D910E3 /* IBMPlexSans-ExtraLight.ttf in Resources */ = {isa = PBXBuildFile; fileRef = BB92683623F9500D00D910E3 /* IBMPlexSans-ExtraLight.ttf */; };
+		BB92684823F9502B00D910E3 /* IBMPlexSans-ExtraLightItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = BB92683823F9500D00D910E3 /* IBMPlexSans-ExtraLightItalic.ttf */; };
+		BB92684923F9502B00D910E3 /* IBMPlexSans-Italic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = BB92684223F9500E00D910E3 /* IBMPlexSans-Italic.ttf */; };
+		BB92684A23F9502B00D910E3 /* IBMPlexSans-Light.ttf in Resources */ = {isa = PBXBuildFile; fileRef = BB92684023F9500D00D910E3 /* IBMPlexSans-Light.ttf */; };
+		BB92684B23F9502B00D910E3 /* IBMPlexSans-LightItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = BB92684323F9500E00D910E3 /* IBMPlexSans-LightItalic.ttf */; };
+		BB92684C23F9502B00D910E3 /* IBMPlexSans-Medium.ttf in Resources */ = {isa = PBXBuildFile; fileRef = BB92683C23F9500D00D910E3 /* IBMPlexSans-Medium.ttf */; };
+		BB92684D23F9502B00D910E3 /* IBMPlexSans-MediumItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = BB92684123F9500E00D910E3 /* IBMPlexSans-MediumItalic.ttf */; };
+		BB92684E23F9502B00D910E3 /* IBMPlexSans-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = BB92683E23F9500D00D910E3 /* IBMPlexSans-Regular.ttf */; };
+		BB92684F23F9502B00D910E3 /* IBMPlexSans-SemiBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = BB92683A23F9500D00D910E3 /* IBMPlexSans-SemiBold.ttf */; };
+		BB92685023F9502B00D910E3 /* IBMPlexSans-SemiBoldItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = BB92683F23F9500D00D910E3 /* IBMPlexSans-SemiBoldItalic.ttf */; };
+		BB92685123F9502B00D910E3 /* IBMPlexSans-Thin.ttf in Resources */ = {isa = PBXBuildFile; fileRef = BB92683923F9500D00D910E3 /* IBMPlexSans-Thin.ttf */; };
+		BB92685223F9502B00D910E3 /* IBMPlexSans-ThinItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = BB92683723F9500D00D910E3 /* IBMPlexSans-ThinItalic.ttf */; };
+		BBB355E123F95303000428E7 /* UILabel+Kerning.swift in Sources */ = {isa = PBXBuildFile; fileRef = BBB355E023F95303000428E7 /* UILabel+Kerning.swift */; };
+		BBB355E323F95562000428E7 /* UIViewController+Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = BBB355E223F95562000428E7 /* UIViewController+Utils.swift */; };
+		BBB355E523F9700A000428E7 /* DataStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = BBB355E423F9700A000428E7 /* DataStore.swift */; };
 		BBB8038A23F9374200228A40 /* PointCloudEditorViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BBB8038923F9374200228A40 /* PointCloudEditorViewController.swift */; };
 		BBB8038C23F9375400228A40 /* PointCloudEditorViewController.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = BBB8038B23F9375400228A40 /* PointCloudEditorViewController.storyboard */; };
 		BBB8038F23F93F5D00228A40 /* MainPortraitCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BBB8038E23F93F5D00228A40 /* MainPortraitCollectionViewCell.swift */; };
@@ -79,6 +97,24 @@
 		BB75B66A23F87D1400A13363 /* DifyPointCloud.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DifyPointCloud.swift; sourceTree = "<group>"; };
 		BB85347923F90BA400D6C43A /* UIImage+Utils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImage+Utils.swift"; sourceTree = "<group>"; };
 		BB85347B23F90C0F00D6C43A /* CVPixelBuffer+CIImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CVPixelBuffer+CIImage.swift"; sourceTree = "<group>"; };
+		BB92683423F9460900D910E3 /* StoredModels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoredModels.swift; sourceTree = "<group>"; };
+		BB92683623F9500D00D910E3 /* IBMPlexSans-ExtraLight.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "IBMPlexSans-ExtraLight.ttf"; sourceTree = "<group>"; };
+		BB92683723F9500D00D910E3 /* IBMPlexSans-ThinItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "IBMPlexSans-ThinItalic.ttf"; sourceTree = "<group>"; };
+		BB92683823F9500D00D910E3 /* IBMPlexSans-ExtraLightItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "IBMPlexSans-ExtraLightItalic.ttf"; sourceTree = "<group>"; };
+		BB92683923F9500D00D910E3 /* IBMPlexSans-Thin.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "IBMPlexSans-Thin.ttf"; sourceTree = "<group>"; };
+		BB92683A23F9500D00D910E3 /* IBMPlexSans-SemiBold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "IBMPlexSans-SemiBold.ttf"; sourceTree = "<group>"; };
+		BB92683B23F9500D00D910E3 /* IBMPlexSans-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "IBMPlexSans-Bold.ttf"; sourceTree = "<group>"; };
+		BB92683C23F9500D00D910E3 /* IBMPlexSans-Medium.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "IBMPlexSans-Medium.ttf"; sourceTree = "<group>"; };
+		BB92683D23F9500D00D910E3 /* IBMPlexSans-BoldItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "IBMPlexSans-BoldItalic.ttf"; sourceTree = "<group>"; };
+		BB92683E23F9500D00D910E3 /* IBMPlexSans-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "IBMPlexSans-Regular.ttf"; sourceTree = "<group>"; };
+		BB92683F23F9500D00D910E3 /* IBMPlexSans-SemiBoldItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "IBMPlexSans-SemiBoldItalic.ttf"; sourceTree = "<group>"; };
+		BB92684023F9500D00D910E3 /* IBMPlexSans-Light.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "IBMPlexSans-Light.ttf"; sourceTree = "<group>"; };
+		BB92684123F9500E00D910E3 /* IBMPlexSans-MediumItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "IBMPlexSans-MediumItalic.ttf"; sourceTree = "<group>"; };
+		BB92684223F9500E00D910E3 /* IBMPlexSans-Italic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "IBMPlexSans-Italic.ttf"; sourceTree = "<group>"; };
+		BB92684323F9500E00D910E3 /* IBMPlexSans-LightItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "IBMPlexSans-LightItalic.ttf"; sourceTree = "<group>"; };
+		BBB355E023F95303000428E7 /* UILabel+Kerning.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UILabel+Kerning.swift"; sourceTree = "<group>"; };
+		BBB355E223F95562000428E7 /* UIViewController+Utils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+Utils.swift"; sourceTree = "<group>"; };
+		BBB355E423F9700A000428E7 /* DataStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataStore.swift; sourceTree = "<group>"; };
 		BBB8038923F9374200228A40 /* PointCloudEditorViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PointCloudEditorViewController.swift; sourceTree = "<group>"; };
 		BBB8038B23F9375400228A40 /* PointCloudEditorViewController.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = PointCloudEditorViewController.storyboard; sourceTree = "<group>"; };
 		BBB8038E23F93F5D00228A40 /* MainPortraitCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainPortraitCollectionViewCell.swift; sourceTree = "<group>"; };
@@ -177,6 +213,8 @@
 			children = (
 				BB0D3E4623F7F399002AD13E /* DifyPoint.swift */,
 				BB75B66A23F87D1400A13363 /* DifyPointCloud.swift */,
+				BB92683423F9460900D910E3 /* StoredModels.swift */,
+				BBB355E423F9700A000428E7 /* DataStore.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -199,6 +237,8 @@
 				BB75B66623F87B9C00A13363 /* AVDepthData+Utils.swift */,
 				BB75B66823F87C9100A13363 /* CIImage+Utils.swift */,
 				BB85347923F90BA400D6C43A /* UIImage+Utils.swift */,
+				BBB355E023F95303000428E7 /* UILabel+Kerning.swift */,
+				BBB355E223F95562000428E7 /* UIViewController+Utils.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -210,6 +250,27 @@
 				BB0D3E5823F87885002AD13E /* DifyCloudVisualizerViewController.storyboard */,
 			);
 			path = "Dify Cloud Visualizer";
+			sourceTree = "<group>";
+		};
+		BB92684423F9501000D910E3 /* Fonts */ = {
+			isa = PBXGroup;
+			children = (
+				BB92683B23F9500D00D910E3 /* IBMPlexSans-Bold.ttf */,
+				BB92683D23F9500D00D910E3 /* IBMPlexSans-BoldItalic.ttf */,
+				BB92683623F9500D00D910E3 /* IBMPlexSans-ExtraLight.ttf */,
+				BB92683823F9500D00D910E3 /* IBMPlexSans-ExtraLightItalic.ttf */,
+				BB92684223F9500E00D910E3 /* IBMPlexSans-Italic.ttf */,
+				BB92684023F9500D00D910E3 /* IBMPlexSans-Light.ttf */,
+				BB92684323F9500E00D910E3 /* IBMPlexSans-LightItalic.ttf */,
+				BB92683C23F9500D00D910E3 /* IBMPlexSans-Medium.ttf */,
+				BB92684123F9500E00D910E3 /* IBMPlexSans-MediumItalic.ttf */,
+				BB92683E23F9500D00D910E3 /* IBMPlexSans-Regular.ttf */,
+				BB92683A23F9500D00D910E3 /* IBMPlexSans-SemiBold.ttf */,
+				BB92683F23F9500D00D910E3 /* IBMPlexSans-SemiBoldItalic.ttf */,
+				BB92683923F9500D00D910E3 /* IBMPlexSans-Thin.ttf */,
+				BB92683723F9500D00D910E3 /* IBMPlexSans-ThinItalic.ttf */,
+			);
+			path = Fonts;
 			sourceTree = "<group>";
 		};
 		BBB8038D23F9375800228A40 /* Point Cloud Editor */ = {
@@ -257,6 +318,7 @@
 				BB0D3E3823F7E215002AD13E /* Main View Controller */,
 				BB0D3E4C23F7FB08002AD13E /* Main Nav VC */,
 				BB0D3E3D23F7E345002AD13E /* Portrait Photo Picker */,
+				BB92684423F9501000D910E3 /* Fonts */,
 				BBBF081923F7D99800E177DF /* Assets.xcassets */,
 				BBBF081B23F7D99800E177DF /* LaunchScreen.storyboard */,
 				BBBF081E23F7D99800E177DF /* Info.plist */,
@@ -390,12 +452,26 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				BB92684E23F9502B00D910E3 /* IBMPlexSans-Regular.ttf in Resources */,
+				BB92684623F9502B00D910E3 /* IBMPlexSans-BoldItalic.ttf in Resources */,
+				BB92684723F9502B00D910E3 /* IBMPlexSans-ExtraLight.ttf in Resources */,
+				BB92685223F9502B00D910E3 /* IBMPlexSans-ThinItalic.ttf in Resources */,
+				BB92684D23F9502B00D910E3 /* IBMPlexSans-MediumItalic.ttf in Resources */,
+				BB92684B23F9502B00D910E3 /* IBMPlexSans-LightItalic.ttf in Resources */,
 				BBBF081D23F7D99800E177DF /* LaunchScreen.storyboard in Resources */,
+				BB92684923F9502B00D910E3 /* IBMPlexSans-Italic.ttf in Resources */,
+				BB92684823F9502B00D910E3 /* IBMPlexSans-ExtraLightItalic.ttf in Resources */,
 				BBBF081A23F7D99800E177DF /* Assets.xcassets in Resources */,
+				BB92685023F9502B00D910E3 /* IBMPlexSans-SemiBoldItalic.ttf in Resources */,
+				BB92685123F9502B00D910E3 /* IBMPlexSans-Thin.ttf in Resources */,
 				BB0D3E4B23F7FA6E002AD13E /* MainNavigationController.storyboard in Resources */,
+				BB92684F23F9502B00D910E3 /* IBMPlexSans-SemiBold.ttf in Resources */,
 				BBB8038C23F9375400228A40 /* PointCloudEditorViewController.storyboard in Resources */,
+				BB92684C23F9502B00D910E3 /* IBMPlexSans-Medium.ttf in Resources */,
+				BB92684523F9502B00D910E3 /* IBMPlexSans-Bold.ttf in Resources */,
 				BBBF081823F7D99600E177DF /* MainViewController.storyboard in Resources */,
 				BB0D3E3C23F7E341002AD13E /* PortraitPhotoPickerViewController.storyboard in Resources */,
+				BB92684A23F9502B00D910E3 /* IBMPlexSans-Light.ttf in Resources */,
 				BB0D3E5923F87885002AD13E /* DifyCloudVisualizerViewController.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -507,9 +583,12 @@
 				BB0D3E5C23F878D1002AD13E /* DifyCloudVisualizerViewController.swift in Sources */,
 				BB0D3E3A23F7E335002AD13E /* PortraitPhotoPickerViewController.swift in Sources */,
 				BB0D3E4423F7F349002AD13E /* DifyAPI.swift in Sources */,
+				BBB355E323F95562000428E7 /* UIViewController+Utils.swift in Sources */,
 				BBBF081523F7D99600E177DF /* MainViewController.swift in Sources */,
 				BB85347C23F90C0F00D6C43A /* CVPixelBuffer+CIImage.swift in Sources */,
 				BB0D3E5323F87452002AD13E /* PHAsset+Utils.swift in Sources */,
+				BBB355E123F95303000428E7 /* UILabel+Kerning.swift in Sources */,
+				BBB355E523F9700A000428E7 /* DataStore.swift in Sources */,
 				BB0D3E4E23F85853002AD13E /* SceneDelegate.swift in Sources */,
 				BB75B66923F87C9100A13363 /* CIImage+Utils.swift in Sources */,
 				BB85347A23F90BA400D6C43A /* UIImage+Utils.swift in Sources */,
@@ -519,6 +598,7 @@
 				BB0D3E4223F7F323002AD13E /* Result.swift in Sources */,
 				BB0D3E4723F7F399002AD13E /* DifyPoint.swift in Sources */,
 				BB75B66723F87B9C00A13363 /* AVDepthData+Utils.swift in Sources */,
+				BB92683523F9460900D910E3 /* StoredModels.swift in Sources */,
 				BB0D3E3723F7DD24002AD13E /* R.generated.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

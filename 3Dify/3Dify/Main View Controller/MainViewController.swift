@@ -14,6 +14,9 @@ class MainViewController: UIViewController {
   @IBOutlet weak var collectionView: UICollectionView!
   
   let flowLayout = UICollectionViewFlowLayout()
+  let cachingImageManager = PHCachingImageManager()
+  
+  var selectedIndices: [IndexPath] = []
   
   /// Factory method for creating this view controller.
   ///
@@ -58,9 +61,16 @@ extension  MainViewController {
 
     }
     
+    collectionView.dataSource = self
+    collectionView.delegate = self
     flowLayout.scrollDirection = UICollectionView.ScrollDirection.vertical
     self.collectionView.collectionViewLayout = flowLayout
-    collectionView.dataSource = self
+    self.loadCollectionData()
+    
+    NotificationCenter.default.addObserver(self, selector: #selector(MainViewController.modelsReloaded), name: .modelsReloaded, object: nil)
+  }
+  
+  @objc func modelsReloaded() {
     self.loadCollectionData()
   }
   
@@ -80,11 +90,14 @@ extension  MainViewController {
 extension MainViewController: PortraitPhotoPickerProtocol {
   
   func didPickPortraitPhoto(phAsset: PHAsset) {
-    guard let cloudVisualizerVC = DifyCloudVisualizerViewController.instantiate(phAsset: phAsset) else {
-      fatalError("Failed to instantiate Cloud Visualizer")
+    guard let modelEditorVC = PointCloudEditorViewController.instantiate(model: StoredModel(phAsset: phAsset)) else {
+      fatalError("Failed to instantiate model editor" )
     }
     
-    self.navigationController?.pushViewController(cloudVisualizerVC, animated: true)
+    self.delay(delay: 0.5) {
+      
+      self.navigationController?.pushViewController(modelEditorVC, animated: true)
+    }
     
   }
 }
@@ -94,6 +107,7 @@ extension MainViewController: UICollectionViewDataSource {
   
   func loadCollectionData() {
     
+    self.collectionView.reloadData()
   }
   
   func numberOfSections(in collectionView: UICollectionView) -> Int {
@@ -101,14 +115,38 @@ extension MainViewController: UICollectionViewDataSource {
   }
   
   func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-    return 10
+    return DataStore.shared.allModels.count
   }
   
   func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-    guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: R.reuseIdentifier.mainCollectionViewCell.identifier, for: indexPath) as? MainPortraitCollectionViewCell else {
+    guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: R.reuseIdentifier.mainCollectionViewCell.identifier, for: indexPath)
+      as? MainPortraitCollectionViewCell else {
       return UICollectionViewCell()
     }
     
+    cell.containingView.layer.borderColor = UIColor.white.cgColor
+    cell.containingView.layer.borderWidth = 6
+    cell.containingView.layer.cornerRadius = 20
+    
+    if self.selectedIndices.contains(indexPath) {
+      cell.selectedImageView.image = R.image.iconSelected()
+    } else {
+      cell.selectedImageView.image = R.image.iconUnselected()
+    }
+    
+    let currentTag: Int = indexPath.row
+    cell.tag = currentTag
+    
+    let scale = UIScreen.main.scale
+    let assetGridThumbnailSize = CGSize(width: cell.frame.size.width * scale, height: cell.frame.size.height * scale)
+    self.cachingImageManager.requestImage(for: DataStore.shared.allModels[indexPath.row].phAsset,
+                                     targetSize: assetGridThumbnailSize,
+                                     contentMode: .aspectFill,
+                                     options: nil) { (image, _) in
+      if cell.tag == currentTag {
+        cell.imageView.image = image
+      }
+    }
     return cell
   }
   
@@ -117,8 +155,7 @@ extension MainViewController: UICollectionViewDataSource {
 extension MainViewController: UICollectionViewDelegateFlowLayout {
   
   func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-    let edgeSize: CGFloat = self.collectionView.frame.width / 2 - 14
-    
+    let edgeSize: CGFloat = self.collectionView.frame.width / 2 - 8
     return CGSize(width: edgeSize, height: edgeSize)
   }
   
@@ -132,6 +169,11 @@ extension MainViewController: UICollectionViewDelegate {
   
   func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
     print("Collection View selected item at: \(indexPath.item)")
+    guard let modelEditorVC = PointCloudEditorViewController.instantiate(model: DataStore.shared.allModels[indexPath.row]) else {
+      fatalError("Failed to instantiate model editor" )
+    }
+    self.navigationController?.pushViewController(modelEditorVC, animated: true)
+
   }
   
 }

@@ -3,17 +3,19 @@ from collections import defaultdict
 import math
 import numpy as np
 import random
-import time
+# import time
+
+from multiprocessing import Pool
 
 # def point_cloud_distance(cloud_1, cloud_2):
 # 	hello = sorted(cloud_1)
 # 	return random.random()
 
-times = []
+# times = []
 # numVoxels = 40
 
 
-def choose_y_slice(cloud_1, cloud_2, step_size=4):
+def choose_y_slice(cloud_1, cloud_2, shift_x_1, shift_x_2, step_size=4):
 
 	cloud_1 = sorted(cloud_1, key=lambda y: y[4])
 	cloud_2 = sorted(cloud_2, key=lambda y: y[4])
@@ -29,24 +31,43 @@ def choose_y_slice(cloud_1, cloud_2, step_size=4):
 	min_distance = math.inf
 
 	i = 1
+	min_shift_1 = math.inf
+	min_shift_2 = math.inf
 	while i * slice_size < (high_1 - low_1) + (high_2 - low_2):
 		included_1 = [p for p in cloud_1 if p[4] < cloud_1[0][4] + i * slice_size]
 		included_2 = [p for p in cloud_2 if p[4] > cloud_2[-1][4] - i * slice_size]
 
 		shift_1 = -included_1[0][4]
 		shift_2 = -included_2[0][4]
-		start = time.time()
+		# start = time.time()
 		distance_y = point_cloud_distance(translate_x_y(included_1, y_shift=shift_1), translate_x_y(included_2, y_shift=shift_2))
-		times.append(time.time() - start)
+		# times.append(time.time() - start)
 		
 		if distance_y < min_distance:
 			min_distance = distance_y
+			min_shift_1 = shift_1
+			min_shift_2 = shift_2
 
 		i += 1
-	print('final i:', i)
-	return min_distance
+	# print('final i:', i)
+	# print('mindist', min_distance)
+	return (min_distance, min_shift_1, min_shift_2, shift_x_1, shift_x_2)
 
 
+# For multiprocessing
+def compute_arguments(cloud_1, cloud_2, low_1, high_1, low_2, high_2, slice_size, step_size):
+	all_args = []
+	i = 1
+	while i * slice_size < (high_1 - low_1) + (high_2 - low_2):
+		included_1 = [p for p in cloud_1 if p[3] < cloud_1[0][3] + i * slice_size]
+		included_2 = [p for p in cloud_2 if p[3] > cloud_2[-1][3] - i * slice_size]
+
+		shift_1 = -included_1[0][3]
+		shift_2 = -included_2[0][3]
+		all_args.append((translate_x_y(included_1, x_shift=shift_1), translate_x_y(included_2, x_shift=shift_2), shift_1, shift_2, step_size))
+		i += 1
+	# print(all_args[0])
+	return all_args
 
 def choose_x_slice(cloud_1, cloud_2, step_size=4):
 	cloud_1 = sorted(cloud_1, key=lambda x: x[3])
@@ -60,29 +81,21 @@ def choose_x_slice(cloud_1, cloud_2, step_size=4):
 	# TODO: figure out what granularity to use if sizes are disproportional
 	slice_size = min(high_1 - low_1, high_2 - low_2) / step_size
 
-	min_distance = math.inf
+	processing_pool = Pool(100)
+	result_distances = processing_pool.starmap(choose_y_slice, compute_arguments(cloud_1, cloud_2, low_1, high_1, low_2, high_2, slice_size, step_size))
 
-	i = 1
-	# print(datetime.now())
-	while i * slice_size < (high_1 - low_1) + (high_2 - low_2):
-		included_1 = [p for p in cloud_1 if p[3] < cloud_1[0][3] + i * slice_size]
-		included_2 = [p for p in cloud_2 if p[3] > cloud_2[-1][3] - i * slice_size]
+	processing_pool.close()
+	processing_pool.join()
 
-		shift_1 = -included_1[0][3]
-		shift_2 = -included_2[0][3]
-		distance_y = choose_y_slice(translate_x_y(included_1, x_shift=shift_1), translate_x_y(included_2, x_shift=shift_2), step_size)
-		print('distance_y:', distance_y)
+	min_dist_index = result_distances.index(min(result_distances))
+	min_distance = result_distances[min_dist_index][0]
+	min_shift_y_1 = result_distances[min_dist_index][1]
+	min_shift_y_2 = result_distances[min_dist_index][2]
+	min_shift_x_1 = result_distances[min_dist_index][3]
+	min_shift_x_2 = result_distances[min_dist_index][4]
 
-		if distance_y < min_distance:
-			min_distance = distance_y
-
-		i += 1
-	print(sum(times))
-	return
-	print('i:', i)
 	print('final_distance:', min_distance)
-	return min_distance
-
+	return (min_distance, min_shift_x_1, min_shift_y_1, min_shift_x_2, min_shift_y_2)
 
 # NAIVE - Returns the aggregate distance between two point clouds
 # O(n^2)
@@ -232,11 +245,14 @@ if __name__ == "__main__":
 	print('total number of points_2, original:', len(points_2))
 
 	# Amount to sample
-	sample_proportion = 0.05
+	sample_proportion = 0.01
 	points_1 = random.sample(points_1, math.floor(len(points_1) * sample_proportion))
 	print('sampled number of points_1:', len(points_1))
 	points_2 = random.sample(points_2, math.floor(len(points_2) * sample_proportion))
 	print('sampled number of points_2:', len(points_2))
+
+	# print('p1', points_1)
+	# print('p2', points_2)
 
 	# Rotate 
 	rotated_points_2 = rotate_z(points_2, 20)
@@ -260,4 +276,5 @@ if __name__ == "__main__":
     # # print("--- %s seconds ---" % (time.time() - start_time))
     # print(distance_voxelized(result1, result2))
     # print(time.time()-start_time)
+
 

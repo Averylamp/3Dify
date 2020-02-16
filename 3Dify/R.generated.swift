@@ -85,6 +85,7 @@ struct R: Rswift.Validatable {
   }
 
   static func validate() throws {
+    try font.validate()
     try intern.validate()
   }
 
@@ -150,7 +151,246 @@ struct R: Rswift.Validatable {
   }
   #endif
 
-  /// This `R.image` struct is generated, and contains static references to 4 images.
+  /// This `R.file` struct is generated, and contains static references to 14 files.
+  struct file {
+    /// Resource file `IBMPlexSans-Bold.ttf`.
+    static let ibmPlexSansBoldTtf = Rswift.FileResource(bundle: R.hostingBundle, name: "IBMPlexSans-Bold", pathExtension: "ttf")
+    /// Resource file `IBMPlexSans-BoldItalic.ttf`.
+    static let ibmPlexSansBoldItalicTtf = Rswift.FileResource(bundle: R.hostingBundle, name: "IBMPlexSans-BoldItalic", pathExtension: "ttf")
+    /// Resource file `IBMPlexSans-ExtraLight.ttf`.
+    static let ibmPlexSansExtraLightTtf = Rswift.FileResource(bundle: R.hostingBundle, name: "IBMPlexSans-ExtraLight", pathExtension: "ttf")
+    /// Resource file `IBMPlexSans-ExtraLightItalic.ttf`.
+    static let ibmPlexSansExtraLightItalicTtf = Rswift.FileResource(bundle: R.hostingBundle, name: "IBMPlexSans-ExtraLightItalic", pathExtension: "ttf")
+    /// Resource file `IBMPlexSans-Italic.ttf`.
+    static let ibmPlexSansItalicTtf = Rswift.FileResource(bundle: R.hostingBundle, name: "IBMPlexSans-Italic", pathExtension: "ttf")
+    /// Resource file `IBMPlexSans-Light.ttf`.
+    static let ibmPlexSansLightTtf = Rswift.FileResource(bundle: R.hostingBundle, name: "IBMPlexSans-Light", pathExtension: "ttf")
+    /// Resource file `IBMPlexSans-LightItalic.ttf`.
+    static let ibmPlexSansLightItalicTtf = Rswift.FileResource(bundle: R.hostingBundle, name: "IBMPlexSans-LightItalic", pathExtension: "ttf")
+    /// Resource file `IBMPlexSans-Medium.ttf`.
+    static let ibmPlexSansMediumTtf = Rswift.FileResource(bundle: R.hostingBundle, name: "IBMPlexSans-Medium", pathExtension: "ttf")
+    /// Resource file `IBMPlexSans-MediumItalic.ttf`.
+    static let ibmPlexSansMediumItalicTtf = Rswift.FileResource(bundle: R.hostingBundle, name: "IBMPlexSans-MediumItalic", pathExtension: "ttf")
+    /// Resource file `IBMPlexSans-Regular.ttf`.
+    static let ibmPlexSansRegularTtf = Rswift.FileResource(bundle: R.hostingBundle, name: "IBMPlexSans-Regular", pathExtension: "ttf")
+    /// Resource file `IBMPlexSans-SemiBold.ttf`.
+    static let ibmPlexSansSemiBoldTtf = Rswift.FileResource(bundle: R.hostingBundle, name: "IBMPlexSans-SemiBold", pathExtension: "ttf")
+    /// Resource file `IBMPlexSans-SemiBoldItalic.ttf`.
+    static let ibmPlexSansSemiBoldItalicTtf = Rswift.FileResource(bundle: R.hostingBundle, name: "IBMPlexSans-SemiBoldItalic", pathExtension: "ttf")
+    /// Resource file `IBMPlexSans-Thin.ttf`.
+    static let ibmPlexSansThinTtf = Rswift.FileResource(bundle: R.hostingBundle, name: "IBMPlexSans-Thin", pathExtension: "ttf")
+    /// Resource file `IBMPlexSans-ThinItalic.ttf`.
+    static let ibmPlexSansThinItalicTtf = Rswift.FileResource(bundle: R.hostingBundle, name: "IBMPlexSans-ThinItalic", pathExtension: "ttf")
+
+    /// `bundle.url(forResource: "IBMPlexSans-Bold", withExtension: "ttf")`
+    static func ibmPlexSansBoldTtf(_: Void = ()) -> Foundation.URL? {
+      let fileResource = R.file.ibmPlexSansBoldTtf
+      return fileResource.bundle.url(forResource: fileResource)
+    }
+
+    /// `bundle.url(forResource: "IBMPlexSans-BoldItalic", withExtension: "ttf")`
+    static func ibmPlexSansBoldItalicTtf(_: Void = ()) -> Foundation.URL? {
+      let fileResource = R.file.ibmPlexSansBoldItalicTtf
+      return fileResource.bundle.url(forResource: fileResource)
+    }
+
+    /// `bundle.url(forResource: "IBMPlexSans-ExtraLight", withExtension: "ttf")`
+    static func ibmPlexSansExtraLightTtf(_: Void = ()) -> Foundation.URL? {
+      let fileResource = R.file.ibmPlexSansExtraLightTtf
+      return fileResource.bundle.url(forResource: fileResource)
+    }
+
+    /// `bundle.url(forResource: "IBMPlexSans-ExtraLightItalic", withExtension: "ttf")`
+    static func ibmPlexSansExtraLightItalicTtf(_: Void = ()) -> Foundation.URL? {
+      let fileResource = R.file.ibmPlexSansExtraLightItalicTtf
+      return fileResource.bundle.url(forResource: fileResource)
+    }
+
+    /// `bundle.url(forResource: "IBMPlexSans-Italic", withExtension: "ttf")`
+    static func ibmPlexSansItalicTtf(_: Void = ()) -> Foundation.URL? {
+      let fileResource = R.file.ibmPlexSansItalicTtf
+      return fileResource.bundle.url(forResource: fileResource)
+    }
+
+    /// `bundle.url(forResource: "IBMPlexSans-Light", withExtension: "ttf")`
+    static func ibmPlexSansLightTtf(_: Void = ()) -> Foundation.URL? {
+      let fileResource = R.file.ibmPlexSansLightTtf
+      return fileResource.bundle.url(forResource: fileResource)
+    }
+
+    /// `bundle.url(forResource: "IBMPlexSans-LightItalic", withExtension: "ttf")`
+    static func ibmPlexSansLightItalicTtf(_: Void = ()) -> Foundation.URL? {
+      let fileResource = R.file.ibmPlexSansLightItalicTtf
+      return fileResource.bundle.url(forResource: fileResource)
+    }
+
+    /// `bundle.url(forResource: "IBMPlexSans-Medium", withExtension: "ttf")`
+    static func ibmPlexSansMediumTtf(_: Void = ()) -> Foundation.URL? {
+      let fileResource = R.file.ibmPlexSansMediumTtf
+      return fileResource.bundle.url(forResource: fileResource)
+    }
+
+    /// `bundle.url(forResource: "IBMPlexSans-MediumItalic", withExtension: "ttf")`
+    static func ibmPlexSansMediumItalicTtf(_: Void = ()) -> Foundation.URL? {
+      let fileResource = R.file.ibmPlexSansMediumItalicTtf
+      return fileResource.bundle.url(forResource: fileResource)
+    }
+
+    /// `bundle.url(forResource: "IBMPlexSans-Regular", withExtension: "ttf")`
+    static func ibmPlexSansRegularTtf(_: Void = ()) -> Foundation.URL? {
+      let fileResource = R.file.ibmPlexSansRegularTtf
+      return fileResource.bundle.url(forResource: fileResource)
+    }
+
+    /// `bundle.url(forResource: "IBMPlexSans-SemiBold", withExtension: "ttf")`
+    static func ibmPlexSansSemiBoldTtf(_: Void = ()) -> Foundation.URL? {
+      let fileResource = R.file.ibmPlexSansSemiBoldTtf
+      return fileResource.bundle.url(forResource: fileResource)
+    }
+
+    /// `bundle.url(forResource: "IBMPlexSans-SemiBoldItalic", withExtension: "ttf")`
+    static func ibmPlexSansSemiBoldItalicTtf(_: Void = ()) -> Foundation.URL? {
+      let fileResource = R.file.ibmPlexSansSemiBoldItalicTtf
+      return fileResource.bundle.url(forResource: fileResource)
+    }
+
+    /// `bundle.url(forResource: "IBMPlexSans-Thin", withExtension: "ttf")`
+    static func ibmPlexSansThinTtf(_: Void = ()) -> Foundation.URL? {
+      let fileResource = R.file.ibmPlexSansThinTtf
+      return fileResource.bundle.url(forResource: fileResource)
+    }
+
+    /// `bundle.url(forResource: "IBMPlexSans-ThinItalic", withExtension: "ttf")`
+    static func ibmPlexSansThinItalicTtf(_: Void = ()) -> Foundation.URL? {
+      let fileResource = R.file.ibmPlexSansThinItalicTtf
+      return fileResource.bundle.url(forResource: fileResource)
+    }
+
+    fileprivate init() {}
+  }
+
+  /// This `R.font` struct is generated, and contains static references to 14 fonts.
+  struct font: Rswift.Validatable {
+    /// Font `IBMPlexSans-BoldItalic`.
+    static let ibmPlexSansBoldItalic = Rswift.FontResource(fontName: "IBMPlexSans-BoldItalic")
+    /// Font `IBMPlexSans-Bold`.
+    static let ibmPlexSansBold = Rswift.FontResource(fontName: "IBMPlexSans-Bold")
+    /// Font `IBMPlexSans-ExtraLightItalic`.
+    static let ibmPlexSansExtraLightItalic = Rswift.FontResource(fontName: "IBMPlexSans-ExtraLightItalic")
+    /// Font `IBMPlexSans-ExtraLight`.
+    static let ibmPlexSansExtraLight = Rswift.FontResource(fontName: "IBMPlexSans-ExtraLight")
+    /// Font `IBMPlexSans-Italic`.
+    static let ibmPlexSansItalic = Rswift.FontResource(fontName: "IBMPlexSans-Italic")
+    /// Font `IBMPlexSans-LightItalic`.
+    static let ibmPlexSansLightItalic = Rswift.FontResource(fontName: "IBMPlexSans-LightItalic")
+    /// Font `IBMPlexSans-Light`.
+    static let ibmPlexSansLight = Rswift.FontResource(fontName: "IBMPlexSans-Light")
+    /// Font `IBMPlexSans-MediumItalic`.
+    static let ibmPlexSansMediumItalic = Rswift.FontResource(fontName: "IBMPlexSans-MediumItalic")
+    /// Font `IBMPlexSans-Medium`.
+    static let ibmPlexSansMedium = Rswift.FontResource(fontName: "IBMPlexSans-Medium")
+    /// Font `IBMPlexSans-SemiBoldItalic`.
+    static let ibmPlexSansSemiBoldItalic = Rswift.FontResource(fontName: "IBMPlexSans-SemiBoldItalic")
+    /// Font `IBMPlexSans-SemiBold`.
+    static let ibmPlexSansSemiBold = Rswift.FontResource(fontName: "IBMPlexSans-SemiBold")
+    /// Font `IBMPlexSans-ThinItalic`.
+    static let ibmPlexSansThinItalic = Rswift.FontResource(fontName: "IBMPlexSans-ThinItalic")
+    /// Font `IBMPlexSans-Thin`.
+    static let ibmPlexSansThin = Rswift.FontResource(fontName: "IBMPlexSans-Thin")
+    /// Font `IBMPlexSans`.
+    static let ibmPlexSans = Rswift.FontResource(fontName: "IBMPlexSans")
+
+    /// `UIFont(name: "IBMPlexSans", size: ...)`
+    static func ibmPlexSans(size: CGFloat) -> UIKit.UIFont? {
+      return UIKit.UIFont(resource: ibmPlexSans, size: size)
+    }
+
+    /// `UIFont(name: "IBMPlexSans-Bold", size: ...)`
+    static func ibmPlexSansBold(size: CGFloat) -> UIKit.UIFont? {
+      return UIKit.UIFont(resource: ibmPlexSansBold, size: size)
+    }
+
+    /// `UIFont(name: "IBMPlexSans-BoldItalic", size: ...)`
+    static func ibmPlexSansBoldItalic(size: CGFloat) -> UIKit.UIFont? {
+      return UIKit.UIFont(resource: ibmPlexSansBoldItalic, size: size)
+    }
+
+    /// `UIFont(name: "IBMPlexSans-ExtraLight", size: ...)`
+    static func ibmPlexSansExtraLight(size: CGFloat) -> UIKit.UIFont? {
+      return UIKit.UIFont(resource: ibmPlexSansExtraLight, size: size)
+    }
+
+    /// `UIFont(name: "IBMPlexSans-ExtraLightItalic", size: ...)`
+    static func ibmPlexSansExtraLightItalic(size: CGFloat) -> UIKit.UIFont? {
+      return UIKit.UIFont(resource: ibmPlexSansExtraLightItalic, size: size)
+    }
+
+    /// `UIFont(name: "IBMPlexSans-Italic", size: ...)`
+    static func ibmPlexSansItalic(size: CGFloat) -> UIKit.UIFont? {
+      return UIKit.UIFont(resource: ibmPlexSansItalic, size: size)
+    }
+
+    /// `UIFont(name: "IBMPlexSans-Light", size: ...)`
+    static func ibmPlexSansLight(size: CGFloat) -> UIKit.UIFont? {
+      return UIKit.UIFont(resource: ibmPlexSansLight, size: size)
+    }
+
+    /// `UIFont(name: "IBMPlexSans-LightItalic", size: ...)`
+    static func ibmPlexSansLightItalic(size: CGFloat) -> UIKit.UIFont? {
+      return UIKit.UIFont(resource: ibmPlexSansLightItalic, size: size)
+    }
+
+    /// `UIFont(name: "IBMPlexSans-Medium", size: ...)`
+    static func ibmPlexSansMedium(size: CGFloat) -> UIKit.UIFont? {
+      return UIKit.UIFont(resource: ibmPlexSansMedium, size: size)
+    }
+
+    /// `UIFont(name: "IBMPlexSans-MediumItalic", size: ...)`
+    static func ibmPlexSansMediumItalic(size: CGFloat) -> UIKit.UIFont? {
+      return UIKit.UIFont(resource: ibmPlexSansMediumItalic, size: size)
+    }
+
+    /// `UIFont(name: "IBMPlexSans-SemiBold", size: ...)`
+    static func ibmPlexSansSemiBold(size: CGFloat) -> UIKit.UIFont? {
+      return UIKit.UIFont(resource: ibmPlexSansSemiBold, size: size)
+    }
+
+    /// `UIFont(name: "IBMPlexSans-SemiBoldItalic", size: ...)`
+    static func ibmPlexSansSemiBoldItalic(size: CGFloat) -> UIKit.UIFont? {
+      return UIKit.UIFont(resource: ibmPlexSansSemiBoldItalic, size: size)
+    }
+
+    /// `UIFont(name: "IBMPlexSans-Thin", size: ...)`
+    static func ibmPlexSansThin(size: CGFloat) -> UIKit.UIFont? {
+      return UIKit.UIFont(resource: ibmPlexSansThin, size: size)
+    }
+
+    /// `UIFont(name: "IBMPlexSans-ThinItalic", size: ...)`
+    static func ibmPlexSansThinItalic(size: CGFloat) -> UIKit.UIFont? {
+      return UIKit.UIFont(resource: ibmPlexSansThinItalic, size: size)
+    }
+
+    static func validate() throws {
+      if R.font.ibmPlexSans(size: 42) == nil { throw Rswift.ValidationError(description:"[R.swift] Font 'IBMPlexSans' could not be loaded, is 'IBMPlexSans-Regular.ttf' added to the UIAppFonts array in this targets Info.plist?") }
+      if R.font.ibmPlexSansBold(size: 42) == nil { throw Rswift.ValidationError(description:"[R.swift] Font 'IBMPlexSans-Bold' could not be loaded, is 'IBMPlexSans-Bold.ttf' added to the UIAppFonts array in this targets Info.plist?") }
+      if R.font.ibmPlexSansBoldItalic(size: 42) == nil { throw Rswift.ValidationError(description:"[R.swift] Font 'IBMPlexSans-BoldItalic' could not be loaded, is 'IBMPlexSans-BoldItalic.ttf' added to the UIAppFonts array in this targets Info.plist?") }
+      if R.font.ibmPlexSansExtraLight(size: 42) == nil { throw Rswift.ValidationError(description:"[R.swift] Font 'IBMPlexSans-ExtraLight' could not be loaded, is 'IBMPlexSans-ExtraLight.ttf' added to the UIAppFonts array in this targets Info.plist?") }
+      if R.font.ibmPlexSansExtraLightItalic(size: 42) == nil { throw Rswift.ValidationError(description:"[R.swift] Font 'IBMPlexSans-ExtraLightItalic' could not be loaded, is 'IBMPlexSans-ExtraLightItalic.ttf' added to the UIAppFonts array in this targets Info.plist?") }
+      if R.font.ibmPlexSansItalic(size: 42) == nil { throw Rswift.ValidationError(description:"[R.swift] Font 'IBMPlexSans-Italic' could not be loaded, is 'IBMPlexSans-Italic.ttf' added to the UIAppFonts array in this targets Info.plist?") }
+      if R.font.ibmPlexSansLight(size: 42) == nil { throw Rswift.ValidationError(description:"[R.swift] Font 'IBMPlexSans-Light' could not be loaded, is 'IBMPlexSans-Light.ttf' added to the UIAppFonts array in this targets Info.plist?") }
+      if R.font.ibmPlexSansLightItalic(size: 42) == nil { throw Rswift.ValidationError(description:"[R.swift] Font 'IBMPlexSans-LightItalic' could not be loaded, is 'IBMPlexSans-LightItalic.ttf' added to the UIAppFonts array in this targets Info.plist?") }
+      if R.font.ibmPlexSansMedium(size: 42) == nil { throw Rswift.ValidationError(description:"[R.swift] Font 'IBMPlexSans-Medium' could not be loaded, is 'IBMPlexSans-Medium.ttf' added to the UIAppFonts array in this targets Info.plist?") }
+      if R.font.ibmPlexSansMediumItalic(size: 42) == nil { throw Rswift.ValidationError(description:"[R.swift] Font 'IBMPlexSans-MediumItalic' could not be loaded, is 'IBMPlexSans-MediumItalic.ttf' added to the UIAppFonts array in this targets Info.plist?") }
+      if R.font.ibmPlexSansSemiBold(size: 42) == nil { throw Rswift.ValidationError(description:"[R.swift] Font 'IBMPlexSans-SemiBold' could not be loaded, is 'IBMPlexSans-SemiBold.ttf' added to the UIAppFonts array in this targets Info.plist?") }
+      if R.font.ibmPlexSansSemiBoldItalic(size: 42) == nil { throw Rswift.ValidationError(description:"[R.swift] Font 'IBMPlexSans-SemiBoldItalic' could not be loaded, is 'IBMPlexSans-SemiBoldItalic.ttf' added to the UIAppFonts array in this targets Info.plist?") }
+      if R.font.ibmPlexSansThin(size: 42) == nil { throw Rswift.ValidationError(description:"[R.swift] Font 'IBMPlexSans-Thin' could not be loaded, is 'IBMPlexSans-Thin.ttf' added to the UIAppFonts array in this targets Info.plist?") }
+      if R.font.ibmPlexSansThinItalic(size: 42) == nil { throw Rswift.ValidationError(description:"[R.swift] Font 'IBMPlexSans-ThinItalic' could not be loaded, is 'IBMPlexSans-ThinItalic.ttf' added to the UIAppFonts array in this targets Info.plist?") }
+    }
+
+    fileprivate init() {}
+  }
+
+  /// This `R.image` struct is generated, and contains static references to 6 images.
   struct image {
     /// Image `3DifyBanner`.
     static let difyBanner = Rswift.ImageResource(bundle: R.hostingBundle, name: "3DifyBanner")
@@ -158,8 +398,12 @@ struct R: Rswift.Validatable {
     static let difyLogo = Rswift.ImageResource(bundle: R.hostingBundle, name: "3DifyLogo")
     /// Image `icon-many-images`.
     static let iconManyImages = Rswift.ImageResource(bundle: R.hostingBundle, name: "icon-many-images")
+    /// Image `icon-selected`.
+    static let iconSelected = Rswift.ImageResource(bundle: R.hostingBundle, name: "icon-selected")
     /// Image `icon-single-image`.
     static let iconSingleImage = Rswift.ImageResource(bundle: R.hostingBundle, name: "icon-single-image")
+    /// Image `icon-unselected`.
+    static let iconUnselected = Rswift.ImageResource(bundle: R.hostingBundle, name: "icon-unselected")
 
     #if os(iOS) || os(tvOS)
     /// `UIImage(named: "3DifyBanner", bundle: ..., traitCollection: ...)`
@@ -183,9 +427,23 @@ struct R: Rswift.Validatable {
     #endif
 
     #if os(iOS) || os(tvOS)
+    /// `UIImage(named: "icon-selected", bundle: ..., traitCollection: ...)`
+    static func iconSelected(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
+      return UIKit.UIImage(resource: R.image.iconSelected, compatibleWith: traitCollection)
+    }
+    #endif
+
+    #if os(iOS) || os(tvOS)
     /// `UIImage(named: "icon-single-image", bundle: ..., traitCollection: ...)`
     static func iconSingleImage(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
       return UIKit.UIImage(resource: R.image.iconSingleImage, compatibleWith: traitCollection)
+    }
+    #endif
+
+    #if os(iOS) || os(tvOS)
+    /// `UIImage(named: "icon-unselected", bundle: ..., traitCollection: ...)`
+    static func iconUnselected(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
+      return UIKit.UIImage(resource: R.image.iconUnselected, compatibleWith: traitCollection)
     }
     #endif
 

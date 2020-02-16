@@ -27,6 +27,7 @@ extension AppDelegate: UIApplicationDelegate {
     navVC.setViewControllers([controller], animated: false)
     window?.rootViewController = navVC
     window?.makeKeyAndVisible()
+    print("\(DataStore.shared.allModels.count) models available")
     return true
   }
 

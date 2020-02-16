@@ -7,19 +7,157 @@
 //
 
 import UIKit
+import NVActivityIndicatorView
 
 class PointCloudEditorViewController: UIViewController {
   
+  @IBOutlet weak var sceneViewContainer: UIView!
+
+  @IBOutlet weak var distanceLabel: UILabel!
+  @IBOutlet weak var distanceSlider: UISlider!
+  
+  @IBOutlet weak var backgroundLabel: UILabel!
+  @IBOutlet weak var backgroundSlider: UISlider!
+  
+  @IBOutlet weak var depthLabel: UILabel!
+  @IBOutlet weak var depthSlider: UISlider!
+  
+  @IBOutlet weak var smoothingLabel: UILabel!
+  @IBOutlet weak var smoothingSlider: UISlider!
+  
+  var model: StoredModel!
+  
+  let indicatorView = NVActivityIndicatorView(frame: CGRect.zero)
+  var sceneVC: DifyCloudVisualizerViewController?
+
   /// Factory method for creating this view controller.
   ///
   /// - Returns: Returns an instance of this view controller.
-  class func instantiate() -> PointCloudEditorViewController? {
+  class func instantiate(model: StoredModel) -> PointCloudEditorViewController? {
     let vcName = String(describing: PointCloudEditorViewController.self)
     let storyboard = R.storyboard.pointCloudEditorViewController
     guard let pointCloudEditorVC = storyboard.instantiateInitialViewController() else {
       fatalError("Unable to instantiate \(vcName)")
     }
+    pointCloudEditorVC.model = model
     return pointCloudEditorVC
+  }
+  
+  @IBAction func updateButtonClicked(_ sender: Any) {
+    self.updateSceneView()
+  }
+  @IBAction func continueButtonClicked(_ sender: Any) {
+    var found = false
+    for i in 0..<DataStore.shared.allModels.count {
+      if DataStore.shared.allModels[i].uid == self.model.uid {
+        found = true
+        DataStore.shared.allModels[i] = self.model
+        break
+      }
+    }
+    if !found {
+      DataStore.shared.allModels.append(self.model)
+    }
+    DataStore.shared.saveAllModelsToUserDefaults()
+    self.navigationController?.popViewController(animated: true)
+  }
+}
+
+// MARK: Life Cycle
+extension  PointCloudEditorViewController {
+  
+  override func viewDidLoad() {
+    super.viewDidLoad()
+    self.setup()
+    self.stylize()
+  }
+  
+  /// Setup should only be called once
+  func setup() {
+
+    self.view.addSubview(indicatorView)
+    indicatorView.color = UIColor.white
+    indicatorView.type = .ballGridPulse
+    self.indicatorView.frame = CGRect(x: 0, y: 0, width: 50, height: 50)
+    self.indicatorView.center = self.sceneViewContainer.center
+    
+    self.indicatorView.startAnimating()
+    self.delay(delay: 0.3) {
+      self.indicatorView.stopAnimating()
+    }
+    
+    self.backgroundSlider.value = self.model.zThreshold
+    
+    self.loadSceneView()
+  }
+  
+  override func viewDidAppear(_ animated: Bool) {
+    super.viewDidAppear(animated)
+    self.indicatorView.center = self.sceneViewContainer.center
+  }
+  
+  func loadSceneView() {
+    if let sceneVC = self.sceneVC {
+      sceneVC.sceneView.scene?.rootNode.childNodes.forEach({ $0.removeFromParentNode() })
+      sceneVC.view.removeFromSuperview()
+      sceneVC.removeFromParent()
+      self.sceneViewContainer.subviews.forEach({ $0.removeFromSuperview() })
+    }
+    
+    guard let visualizerVC = DifyCloudVisualizerViewController.instantiate(phAsset: self.model.phAsset) else {
+      fatalError("Failed to instantiate visualizer")
+    }
+    
+    visualizerVC.distance = self.model.distance
+    visualizerVC.zScale = self.model.zScale
+    visualizerVC.zThreshold = self.model.zThreshold
+    visualizerVC.smoothing = self.model.smoothing
+    
+    self.sceneVC  = visualizerVC
+    self.addChild(visualizerVC)
+    visualizerVC.view.translatesAutoresizingMaskIntoConstraints = false
+    self.sceneViewContainer.addSubview(visualizerVC.view)
+    
+    self.sceneViewContainer.addConstraints([
+      NSLayoutConstraint(item: self.sceneViewContainer as Any, attribute: .centerX, relatedBy: .equal,
+                         toItem: visualizerVC.view, attribute: .centerX, multiplier: 1.0, constant: 0.0),
+      NSLayoutConstraint(item: self.sceneViewContainer as Any, attribute: .centerY, relatedBy: .equal,
+      toItem: visualizerVC.view, attribute: .centerY, multiplier: 1.0, constant: 0.0),
+      NSLayoutConstraint(item: self.sceneViewContainer as Any, attribute: .width, relatedBy: .equal,
+      toItem: visualizerVC.view, attribute: .width, multiplier: 1.0, constant: 0.0),
+      NSLayoutConstraint(item: self.sceneViewContainer as Any, attribute: .height, relatedBy: .equal,
+      toItem: visualizerVC.view, attribute: .height, multiplier: 1.0, constant: 0.0)
+    ])
+    
+    visualizerVC.didMove(toParent: self)
+  }
+  
+  func updateModelWithSliders() {
+    self.model.distance = self.distanceSlider.value
+    self.model.zScale = self.depthSlider.value
+    self.model.zThreshold = self.backgroundSlider.value
+    self.model.smoothing = Int(self.smoothingSlider.value)
+  }
+  
+  func updateSceneView() {
+    if let sceneVC = self.sceneVC {
+      self.updateModelWithSliders()
+      sceneVC.distance = self.model.distance
+      sceneVC.zScale = self.model.zScale
+      sceneVC.zThreshold = self.model.zThreshold
+      sceneVC.smoothing = self.model.smoothing
+      self.indicatorView.startAnimating()
+      sceneVC.update()
+      self.indicatorView.stopAnimating()
+    }
+  }
+  
+  /// Stylize should only be called once
+  func stylize() {
+    self.depthLabel.addCharacterSpacing(kernValue: 5)
+    self.backgroundLabel.addCharacterSpacing(kernValue: 5)
+    self.distanceLabel.addCharacterSpacing(kernValue: 5)
+    self.smoothingLabel.addCharacterSpacing(kernValue: 5)
   }
   
 }

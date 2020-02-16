@@ -20,10 +20,11 @@ class DifyCloudVisualizerViewController: UIViewController {
   
   let zCamera: Float = 0.3
   var zScale: Float = 0.022
-  var zThreshold: Float = 0.01
-//  var distance: Float =
+  var zThreshold: Float = 0.5
+  var distance: Float = 2
+  var smoothing: Int = 10
   private let scene = SCNScene()
-  private var pointNode = SCNNode()
+  private var anchorNode = SCNNode()
   
   @IBOutlet weak var sceneView: SCNView!
   /// Factory method for creating this view controller.
@@ -53,21 +54,14 @@ extension  DifyCloudVisualizerViewController {
   /// Setup should only be called once
   func setup() {
     setupScene()
-    
-    PHPhotoLibrary.requestAuthorization({ status in
-      switch status {
-      case .authorized:
-        self.phAsset.getURL { (url) in
-          if let url = url {
-            self.loadImage(at: url)
-          }
-        }
-        
-      default:
-        fatalError()
-      }
-    })
-    
+  }
+  
+  func createLightNode(position: SCNVector3, type: SCNLight.LightType = .omni) -> SCNNode {
+    let lightNode = SCNNode()
+    lightNode.light = SCNLight()
+    lightNode.light!.type = type
+    lightNode.position = position
+    return lightNode
   }
   
   private func setupScene() {
@@ -78,33 +72,27 @@ extension  DifyCloudVisualizerViewController {
     scene.rootNode.addChildNode(cameraNode)
     
     cameraNode.position = SCNVector3(x: 0, y: 0, z: zCamera)
+//    cameraNode.addChildNode(createLightNode(position: SCNVector3(0, 0, 0)))
     
-    let lightNode = SCNNode()
-    lightNode.light = SCNLight()
-    lightNode.light!.type = .omni
-    lightNode.position = SCNVector3(x: 0, y: 3, z: 3)
-    scene.rootNode.addChildNode(lightNode)
+    scene.rootNode.addChildNode(createLightNode(position: SCNVector3(4, 0, 0)))
+    scene.rootNode.addChildNode(createLightNode(position: SCNVector3(-4, 0, 0)))
+    scene.rootNode.addChildNode(createLightNode(position: SCNVector3(0, -4, 0)))
+    scene.rootNode.addChildNode(createLightNode(position: SCNVector3(0, 4, 0)))
+    scene.rootNode.addChildNode(createLightNode(position: SCNVector3(0, 0, 4)))
     
     let sphere = SCNSphere(radius: 0.001)
     sphere.firstMaterial?.diffuse.contents = UIColor.blue
-    pointNode = SCNNode(geometry: sphere)
+    anchorNode = SCNNode(geometry: sphere)
+    scene.rootNode.addChildNode(anchorNode)
     
     sceneView.scene = scene
     sceneView.allowsCameraControl = true
     sceneView.showsStatistics = true
-    sceneView.backgroundColor = UIColor.black
-  }
-  
-  private func loadImage(at url: URL) {
-    let imageSource = CGImageSourceCreateWithURL(url as CFURL, nil)!
-    depthData = imageSource.getDisparityData()
-    guard let image = UIImage(contentsOfFile: url.path) else { fatalError() }
-    self.image = image
+    sceneView.backgroundColor = UIColor(red: 0.10, green: 0.07, blue: 0.27, alpha: 1.00)
   }
   
   private func loadAsset(_ asset: PHAsset) {
     asset.requestColorImage { image in
-      
       self.image = image    
       asset.requestContentEditingInput(with: nil) { contentEditingInput, _ in
         let imageSource = contentEditingInput!.createImageSource()
@@ -124,6 +112,7 @@ extension  DifyCloudVisualizerViewController {
 extension DifyCloudVisualizerViewController {
   private func drawPointCloud() {
     print("Drawing point cloud")
+    print("Parameters\nzThresh: \(self.zThreshold)\nDistance: \(distance)\nzScale: \(zScale)\nSmoothing:\(smoothing)")
     guard let colorImage = image, let cgColorImage = colorImage.cgImage else { fatalError() }
     guard let depthData = depthData else { fatalError() }
     
@@ -133,7 +122,7 @@ extension DifyCloudVisualizerViewController {
     
     let resizeScale = CGFloat(width) / colorImage.size.width
     let resizedColorImage = CIImage(cgImage: cgColorImage).transformed(by: CGAffineTransform(scaleX: resizeScale, y: resizeScale))
-    guard var pixelDataColor = resizedColorImage.createCGImage().pixelData() else { fatalError() }
+    guard let pixelDataColor = resizedColorImage.createCGImage().pixelData() else { fatalError() }
         
     let pixelDataDepth: [Float32]
     pixelDataDepth = depthPixelBuffer.grayPixelData()
@@ -148,7 +137,7 @@ extension DifyCloudVisualizerViewController {
     print("z scale: \(zScale)")
     let xyScale: Float = 0.0002
     
-    let pointCloud: [SCNVector3] = pixelDataDepth.enumerated().map {
+    var pointCloud: [SCNVector3] = pixelDataDepth.enumerated().map {
       let index = $0.offset
       // Adjusting scale and translating to the center
       let x = Float(index % width - width / 2) * xyScale
@@ -164,49 +153,64 @@ extension DifyCloudVisualizerViewController {
       return SCNVector3(x, y, z)
     }
     
+    var zSmoothingDepths: [Float] = Array(repeating: Float(-1), count: pointCloud.count)
+    if smoothing > 0 {
+      let smoothingFloat = Float(smoothing)
+      let smoothAhead = Int(smoothing / 2) * 2 + 1
+    
+      for i in 0..<pointCloud.count {
+        zSmoothingDepths[i] = pointCloud[i].z / Float(smoothAhead * 2 + 1)
+      }
+      var rowDepths: [Float] = Array(repeating: Float(), count: pointCloud.count)
+      var colDepths: [Float] = Array(repeating: Float(), count: pointCloud.count)
+      
+      func getInd(row: Int, col: Int) -> Int {
+        return row * width + col
+      }
+      
+      var sum: Float = 0
+      for ind in smoothAhead..<pointCloud.count - smoothAhead - 1 {
+        rowDepths[ind] = sum
+        sum += zSmoothingDepths[ind + smoothAhead + 1]
+        sum -= zSmoothingDepths[ind - smoothAhead]
+        if ind % width < smoothAhead || ind % width > width - smoothAhead - 1 {
+          sum = 0
+        }
+      }
+      
+      for col in 0..<width {
+        sum = 0
+        for row in smoothAhead..<height - smoothAhead - 1 {
+          colDepths[col + row * width] = sum
+          sum += zSmoothingDepths[col + (row + smoothAhead + 1) * width]
+          sum -= zSmoothingDepths[col + (row - smoothAhead) * width]
+        }
+      }
+      
+      for i in 0..<pointCloud.count {
+        pointCloud[i].z = (rowDepths[i] + colDepths[i]) / 2
+      }
+      
+    }
+
     // Draw as a custom geometry
     let pc = PointCloud()
     pc.pointCloud = pointCloud
     pc.colors = pixelDataColor
     pc.width = width
     pc.height = height
+//    pc.smoothing = smoothing
     
     let pcNode = pc.pointCloudNode()
     pcNode.position = SCNVector3(x: 0, y: 0, z: 0)
-    self.scene.rootNode.addChildNode(pcNode)
-    
-    //        pcNode.runAction(SCNAction.repeatForever(SCNAction.rotateBy(x: 0, y: 2, z: 0, duration: 1)))
-    
-    // Draw with Sphere nodes
-    //        pointCloud.enumerated().forEach {
-    //            let index = $0.offset * 4
-    //            let r = pixelDataColor[index]
-    //            let g = pixelDataColor[index + 1]
-    //            let b = pixelDataColor[index + 2]
-    //
-    //            let pos = $0.element
-    //            // reducing the points
-    //            guard Int(pos.x / scale) % 10 == 0 else { return }
-    //            guard Int(pos.y / scale) % 10 == 0 else { return }
-    //            let clone = pointNode.clone()
-    //            clone.position = SCNVector3(pos.x, pos.y, pos.z)
-    //
-    //            // Creating a new geometry and a new material to color for each
-    //            // https://stackoverflow.com/questions/39902802/stop-sharing-nodes-geometry-with-its-clone-programmatically
-    //            guard let newGeometry = pointNode.geometry?.copy() as? SCNGeometry else { fatalError() }
-    //            guard let newMaterial = newGeometry.firstMaterial?.copy() as? SCNMaterial else { fatalError() }
-    //            newMaterial.diffuse.contents = UIColor(red: CGFloat(r)/255, green: CGFloat(g)/255, blue: CGFloat(b)/255, alpha: 1)
-    //            newGeometry.materials = [newMaterial]
-    //            clone.geometry = newGeometry
-    //
-    //            scene.rootNode.addChildNode(clone)
-    //        }
+    self.anchorNode.addChildNode(pcNode)
   }
   
-  private func update() {
-    scene.rootNode.childNodes.forEach { childNode in
+  public func update() {
+    self.anchorNode.childNodes.forEach { childNode in
       childNode.removeFromParentNode()
     }
+    
     drawPointCloud()
   }
   
@@ -219,7 +223,6 @@ extension CGImage {
     
     let totalBytes = height * bytesPerRow
     var pixelData = [UInt8](repeating: 0, count: totalBytes)
-    
     guard let context = CGContext(
       data: &pixelData,
       width: width,

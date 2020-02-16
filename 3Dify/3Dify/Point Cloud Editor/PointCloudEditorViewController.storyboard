@@ -6,6 +6,11 @@
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
+    <customFonts key="customFonts">
+        <array key="IBMPlexSans-Regular.ttf">
+            <string>IBMPlexSans</string>
+        </array>
+    </customFonts>
     <scenes>
         <!--Point Cloud Editor View Controller-->
         <scene sceneID="74L-7X-wm3">
@@ -14,13 +19,131 @@
                     <view key="view" contentMode="scaleToFill" id="YtC-yA-QUD">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Epm-C9-6yQ">
+                                <rect key="frame" x="0.0" y="44" width="414" height="403"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            </view>
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" alignment="top" translatesAutoresizingMaskIntoConstraints="NO" id="Y0h-cp-hac">
+                                <rect key="frame" x="30" y="455" width="354" height="320"/>
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="distance" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="WhG-84-8xG">
+                                        <rect key="frame" x="0.0" y="0.0" width="61" height="40"/>
+                                        <fontDescription key="fontDescription" name="IBMPlexSans" family="IBM Plex Sans" pointSize="16"/>
+                                        <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" minValue="0.0" maxValue="0.001" translatesAutoresizingMaskIntoConstraints="NO" id="KNy-Us-VcF">
+                                        <rect key="frame" x="-2" y="40" width="358" height="41"/>
+                                        <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="40" id="eki-7r-Z7U"/>
+                                        </constraints>
+                                        <color key="maximumTrackTintColor" white="1" alpha="0.40000000000000002" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                    </slider>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="background" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="y0r-xH-gbC">
+                                        <rect key="frame" x="0.0" y="80" width="85" height="40"/>
+                                        <fontDescription key="fontDescription" name="IBMPlexSans" family="IBM Plex Sans" pointSize="16"/>
+                                        <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="0.5" minValue="0.0" maxValue="1" translatesAutoresizingMaskIntoConstraints="NO" id="eIy-az-gzG">
+                                        <rect key="frame" x="-2" y="120" width="358" height="41"/>
+                                        <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="40" id="bem-hQ-vGI"/>
+                                        </constraints>
+                                        <color key="maximumTrackTintColor" white="1" alpha="0.40000000000000002" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                    </slider>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="depth" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="oa1-i6-DPp">
+                                        <rect key="frame" x="0.0" y="160" width="42" height="40"/>
+                                        <fontDescription key="fontDescription" name="IBMPlexSans" family="IBM Plex Sans" pointSize="16"/>
+                                        <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="0.021999999999999999" minValue="0.017000000000000001" maxValue="0.027" translatesAutoresizingMaskIntoConstraints="NO" id="QDb-Lo-9lp">
+                                        <rect key="frame" x="-2" y="200" width="358" height="41"/>
+                                        <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="40" id="Xq9-UR-VkB"/>
+                                        </constraints>
+                                        <color key="maximumTrackTintColor" white="1" alpha="0.40000000000000002" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                    </slider>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="smoothing" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lJk-EU-lXW">
+                                        <rect key="frame" x="0.0" y="240" width="76" height="40"/>
+                                        <fontDescription key="fontDescription" name="IBMPlexSans" family="IBM Plex Sans" pointSize="16"/>
+                                        <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" minValue="0.0" maxValue="15" translatesAutoresizingMaskIntoConstraints="NO" id="G9N-tP-DdA">
+                                        <rect key="frame" x="-2" y="280" width="358" height="41"/>
+                                        <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="40" id="0hK-Sn-Yig"/>
+                                        </constraints>
+                                        <color key="maximumTrackTintColor" white="1" alpha="0.40000000000000002" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                    </slider>
+                                </subviews>
+                                <constraints>
+                                    <constraint firstItem="eIy-az-gzG" firstAttribute="width" secondItem="Y0h-cp-hac" secondAttribute="width" id="Ggb-EV-jaX"/>
+                                    <constraint firstItem="KNy-Us-VcF" firstAttribute="width" secondItem="eIy-az-gzG" secondAttribute="width" id="S7x-2C-WRe"/>
+                                    <constraint firstItem="QDb-Lo-9lp" firstAttribute="width" secondItem="eIy-az-gzG" secondAttribute="width" id="jjR-AI-w1p"/>
+                                    <constraint firstItem="G9N-tP-DdA" firstAttribute="width" secondItem="eIy-az-gzG" secondAttribute="width" id="vNM-W7-z4Z"/>
+                                </constraints>
+                            </stackView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="656-Oi-iql">
+                                <rect key="frame" x="321" y="783" width="73" height="63"/>
+                                <fontDescription key="fontDescription" name="IBMPlexSans" family="IBM Plex Sans" pointSize="18"/>
+                                <state key="normal" title="Continue">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                </state>
+                                <connections>
+                                    <action selector="continueButtonClicked:" destination="WQ4-Fm-A9W" eventType="touchUpInside" id="YCo-d4-oai"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="cD2-DM-BkT">
+                                <rect key="frame" x="20" y="796.5" width="59" height="36"/>
+                                <fontDescription key="fontDescription" name="IBMPlexSans" family="IBM Plex Sans" pointSize="18"/>
+                                <state key="normal" title="Update">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                </state>
+                                <connections>
+                                    <action selector="updateButtonClicked:" destination="WQ4-Fm-A9W" eventType="touchUpInside" id="nV5-gl-h2w"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" red="0.1019607843" green="0.066666666669999999" blue="0.2666666667" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                        <constraints>
+                            <constraint firstItem="Epm-C9-6yQ" firstAttribute="leading" secondItem="elK-vk-LeY" secondAttribute="leading" id="0JU-FP-Ihi"/>
+                            <constraint firstItem="Epm-C9-6yQ" firstAttribute="trailing" secondItem="elK-vk-LeY" secondAttribute="trailing" id="MOi-av-deR"/>
+                            <constraint firstItem="elK-vk-LeY" firstAttribute="trailing" secondItem="656-Oi-iql" secondAttribute="trailing" constant="20" id="VSe-rU-RuN"/>
+                            <constraint firstItem="Y0h-cp-hac" firstAttribute="top" secondItem="Epm-C9-6yQ" secondAttribute="bottom" constant="8" symbolic="YES" id="WXt-ZV-W5Q"/>
+                            <constraint firstItem="elK-vk-LeY" firstAttribute="bottom" secondItem="656-Oi-iql" secondAttribute="bottom" constant="16" id="ZUD-2j-Lld"/>
+                            <constraint firstItem="cD2-DM-BkT" firstAttribute="leading" secondItem="elK-vk-LeY" secondAttribute="leading" constant="20" id="hH9-Ku-fzb"/>
+                            <constraint firstItem="Y0h-cp-hac" firstAttribute="leading" secondItem="elK-vk-LeY" secondAttribute="leading" constant="30" id="hq9-6c-iNp"/>
+                            <constraint firstItem="Epm-C9-6yQ" firstAttribute="height" secondItem="YtC-yA-QUD" secondAttribute="height" multiplier="0.45" id="mUb-GI-UvR"/>
+                            <constraint firstItem="Epm-C9-6yQ" firstAttribute="top" secondItem="elK-vk-LeY" secondAttribute="top" id="pcx-Qh-D20"/>
+                            <constraint firstItem="Y0h-cp-hac" firstAttribute="centerX" secondItem="elK-vk-LeY" secondAttribute="centerX" id="wlA-Zo-mbY"/>
+                            <constraint firstItem="cD2-DM-BkT" firstAttribute="centerY" secondItem="656-Oi-iql" secondAttribute="centerY" id="xym-Re-XcC"/>
+                            <constraint firstItem="656-Oi-iql" firstAttribute="top" secondItem="Y0h-cp-hac" secondAttribute="bottom" constant="8" id="zgl-Jv-LPW"/>
+                        </constraints>
                         <viewLayoutGuide key="safeArea" id="elK-vk-LeY"/>
                     </view>
+                    <connections>
+                        <outlet property="backgroundLabel" destination="y0r-xH-gbC" id="jsN-lb-ObH"/>
+                        <outlet property="backgroundSlider" destination="eIy-az-gzG" id="hh8-71-QQQ"/>
+                        <outlet property="depthLabel" destination="oa1-i6-DPp" id="Dtn-e8-2jH"/>
+                        <outlet property="depthSlider" destination="QDb-Lo-9lp" id="ftu-wJ-Raf"/>
+                        <outlet property="distanceLabel" destination="WhG-84-8xG" id="g4e-41-8BB"/>
+                        <outlet property="distanceSlider" destination="KNy-Us-VcF" id="sep-0d-aqR"/>
+                        <outlet property="sceneViewContainer" destination="Epm-C9-6yQ" id="x8J-N0-avk"/>
+                        <outlet property="smoothingLabel" destination="lJk-EU-lXW" id="5cO-xF-UfV"/>
+                        <outlet property="smoothingSlider" destination="G9N-tP-DdA" id="OPi-kG-2ET"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="wkT-le-JTI" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="139" y="128"/>
+            <point key="canvasLocation" x="137.68115942028987" y="127.90178571428571"/>
         </scene>
     </scenes>
 </document>
