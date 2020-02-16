@@ -11,6 +11,10 @@ import Photos
 
 class MainViewController: UIViewController {
 
+  @IBOutlet weak var collectionView: UICollectionView!
+  
+  let flowLayout = UICollectionViewFlowLayout()
+  
   /// Factory method for creating this view controller.
   ///
   /// - Returns: Returns an instance of this view controller.
@@ -53,7 +57,11 @@ extension  MainViewController {
       print("Photo Library Permission granted")
 
     }
-
+    
+    flowLayout.scrollDirection = UICollectionView.ScrollDirection.vertical
+    self.collectionView.collectionViewLayout = flowLayout
+    collectionView.dataSource = self
+    self.loadCollectionData()
   }
   
   func requestPhotoLibraryPermissions() {
@@ -79,4 +87,51 @@ extension MainViewController: PortraitPhotoPickerProtocol {
     self.navigationController?.pushViewController(cloudVisualizerVC, animated: true)
     
   }
+}
+
+// MARK: UICollectionView
+extension MainViewController: UICollectionViewDataSource {
+  
+  func loadCollectionData() {
+    
+  }
+  
+  func numberOfSections(in collectionView: UICollectionView) -> Int {
+    return 1
+  }
+  
+  func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+    return 10
+  }
+  
+  func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+    guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: R.reuseIdentifier.mainCollectionViewCell.identifier, for: indexPath) as? MainPortraitCollectionViewCell else {
+      return UICollectionViewCell()
+    }
+    
+    return cell
+  }
+  
+}
+
+extension MainViewController: UICollectionViewDelegateFlowLayout {
+  
+  func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+    let edgeSize: CGFloat = self.collectionView.frame.width / 2 - 14
+    
+    return CGSize(width: edgeSize, height: edgeSize)
+  }
+  
+  func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
+    return UIEdgeInsets.zero
+  }
+  
+}
+
+extension MainViewController: UICollectionViewDelegate {
+  
+  func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+    print("Collection View selected item at: \(indexPath.item)")
+  }
+  
 }

@@ -164,7 +164,6 @@ extension DifyCloudVisualizerViewController {
       return SCNVector3(x, y, z)
     }
     
-    
     // Draw as a custom geometry
     let pc = PointCloud()
     pc.pointCloud = pointCloud
