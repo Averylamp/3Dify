@@ -1,5 +1,6 @@
 from flask import Flask, request
 from Dify_algorithm import rotate_z, choose_x_slice
+import json
 app = Flask(__name__)
 
 @app.route("/")
@@ -18,6 +19,8 @@ def convert_points(points):
 @app.route("/upload/photo", methods=["POST"])
 def process_photo():
     input_data = request.data
+    print(input_data)
+    input_data = json.loads(input_data)
     # Example input data:
     # {0: [(r,g,b,x,y,z), (r,g,b,x,y,z)],
     #  1: [(r,g,b,x,y,z)]}
