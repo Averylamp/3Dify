@@ -72,7 +72,7 @@ extension  DifyCloudVisualizerViewController {
     scene.rootNode.addChildNode(cameraNode)
     
     cameraNode.position = SCNVector3(x: 0, y: 0, z: zCamera)
-//    cameraNode.addChildNode(createLightNode(position: SCNVector3(0, 0, 0)))
+    //    cameraNode.addChildNode(createLightNode(position: SCNVector3(0, 0, 0)))
     
     scene.rootNode.addChildNode(createLightNode(position: SCNVector3(4, 0, 0)))
     scene.rootNode.addChildNode(createLightNode(position: SCNVector3(-4, 0, 0)))
@@ -110,9 +110,7 @@ extension  DifyCloudVisualizerViewController {
 }
 
 extension DifyCloudVisualizerViewController {
-  private func drawPointCloud() {
-    print("Drawing point cloud")
-    print("Parameters\nzThresh: \(self.zThreshold)\nDistance: \(distance)\nzScale: \(zScale)\nSmoothing:\(smoothing)")
+  func getPointCloud() -> SCNNode {
     guard let colorImage = image, let cgColorImage = colorImage.cgImage else { fatalError() }
     guard let depthData = depthData else { fatalError() }
     
@@ -123,7 +121,7 @@ extension DifyCloudVisualizerViewController {
     let resizeScale = CGFloat(width) / colorImage.size.width
     let resizedColorImage = CIImage(cgImage: cgColorImage).transformed(by: CGAffineTransform(scaleX: resizeScale, y: resizeScale))
     guard let pixelDataColor = resizedColorImage.createCGImage().pixelData() else { fatalError() }
-        
+    
     let pixelDataDepth: [Float32]
     pixelDataDepth = depthPixelBuffer.grayPixelData()
     
@@ -133,7 +131,7 @@ extension DifyCloudVisualizerViewController {
       let zMin = pixelDataDepth.min() else {
         fatalError("Failed to get max and min")
     }
-        
+    
     print("z scale: \(zScale)")
     let xyScale: Float = 0.0002
     
@@ -157,7 +155,7 @@ extension DifyCloudVisualizerViewController {
     if smoothing > 0 {
       let smoothingFloat = Float(smoothing)
       let smoothAhead = Int(smoothing / 2) * 2 + 1
-    
+      
       for i in 0..<pointCloud.count {
         zSmoothingDepths[i] = pointCloud[i].z / Float(smoothAhead * 2 + 1)
       }
@@ -192,17 +190,22 @@ extension DifyCloudVisualizerViewController {
       }
       
     }
-
+    
     // Draw as a custom geometry
     let pc = PointCloud()
     pc.pointCloud = pointCloud
     pc.colors = pixelDataColor
     pc.width = width
     pc.height = height
-//    pc.smoothing = smoothing
+    //    pc.smoothing = smoothing
     
     let pcNode = pc.pointCloudNode()
     pcNode.position = SCNVector3(x: 0, y: 0, z: 0)
+    return pcNode
+  }
+  
+  private func drawPointCloud() {
+    let pcNode = self.getPointCloud()
     self.anchorNode.addChildNode(pcNode)
   }
   
@@ -210,7 +213,6 @@ extension DifyCloudVisualizerViewController {
     self.anchorNode.childNodes.forEach { childNode in
       childNode.removeFromParentNode()
     }
-    
     drawPointCloud()
   }
   

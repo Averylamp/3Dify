@@ -90,7 +90,7 @@ struct R: Rswift.Validatable {
   }
 
   #if os(iOS) || os(tvOS)
-  /// This `R.storyboard` struct is generated, and contains static references to 6 storyboards.
+  /// This `R.storyboard` struct is generated, and contains static references to 8 storyboards.
   struct storyboard {
     /// Storyboard `DifyCloudVisualizerViewController`.
     static let difyCloudVisualizerViewController = _R.storyboard.difyCloudVisualizerViewController()
@@ -100,6 +100,10 @@ struct R: Rswift.Validatable {
     static let mainNavigationController = _R.storyboard.mainNavigationController()
     /// Storyboard `MainViewController`.
     static let mainViewController = _R.storyboard.mainViewController()
+    /// Storyboard `MergeRotationViewController`.
+    static let mergeRotationViewController = _R.storyboard.mergeRotationViewController()
+    /// Storyboard `MergeTransformationViewController`.
+    static let mergeTransformationViewController = _R.storyboard.mergeTransformationViewController()
     /// Storyboard `PointCloudEditorViewController`.
     static let pointCloudEditorViewController = _R.storyboard.pointCloudEditorViewController()
     /// Storyboard `PortraitPhotoPickerViewController`.
@@ -130,6 +134,20 @@ struct R: Rswift.Validatable {
     /// `UIStoryboard(name: "MainViewController", bundle: ...)`
     static func mainViewController(_: Void = ()) -> UIKit.UIStoryboard {
       return UIKit.UIStoryboard(resource: R.storyboard.mainViewController)
+    }
+    #endif
+
+    #if os(iOS) || os(tvOS)
+    /// `UIStoryboard(name: "MergeRotationViewController", bundle: ...)`
+    static func mergeRotationViewController(_: Void = ()) -> UIKit.UIStoryboard {
+      return UIKit.UIStoryboard(resource: R.storyboard.mergeRotationViewController)
+    }
+    #endif
+
+    #if os(iOS) || os(tvOS)
+    /// `UIStoryboard(name: "MergeTransformationViewController", bundle: ...)`
+    static func mergeTransformationViewController(_: Void = ()) -> UIKit.UIStoryboard {
+      return UIKit.UIStoryboard(resource: R.storyboard.mergeTransformationViewController)
     }
     #endif
 
@@ -496,6 +514,12 @@ struct _R: Rswift.Validatable {
       try mainViewController.validate()
       #endif
       #if os(iOS) || os(tvOS)
+      try mergeRotationViewController.validate()
+      #endif
+      #if os(iOS) || os(tvOS)
+      try mergeTransformationViewController.validate()
+      #endif
+      #if os(iOS) || os(tvOS)
       try pointCloudEditorViewController.validate()
       #endif
       #if os(iOS) || os(tvOS)
@@ -561,6 +585,36 @@ struct _R: Rswift.Validatable {
 
       static func validate() throws {
         if UIKit.UIImage(named: "3DifyBanner", in: R.hostingBundle, compatibleWith: nil) == nil { throw Rswift.ValidationError(description: "[R.swift] Image named '3DifyBanner' is used in storyboard 'MainViewController', but couldn't be loaded.") }
+        if #available(iOS 11.0, tvOS 11.0, *) {
+        }
+      }
+
+      fileprivate init() {}
+    }
+    #endif
+
+    #if os(iOS) || os(tvOS)
+    struct mergeRotationViewController: Rswift.StoryboardResourceWithInitialControllerType, Rswift.Validatable {
+      typealias InitialController = MergeRotationViewController
+
+      let bundle = R.hostingBundle
+      let name = "MergeRotationViewController"
+
+      static func validate() throws {
+        if #available(iOS 11.0, tvOS 11.0, *) {
+        }
+      }
+
+      fileprivate init() {}
+    }
+    #endif
+
+    #if os(iOS) || os(tvOS)
+    struct mergeTransformationViewController: Rswift.StoryboardResourceType, Rswift.Validatable {
+      let bundle = R.hostingBundle
+      let name = "MergeTransformationViewController"
+
+      static func validate() throws {
         if #available(iOS 11.0, tvOS 11.0, *) {
         }
       }

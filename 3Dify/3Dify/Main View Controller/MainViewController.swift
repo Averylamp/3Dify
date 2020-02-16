@@ -10,13 +10,23 @@ import UIKit
 import Photos
 
 class MainViewController: UIViewController {
-
+  
   @IBOutlet weak var collectionView: UICollectionView!
   
   let flowLayout = UICollectionViewFlowLayout()
   let cachingImageManager = PHCachingImageManager()
   
   var selectedIndices: [IndexPath] = []
+  
+  @IBOutlet weak var new3DModelHeightConstraint: NSLayoutConstraint!
+  @IBOutlet weak var viewButtonHeightConstraint: NSLayoutConstraint!
+  @IBOutlet weak var arButtonHeightConstraint: NSLayoutConstraint!
+  @IBOutlet weak var mergeButtonHeightConstraint: NSLayoutConstraint!
+  
+  @IBOutlet weak var modelButton: UIButton!
+  @IBOutlet weak var viewButton: UIButton!
+  @IBOutlet weak var arButton: UIButton!
+  @IBOutlet weak var mergeButton: UIButton!
   
   /// Factory method for creating this view controller.
   ///
@@ -29,16 +39,33 @@ class MainViewController: UIViewController {
     }
     return mainVC
   }
-
-  @IBAction func pickerClicked(_ sender: Any) {
+  
+  @IBAction func newModelButtonClicked(_ sender: Any) {
     guard let portraitPickerVC = PortraitPhotoPickerViewController.instantiate() else {
       fatalError("Failed to create portrait picker")
     }
     portraitPickerVC.pickerDelegate = self
     self.present(portraitPickerVC, animated: true, completion: nil)
+  }
+  
+  @IBAction func viewModelButtonClicked(_ sender: Any) {
+    guard let model = DataStore.shared.allModels.first else {
+      return
+    }
+    guard let modelEditorVC = PointCloudEditorViewController.instantiate(model: model) else {
+      fatalError("Failed to instantiate model editor" )
+    }
+    
+    self.navigationController?.pushViewController(modelEditorVC, animated: true)
     
   }
   
+  @IBAction func arButtonClicked(_ sender: Any) {
+  }
+  
+  @IBAction func mergeButtonClicked(_ sender: Any) {
+    
+  }
 }
 
 // MARK: Life Cycle
@@ -58,7 +85,7 @@ extension  MainViewController {
       self.requestPhotoLibraryPermissions()
     default:
       print("Photo Library Permission granted")
-
+      
     }
     
     collectionView.dataSource = self
@@ -83,6 +110,13 @@ extension  MainViewController {
   /// Stylize should only be called once
   func stylize() {
     
+  }
+  
+  override func viewWillAppear(_ animated: Bool) {
+    super.viewWillAppear(animated)
+    self.delay(delay: 0.3) {
+      self.updateEditOptions()
+    }
   }
   
 }
@@ -121,7 +155,7 @@ extension MainViewController: UICollectionViewDataSource {
   func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
     guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: R.reuseIdentifier.mainCollectionViewCell.identifier, for: indexPath)
       as? MainPortraitCollectionViewCell else {
-      return UICollectionViewCell()
+        return UICollectionViewCell()
     }
     
     cell.containingView.layer.borderColor = UIColor.white.cgColor
@@ -140,12 +174,12 @@ extension MainViewController: UICollectionViewDataSource {
     let scale = UIScreen.main.scale
     let assetGridThumbnailSize = CGSize(width: cell.frame.size.width * scale, height: cell.frame.size.height * scale)
     self.cachingImageManager.requestImage(for: DataStore.shared.allModels[indexPath.row].phAsset,
-                                     targetSize: assetGridThumbnailSize,
-                                     contentMode: .aspectFill,
-                                     options: nil) { (image, _) in
-      if cell.tag == currentTag {
-        cell.imageView.image = image
-      }
+                                          targetSize: assetGridThumbnailSize,
+                                          contentMode: .aspectFill,
+                                          options: nil) { (image, _) in
+                                            if cell.tag == currentTag {
+                                              cell.imageView.image = image
+                                            }
     }
     return cell
   }
@@ -167,13 +201,66 @@ extension MainViewController: UICollectionViewDelegateFlowLayout {
 
 extension MainViewController: UICollectionViewDelegate {
   
-  func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-    print("Collection View selected item at: \(indexPath.item)")
-    guard let modelEditorVC = PointCloudEditorViewController.instantiate(model: DataStore.shared.allModels[indexPath.row]) else {
-      fatalError("Failed to instantiate model editor" )
+  func updateEditOptions() {
+    self.new3DModelHeightConstraint.constant = 0
+    self.viewButtonHeightConstraint.constant = 0
+    self.arButtonHeightConstraint.constant = 0
+    self.mergeButtonHeightConstraint.constant = 0
+    switch selectedIndices.count {
+    case 0:
+      self.new3DModelHeightConstraint.constant = 60.0
+    case 1:
+      self.viewButtonHeightConstraint.constant = 60.0
+      self.arButtonHeightConstraint.constant = 60.0
+    case 2:
+      self.mergeButtonHeightConstraint.constant = 60.0
+    default:
+      return
     }
-    self.navigationController?.pushViewController(modelEditorVC, animated: true)
-
+    UIView.animate(withDuration: 0.35) {
+      self.view.layoutIfNeeded()
+      switch self.selectedIndices.count {
+        
+      case 0:
+        self.modelButton.alpha = 1.0
+        self.viewButton.alpha = 0.0
+        self.arButton.alpha = 0.0
+        self.mergeButton.alpha = 0.0
+      case 1:
+        self.modelButton.alpha = 0.0
+        self.viewButton.alpha = 1.0
+        self.arButton.alpha = 1.0
+        self.mergeButton.alpha = 0.0
+      case 2:
+        self.modelButton.alpha = 0.0
+        self.viewButton.alpha = 0.0
+        self.arButton.alpha = 0.0
+        self.mergeButton.alpha = 1.0
+        
+      default:
+        print("This shouldn't happens")
+        
+      }
+    }
+    
+  }
+  
+  func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+    if self.selectedIndices.contains(indexPath) {
+      self.selectedIndices.removeAll(where: {$0 == indexPath})
+      self.collectionView.reloadItems(at: [indexPath])
+    } else {
+      self.selectedIndices.append(indexPath)
+    }
+    if self.selectedIndices.count == 3 {
+      let prevInd = self.selectedIndices
+      self.selectedIndices = [indexPath]
+      self.collectionView.reloadItems(at: prevInd)
+    } else {
+      self.collectionView.reloadItems(at: [indexPath])
+    }
+    self.updateEditOptions()
+    
   }
   
 }

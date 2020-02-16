@@ -30,12 +30,12 @@ extension NetworkingDifyAPI {
     let res1: [[Float]] = image.map {[$0.r, $0.g, $0.b, $0.x, $0.y, $0.z]}
     let res2: [[Float]] = aggregate.map {[$0.r, $0.g, $0.b, $0.x, $0.y, $0.z]}
     
-    let data_to_send: [String: Any] = ["0": [], "1": []]
+    let data_to_send: [String: Any] = ["0": res1, "1": res2]
     
     var request = URLRequest(url: URL(string: "http://seacow.averylamp.me:5000/upload/photo")!)
     request.httpMethod = "POST"
 
-    guard let payload = try? JSONSerialization.data(withJSONObject: data_to_send, options: .prettyPrinted) else {
+    guard let payload = try? JSONSerialization.data(withJSONObject: data_to_send, options: .fragmentsAllowed) else {
       fatalError("Failed to serialize json")
     }
     

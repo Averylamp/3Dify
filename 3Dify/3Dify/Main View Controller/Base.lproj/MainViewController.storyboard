@@ -7,6 +7,11 @@
         <capability name="collection view cell content view" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
+    <customFonts key="customFonts">
+        <array key="IBMPlexSans-Medium.ttf">
+            <string>IBMPlexSans-Medium</string>
+        </array>
+    </customFonts>
     <scenes>
         <!--Main View Controller-->
         <scene sceneID="tne-QT-ifu">
@@ -23,7 +28,7 @@
                                 </constraints>
                             </imageView>
                             <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="3hZ-MV-mcs">
-                                <rect key="frame" x="25" y="144" width="364" height="618"/>
+                                <rect key="frame" x="25" y="144" width="364" height="632"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <collectionViewFlowLayout key="collectionViewLayout" automaticEstimatedItemSize="YES" minimumLineSpacing="10" minimumInteritemSpacing="10" id="Xzt-D2-0m6">
                                     <size key="itemSize" width="126" height="97"/>
@@ -46,10 +51,10 @@
                                                             <rect key="frame" x="0.0" y="0.0" width="120" height="120"/>
                                                         </imageView>
                                                         <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="M82-5X-Ofn">
-                                                            <rect key="frame" x="92" y="8" width="20" height="20"/>
+                                                            <rect key="frame" x="77" y="8" width="35" height="35"/>
                                                             <constraints>
-                                                                <constraint firstAttribute="width" constant="20" id="1fI-Sl-Syx"/>
-                                                                <constraint firstAttribute="height" constant="20" id="VLC-S5-E5C"/>
+                                                                <constraint firstAttribute="width" constant="35" id="1fI-Sl-Syx"/>
+                                                                <constraint firstAttribute="height" constant="35" id="VLC-S5-E5C"/>
                                                             </constraints>
                                                         </imageView>
                                                     </subviews>
@@ -82,20 +87,76 @@
                                 </cells>
                             </collectionView>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="AFH-JL-rr3">
-                                <rect key="frame" x="0.0" y="762" width="414" height="100"/>
+                                <rect key="frame" x="0.0" y="776" width="414" height="100"/>
                                 <subviews>
-                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="otG-I4-YT7">
-                                        <rect key="frame" x="184" y="35" width="46" height="30"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        <state key="normal" title="Button"/>
+                                    <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="clip" translatesAutoresizingMaskIntoConstraints="NO" id="otG-I4-YT7">
+                                        <rect key="frame" x="20" y="80" width="374" height="0.0"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" id="GKj-tx-9Bb"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" name="IBMPlexSans-Medium" family="IBM Plex Sans" pointSize="30"/>
+                                        <state key="normal" title="+ new 3D model">
+                                            <color key="titleColor" red="0.1019607843" green="0.066666666669999999" blue="0.2666666667" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                        </state>
                                         <connections>
-                                            <action selector="pickerClicked:" destination="BYZ-38-t0r" eventType="touchUpInside" id="DBj-9Y-EAp"/>
+                                            <action selector="newModelButtonClicked:" destination="BYZ-38-t0r" eventType="touchUpInside" id="Zb4-x7-ZGy"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="clip" translatesAutoresizingMaskIntoConstraints="NO" id="5wQ-OH-Az5">
+                                        <rect key="frame" x="0.0" y="80" width="207" height="0.0"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" id="U6g-kg-3Ye"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" name="IBMPlexSans-Medium" family="IBM Plex Sans" pointSize="30"/>
+                                        <state key="normal" title="view">
+                                            <color key="titleColor" red="0.95686274509803915" green="0.19607843137254902" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="viewModelButtonClicked:" destination="BYZ-38-t0r" eventType="touchUpInside" id="LFM-li-IPr"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="clip" translatesAutoresizingMaskIntoConstraints="NO" id="Exz-mN-7MX">
+                                        <rect key="frame" x="207" y="80" width="207" height="0.0"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" id="TWs-7s-qe8"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" name="IBMPlexSans-Medium" family="IBM Plex Sans" pointSize="30"/>
+                                        <state key="normal" title="AR">
+                                            <color key="titleColor" red="0.1019607843" green="0.066666666669999999" blue="0.2666666667" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="arButtonClicked:" destination="BYZ-38-t0r" eventType="touchUpInside" id="P6b-wa-vW6"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="clip" translatesAutoresizingMaskIntoConstraints="NO" id="pN6-MK-cn6" userLabel="merge">
+                                        <rect key="frame" x="20" y="80" width="374" height="0.0"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" id="P4U-5J-Jki"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" name="IBMPlexSans-Medium" family="IBM Plex Sans" pointSize="30"/>
+                                        <state key="normal" title="merge">
+                                            <color key="titleColor" red="0.1019607843" green="0.066666666669999999" blue="0.2666666667" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="mergeButtonClicked:" destination="BYZ-38-t0r" eventType="touchUpInside" id="QxJ-Fh-cmC"/>
                                         </connections>
                                     </button>
                                 </subviews>
                                 <color key="backgroundColor" red="0.94117647058823528" green="0.67450980392156867" blue="0.29019607843137252" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
+                                    <constraint firstAttribute="bottom" secondItem="otG-I4-YT7" secondAttribute="bottom" constant="20" symbolic="YES" id="8fV-ZC-9Vg"/>
+                                    <constraint firstAttribute="bottom" secondItem="5wQ-OH-Az5" secondAttribute="bottom" constant="20" symbolic="YES" id="Dp1-dJ-klI"/>
+                                    <constraint firstItem="Exz-mN-7MX" firstAttribute="centerX" secondItem="AFH-JL-rr3" secondAttribute="centerX" multiplier="1.5" id="IkF-dr-Z8t"/>
+                                    <constraint firstAttribute="trailing" secondItem="otG-I4-YT7" secondAttribute="trailing" constant="20" symbolic="YES" id="Y27-8U-aMO"/>
+                                    <constraint firstAttribute="trailing" secondItem="pN6-MK-cn6" secondAttribute="trailing" constant="20" symbolic="YES" id="caB-KW-jzn"/>
+                                    <constraint firstItem="5wQ-OH-Az5" firstAttribute="width" secondItem="AFH-JL-rr3" secondAttribute="width" multiplier="0.5" id="cuE-dE-srX"/>
+                                    <constraint firstAttribute="bottom" secondItem="pN6-MK-cn6" secondAttribute="bottom" constant="20" symbolic="YES" id="f5h-kl-14S"/>
+                                    <constraint firstItem="5wQ-OH-Az5" firstAttribute="centerX" secondItem="AFH-JL-rr3" secondAttribute="centerX" multiplier="0.5" id="oos-28-a6X"/>
+                                    <constraint firstItem="pN6-MK-cn6" firstAttribute="leading" secondItem="AFH-JL-rr3" secondAttribute="leading" constant="20" symbolic="YES" id="u0C-kX-oOL"/>
+                                    <constraint firstItem="Exz-mN-7MX" firstAttribute="width" secondItem="AFH-JL-rr3" secondAttribute="width" multiplier="0.5" id="vnN-Qt-wUq"/>
                                     <constraint firstAttribute="height" constant="100" id="wFz-iy-XN4"/>
+                                    <constraint firstItem="otG-I4-YT7" firstAttribute="leading" secondItem="AFH-JL-rr3" secondAttribute="leading" constant="20" symbolic="YES" id="yRV-aF-qs6"/>
+                                    <constraint firstAttribute="bottom" secondItem="Exz-mN-7MX" secondAttribute="bottom" constant="20" symbolic="YES" id="yS9-NU-ZS1"/>
                                 </constraints>
                             </view>
                         </subviews>
@@ -104,10 +165,10 @@
                             <constraint firstItem="3hZ-MV-mcs" firstAttribute="centerX" secondItem="6Tk-OE-BBY" secondAttribute="centerX" id="4x8-Vl-zVY"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="AFH-JL-rr3" secondAttribute="trailing" id="5th-XK-nWg"/>
                             <constraint firstItem="3hZ-MV-mcs" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="25" id="BGO-WI-r6S"/>
+                            <constraint firstAttribute="bottom" secondItem="AFH-JL-rr3" secondAttribute="bottom" constant="20" symbolic="YES" id="BwD-l0-vcP"/>
                             <constraint firstItem="jj1-81-LbD" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="Ejs-nR-Ax6"/>
                             <constraint firstItem="AFH-JL-rr3" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="Hyv-Mk-7eK"/>
                             <constraint firstItem="AFH-JL-rr3" firstAttribute="top" secondItem="3hZ-MV-mcs" secondAttribute="bottom" id="J9H-x9-58g"/>
-                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="AFH-JL-rr3" secondAttribute="bottom" id="KAx-pj-g2b"/>
                             <constraint firstItem="3hZ-MV-mcs" firstAttribute="top" secondItem="jj1-81-LbD" secondAttribute="bottom" id="Lbf-gS-wIu"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="jj1-81-LbD" secondAttribute="trailing" id="TDr-NI-v67"/>
                             <constraint firstItem="jj1-81-LbD" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" id="vVn-bN-JJv"/>
@@ -115,7 +176,15 @@
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
                     <connections>
+                        <outlet property="arButton" destination="Exz-mN-7MX" id="ZSp-Ot-HOz"/>
+                        <outlet property="arButtonHeightConstraint" destination="TWs-7s-qe8" id="fQy-LU-1Mm"/>
                         <outlet property="collectionView" destination="3hZ-MV-mcs" id="nNn-DD-yFW"/>
+                        <outlet property="mergeButton" destination="pN6-MK-cn6" id="0js-uc-seo"/>
+                        <outlet property="mergeButtonHeightConstraint" destination="P4U-5J-Jki" id="syx-Z3-dW6"/>
+                        <outlet property="modelButton" destination="otG-I4-YT7" id="Pu9-K3-y6o"/>
+                        <outlet property="new3DModelHeightConstraint" destination="GKj-tx-9Bb" id="xQA-Pj-br4"/>
+                        <outlet property="viewButton" destination="5wQ-OH-Az5" id="upB-Vi-yZ4"/>
+                        <outlet property="viewButtonHeightConstraint" destination="U6g-kg-3Ye" id="o2I-bn-BPS"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
