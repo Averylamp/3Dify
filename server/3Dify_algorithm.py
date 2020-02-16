@@ -149,9 +149,9 @@ def distance_voxelized(cloud_1, cloud_2):
 	voxel_map_2 = defaultdict(list)
 
 	for point in cloud_1:
-		voxel_map_1[math.floor(point[3]), math.floor(point[4]), math.floor(point[5])] = point
+		voxel_map_1[math.floor(point[3]), math.floor(point[4]), math.floor(point[5])].append(point)
 	for point in cloud_2:
-		voxel_map_2[math.floor(point[3]), math.floor(point[4]), math.floor(point[5])] = point
+		voxel_map_2[math.floor(point[3]), math.floor(point[4]), math.floor(point[5])].append(point)
 
 	for top_corner in voxel_map_1:
 		cur_x = top_corner[0]
