@@ -198,7 +198,7 @@ extension DifyCloudVisualizerViewController {
     pc.height = height
     pc.pointCloudNode(completion: { pcNode in
         pcNode.position = SCNVector3(x: 0, y: 0, z: 0)
-        scene.rootNode.addChildNode(pcNode)
+        self.scene.rootNode.addChildNode(pcNode)
     })
 //    let pcNode = pc.pointCloudNodeTriangulated()
     

@@ -25,7 +25,7 @@ struct PointCloudVertex {
   let apiSet = false
     
     public func pointCloudNode(completion: @escaping ((SCNNode) -> Void)) {
-    let points = self.pointCloud
+    var points = self.pointCloud
     var vertices = Array(repeating: PointCloudVertex(x: 0, y: 0, z: 0, r: 0, g: 0, b: 0), count: points.count)
     
     for i in 0...(points.count-1) {
@@ -51,11 +51,26 @@ struct PointCloudVertex {
     }
   }
   
+    private func processPoints(points: [PointCloudVertex], radians: Float, translation: Float) -> [PointCloudVertex] {
+        var res = points
+        for i in 0...res.count-1 {
+            res[i].x = res[i].x*cos(radians) - res[i].y*sin(radians) + translation
+            res[i].y = res[i].x*sin(radians) - res[i].y*cos(radians) + translation
+            res[i].z = res[i].z + translation
+        }
+        return res
+    }
+    
     private func filterVertices(points: [PointCloudVertex]) -> [PointCloudVertex] {
-        let back_z = points[0].z
-        let fore_z = points[points.count/2].z
-        points.filter { $0.z > back_z && $0.z < fore_z + 0.7*(fore_z - back_z)}
-        return points
+        var res = points
+        let back_z = res[0].z
+        let fore_z = res[res.count/2].z
+        for i in 0...res.count-1 {
+            if (res[i].z > back_z && res[i].z < fore_z + 0.7*(fore_z - back_z)) {
+                res[i] = PointCloudVertex(x: 0, y: 0, z: 0, r: 0, g: 0, b: 0)
+            }
+        }
+        return res
     }
     
   private func buildNode(points: [PointCloudVertex]) -> SCNNode {

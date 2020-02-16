@@ -25,12 +25,13 @@ class NetworkingDifyAPI {
 extension NetworkingDifyAPI {
 
   func sendImage(image: [PointCloudVertex], completion: @escaping (([String: AnyObject]) -> Void)) {
+        
     print("Initiating request")
-    let params = ["todo": 1] as [String: Int]
+    let data_to_send = ["todo": image]
 
     var request = URLRequest(url: URL(string: "http://127.0.0.1:5000/upload/photo")!)
     request.httpMethod = "POST"
-    request.httpBody = try? JSONSerialization.data(withJSONObject: params, options: [])
+    request.httpBody = try? JSONSerialization.data(withJSONObject: data_to_send, options: [])
     request.addValue("application/json", forHTTPHeaderField: "Content-Type")
     
     let session = URLSession.shared
