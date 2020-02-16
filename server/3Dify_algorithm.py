@@ -1,5 +1,10 @@
 import math
 import numpy as np
+import itertools
+from collections import defaultdict
+import time
+
+numVoxels = 40
 
 
 
@@ -124,4 +129,64 @@ def rotate_z(points, degrees):
 # O(n)
 def translate_x_y(points, x_shift=0, y_shift=0):
 	return [(p[0], p[1], p[2], p[3] + x_shift, p[4] + y_shift, p[5]) for p in points]
+
+
+# Decimal step generator
+# def drange(start, stop, step):
+#     r = start
+#     while r < stop:
+# 		yield r
+# 		r += step
+
+# Return aggregate distance between two point clouds.
+# Voxelize 3D space and calculate approximate total distance using the cost function.
+def distance_voxelized(cloud_1, cloud_2):
+	total_distance = 0
+	voxel_x = 1
+	voxel_y = 1
+	voxel_z = 1
+	max_x = numVoxels
+	max_y = numVoxels
+	max_z = numVoxels
+	voxel_map_1 = defaultdict(list)
+	voxel_map_2 = defaultdict(list)
+
+	for point in cloud_1:
+		voxel_map_1[math.floor(point[3]), math.floor(point[4]), math.floor(point[5])].append(point)
+	for point in cloud_2:
+		voxel_map_2[math.floor(point[3]), math.floor(point[4]), math.floor(point[5])].append(point)
+
+	for top_corner in voxel_map_1:
+		cur_x = top_corner[0]
+		cur_y = top_corner[1]
+		cur_z = top_corner[2]
+		range_x = range(cur_x - voxel_x, cur_x + voxel_x)
+		range_y = range(cur_y - voxel_y, cur_y + voxel_y)
+		range_z = range(cur_z - voxel_z, cur_z + voxel_z)
+		for tx, ty, tz in itertools.product(range_x, range_y, range_z):
+			if (tx, ty, tz) in voxel_map_2:
+				p1 = voxel_map_1[top_corner][0]
+				p2 = voxel_map_2[(tx, ty, tz)][0]
+				total_distance += cost(p1, p2)
+	return total_distance
+
+if __name__ == "__main__":
+    result1 = []
+    result2 = []
+    with open("points1.txt", "rb") as fp:
+        for i in fp.readlines():
+            result1.append(eval(i))
+            cur = result1[-1]
+            result1[-1] = (cur[3], cur[4], cur[5], cur[0] * numVoxels, cur[1] * numVoxels, cur[2] * numVoxels)
+    with open("points2.txt", "rb") as fp:
+        for i in fp.readlines():
+            result2.append(eval(i))
+            cur = result2[-1]
+            result2[-1] = (cur[3], cur[4], cur[5], cur[0] * numVoxels, cur[1] * numVoxels, cur[2] * numVoxels)
+    print(result1[0:10])
+    start_time = time.time()
+    # print(naive_distance(result1, result2))
+    # print("--- %s seconds ---" % (time.time() - start_time))
+    print(distance_voxelized(result1, result2))
+    print(time.time()-start_time)
 
