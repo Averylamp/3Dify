@@ -43,6 +43,17 @@
                                     <constraint firstAttribute="height" constant="260" id="ye8-ct-0KG"/>
                                 </constraints>
                             </view>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="49S-G3-lp2">
+                                <rect key="frame" x="10" y="54" width="30" height="30"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="30" id="6ks-ZC-9SO"/>
+                                    <constraint firstAttribute="width" constant="30" id="Pws-Ew-vEs"/>
+                                </constraints>
+                                <state key="normal" image="icon-back"/>
+                                <connections>
+                                    <action selector="backButtonClicked:" destination="T3L-xD-xEX" eventType="touchUpInside" id="kDd-5D-o64"/>
+                                </connections>
+                            </button>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="GDr-2N-BAV">
                                 <rect key="frame" x="0.0" y="312" width="414" height="2"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
@@ -80,10 +91,12 @@
                             <constraint firstItem="0gO-rg-eSg" firstAttribute="top" secondItem="EVS-nR-AUd" secondAttribute="top" id="L90-tz-AmV"/>
                             <constraint firstItem="dUM-Ct-yTh" firstAttribute="top" secondItem="I9E-pb-LUT" secondAttribute="bottom" constant="8" symbolic="YES" id="ReY-9i-nD8"/>
                             <constraint firstItem="I9E-pb-LUT" firstAttribute="centerX" secondItem="EVS-nR-AUd" secondAttribute="centerX" id="ay5-lU-bPo"/>
+                            <constraint firstItem="49S-G3-lp2" firstAttribute="top" secondItem="EVS-nR-AUd" secondAttribute="top" constant="10" id="c0D-lZ-wQO"/>
                             <constraint firstItem="EVS-nR-AUd" firstAttribute="trailing" secondItem="dUM-Ct-yTh" secondAttribute="trailing" constant="20" id="jCH-w5-pkr"/>
                             <constraint firstItem="I9E-pb-LUT" firstAttribute="width" secondItem="NY8-W7-bDy" secondAttribute="width" id="ngP-fa-acs"/>
                             <constraint firstItem="GDr-2N-BAV" firstAttribute="top" secondItem="0gO-rg-eSg" secondAttribute="bottom" constant="8" symbolic="YES" id="pX6-Qq-kMk"/>
                             <constraint firstItem="dUM-Ct-yTh" firstAttribute="leading" secondItem="EVS-nR-AUd" secondAttribute="leading" constant="20" id="pip-WP-qWZ"/>
+                            <constraint firstItem="49S-G3-lp2" firstAttribute="leading" secondItem="EVS-nR-AUd" secondAttribute="leading" constant="10" id="q8V-gS-aZ8"/>
                             <constraint firstItem="t9D-Le-FbL" firstAttribute="top" secondItem="GDr-2N-BAV" secondAttribute="bottom" constant="10" id="u1P-Zr-ik8"/>
                             <constraint firstItem="0gO-rg-eSg" firstAttribute="leading" secondItem="EVS-nR-AUd" secondAttribute="leading" id="wXV-Hd-pAI"/>
                             <constraint firstItem="EVS-nR-AUd" firstAttribute="trailing" secondItem="GDr-2N-BAV" secondAttribute="trailing" id="xzK-IR-5Ny"/>
@@ -106,4 +119,7 @@
             <point key="canvasLocation" x="137.68115942028987" y="134.59821428571428"/>
         </scene>
     </scenes>
+    <resources>
+        <image name="icon-back" width="100" height="100"/>
+    </resources>
 </document>

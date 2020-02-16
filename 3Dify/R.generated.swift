@@ -610,6 +610,7 @@ struct _R: Rswift.Validatable {
       let name = "MergeRotationViewController"
 
       static func validate() throws {
+        if UIKit.UIImage(named: "icon-back", in: R.hostingBundle, compatibleWith: nil) == nil { throw Rswift.ValidationError(description: "[R.swift] Image named 'icon-back' is used in storyboard 'MergeRotationViewController', but couldn't be loaded.") }
         if #available(iOS 11.0, tvOS 11.0, *) {
         }
       }
@@ -619,7 +620,9 @@ struct _R: Rswift.Validatable {
     #endif
 
     #if os(iOS) || os(tvOS)
-    struct mergeTransformationViewController: Rswift.StoryboardResourceType, Rswift.Validatable {
+    struct mergeTransformationViewController: Rswift.StoryboardResourceWithInitialControllerType, Rswift.Validatable {
+      typealias InitialController = MergeTransformationViewController
+
       let bundle = R.hostingBundle
       let name = "MergeTransformationViewController"
 

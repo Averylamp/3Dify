@@ -56,17 +56,24 @@ extension  DifyCloudVisualizerViewController {
   
   override func viewDidAppear(_ animated: Bool) {
     super.viewDidAppear(animated)
-    self.indicatorView.center = self.view.center
   }
   
   /// Setup should only be called once
   func setup() {
     setupScene()
-    self.view.addSubview(indicatorView)
-    indicatorView.color = UIColor.white
+    self.sceneView.addSubview(indicatorView)
+    indicatorView.translatesAutoresizingMaskIntoConstraints = false
+    self.sceneView.addConstraints([
+      NSLayoutConstraint(item: indicatorView, attribute: .centerX, relatedBy: .equal,
+                         toItem: self.sceneView, attribute: .centerX, multiplier: 1.0, constant: 0.0),
+      NSLayoutConstraint(item: indicatorView, attribute: .centerY, relatedBy: .equal,
+                         toItem: self.sceneView, attribute: .centerY, multiplier: 1.0, constant: 0.0),
+      NSLayoutConstraint(item: indicatorView, attribute: .width, relatedBy: .equal,
+                         toItem: nil, attribute: .notAnAttribute, multiplier: 1.0, constant: 50.0),
+      NSLayoutConstraint(item: indicatorView, attribute: .height, relatedBy: .equal,
+                         toItem: nil, attribute: .notAnAttribute, multiplier: 1.0, constant: 50.0)
+    ])
     indicatorView.type = .ballGridPulse
-    self.indicatorView.frame = CGRect(x: 0, y: 0, width: 50, height: 50)
-    self.indicatorView.center = self.view.center
     
   }
   

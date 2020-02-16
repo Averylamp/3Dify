@@ -50,9 +50,15 @@ class MergeRotationViewController: UIViewController {
   }
   
   @IBAction func confirmButtonClicked(_ sender: Any) {
-    
+    guard let transformVC = MergeTransformationViewController.instantiate(model1: self.model1, model2: self.model2, rotation: rotation) else {
+      fatalError("failed to make transform vc")
+    }
+    self.navigationController?.pushViewController(transformVC, animated: true)
   }
   
+  @IBAction func backButtonClicked(_ sender: Any) {
+    self.navigationController?.popViewController(animated: true)
+  }
 }
 
 // MARK: Life Cycle
