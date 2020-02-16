@@ -52,5 +52,4 @@ extension NetworkingDifyAPI: DifyAPI {
     task.resume()
     print("Completed request")
   }
-  
 }
