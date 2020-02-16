@@ -81,7 +81,7 @@ def choose_x_slice(cloud_1, cloud_2, step_size=4):
 	# TODO: figure out what granularity to use if sizes are disproportional
 	slice_size = min(high_1 - low_1, high_2 - low_2) / step_size
 
-	processing_pool = Pool(20)
+	processing_pool = Pool(100)
 	result_distances = processing_pool.starmap(choose_y_slice, compute_arguments(cloud_1, cloud_2, low_1, high_1, low_2, high_2, slice_size, step_size))
 
 	processing_pool.close()
