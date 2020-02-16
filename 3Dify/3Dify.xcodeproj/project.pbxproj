@@ -29,6 +29,7 @@
 		BB85347C23F90C0F00D6C43A /* CVPixelBuffer+CIImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB85347B23F90C0F00D6C43A /* CVPixelBuffer+CIImage.swift */; };
 		BBB8038A23F9374200228A40 /* PointCloudEditorViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BBB8038923F9374200228A40 /* PointCloudEditorViewController.swift */; };
 		BBB8038C23F9375400228A40 /* PointCloudEditorViewController.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = BBB8038B23F9375400228A40 /* PointCloudEditorViewController.storyboard */; };
+		BBB8038F23F93F5D00228A40 /* MainPortraitCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BBB8038E23F93F5D00228A40 /* MainPortraitCollectionViewCell.swift */; };
 		BBBF081123F7D99600E177DF /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = BBBF081023F7D99600E177DF /* AppDelegate.swift */; };
 		BBBF081523F7D99600E177DF /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BBBF081423F7D99600E177DF /* MainViewController.swift */; };
 		BBBF081823F7D99600E177DF /* MainViewController.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = BBBF081623F7D99600E177DF /* MainViewController.storyboard */; };
@@ -80,6 +81,7 @@
 		BB85347B23F90C0F00D6C43A /* CVPixelBuffer+CIImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CVPixelBuffer+CIImage.swift"; sourceTree = "<group>"; };
 		BBB8038923F9374200228A40 /* PointCloudEditorViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PointCloudEditorViewController.swift; sourceTree = "<group>"; };
 		BBB8038B23F9375400228A40 /* PointCloudEditorViewController.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = PointCloudEditorViewController.storyboard; sourceTree = "<group>"; };
+		BBB8038E23F93F5D00228A40 /* MainPortraitCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainPortraitCollectionViewCell.swift; sourceTree = "<group>"; };
 		BBBF080D23F7D99600E177DF /* 3Dify.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = 3Dify.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		BBBF081023F7D99600E177DF /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		BBBF081423F7D99600E177DF /* MainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
@@ -145,6 +147,7 @@
 			children = (
 				BBBF081423F7D99600E177DF /* MainViewController.swift */,
 				BBBF081623F7D99600E177DF /* MainViewController.storyboard */,
+				BBB8038E23F93F5D00228A40 /* MainPortraitCollectionViewCell.swift */,
 			);
 			path = "Main View Controller";
 			sourceTree = "<group>";
@@ -511,6 +514,7 @@
 				BB75B66923F87C9100A13363 /* CIImage+Utils.swift in Sources */,
 				BB85347A23F90BA400D6C43A /* UIImage+Utils.swift in Sources */,
 				BBBF081123F7D99600E177DF /* AppDelegate.swift in Sources */,
+				BBB8038F23F93F5D00228A40 /* MainPortraitCollectionViewCell.swift in Sources */,
 				BB75B66523F87B5C00A13363 /* CGImageSource+Depth.swift in Sources */,
 				BB0D3E4223F7F323002AD13E /* Result.swift in Sources */,
 				BB0D3E4723F7F399002AD13E /* DifyPoint.swift in Sources */,
