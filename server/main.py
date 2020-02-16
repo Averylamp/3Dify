@@ -36,9 +36,9 @@ def process_photo():
     # Rotate 
     # Note: Assume user has rotated correctly.
     rotated_points_2 = rotate_z(points_2, 20)
-
+    print("Completed rotating points")
     result = choose_x_slice(points_1, rotated_points_2)
-
+    print("Completed x slice! Returning results...")
     return {"0": (result[1], result[2]), "1": (result[3], result[4])}
 
 if __name__ == "__main__":
