@@ -107,17 +107,69 @@ struct PointCloudVertex {
       dataOffset: MemoryLayout<Float>.size * 3,
       dataStride: MemoryLayout<PointCloudVertex>.size
     )
-    let element = SCNGeometryElement(
-      data: nil,
-      primitiveType: .point,
-      primitiveCount: points.count,
-      bytesPerIndex: MemoryLayout<Int>.size
-    )
+//    let element = SCNGeometryElement(
+//      data: nil,
+//      primitiveType: .point,
+//      primitiveCount: points.count,
+//      bytesPerIndex: MemoryLayout<Int>.size
+//    )
+//
+//    // for bigger dots
+//    element.pointSize = 2
+//    element.minimumPointScreenSpaceRadius = 1
+//    element.maximumPointScreenSpaceRadius = 5
     
-    // for bigger dots
-    element.pointSize = 2
-    element.minimumPointScreenSpaceRadius = 1
-    element.maximumPointScreenSpaceRadius = 5
+    var indices: [Int32] = []
+    
+    var topRow = 0
+    var currentRow = 0
+    var columnIndex = 0
+    currentRow = 0
+    while indices.count < points.count {
+      let pointIndex = currentRow * width + columnIndex
+//      if !(points[pointIndex].r == 0 && points[pointIndex].b == 0 && points[pointIndex].g == 0) {
+        indices.append(Int32(currentRow * width + columnIndex))
+//      }
+      
+      if topRow % 2 == 0 {
+        // Going right
+        if currentRow == topRow {
+          // Go down
+          currentRow += 1
+          if columnIndex == width - 1 {
+            topRow += 1
+          }
+        } else {
+          // Move up right
+          currentRow -= 1
+          columnIndex += 1
+        }
+      } else {
+        // Going Left
+        if currentRow == topRow {
+          currentRow += 1
+          if columnIndex == 0 {
+            topRow += 1
+          }
+        } else {
+          // Move up left
+          currentRow -= 1
+          columnIndex -= 1
+        }
+        if topRow == height - 1 {
+          break
+        }
+//        if currentRow == height - 1 && (columnIndex == 0 || columnIndex == width - 1) {
+//          break
+//        }
+      }
+    }
+    print("indicies:\(indices.count)")
+    
+    let pointer = UnsafeRawPointer(indices)
+    let indexData = NSData(bytes: pointer, length: MemoryLayout<Int32>.size * indices.count)
+    
+    let element = SCNGeometryElement(data: indexData as Data, primitiveType: .triangleStrip, primitiveCount: indices.count - 2, bytesPerIndex: MemoryLayout<Int32>.size)
     
     let pointsGeometry = SCNGeometry(sources: [positionSource, colorSource], elements: [element])
     
@@ -190,7 +242,6 @@ struct PointCloudVertex {
     let indices: [Int32] = [0, 1, 2]
     let pointer = UnsafeRawPointer(indices)
     let indexData = NSData(bytes: pointer, length: MemoryLayout<Int32>.size * indices.count)
-    
     let element = SCNGeometryElement(data: indexData as Data, primitiveType: .triangles, primitiveCount: 1, bytesPerIndex: MemoryLayout<Int32>.size)
     
     let geometry = SCNGeometry(sources: [vertexSource, normalSource], elements: [element])
