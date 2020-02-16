@@ -27,8 +27,8 @@ extension NetworkingDifyAPI {
   func sendImage(aggregate: [PointCloudVertex], image: [PointCloudVertex], completion: @escaping (([String: AnyObject]) -> Void)) {
     
     print("Initiating request")
-    let res1: [[Float]] = image.map {[$0.r, $0.g, $0.b, $0.x, $0.y, $0.z]}
-    let res2: [[Float]] = aggregate.map {[$0.r, $0.g, $0.b, $0.x, $0.y, $0.z]}
+    let res1: [[Float]] = image.filter{$0.a != 0}.map {[$0.r, $0.g, $0.b, $0.x, $0.y, $0.z]}
+    let res2: [[Float]] = aggregate.filter{$0.a != 0}.map {[$0.r, $0.g, $0.b, $0.x, $0.y, $0.z]}
     
     let data_to_send: [String: Any] = ["0": res1, "1": res2]
     
