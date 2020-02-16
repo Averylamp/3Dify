@@ -2,6 +2,9 @@ import math
 import numpy as np
 import itertools
 from collections import defaultdict
+import time
+
+numVoxels = 1000
 
 
 
@@ -142,9 +145,9 @@ def distance_voxelized(cloud_1, cloud_2):
 	voxel_x = 1
 	voxel_y = 1
 	voxel_z = 1
-	max_x = 1000
-	max_y = 1000
-	max_z = 1000
+	max_x = numVoxels
+	max_y = numVoxels
+	max_z = numVoxels
 	voxel_map_1 = defaultdict(list)
 	voxel_map_2 = defaultdict(list)
 
@@ -167,8 +170,22 @@ def distance_voxelized(cloud_1, cloud_2):
 	return total_distance
 
 if __name__ == "__main__":
-	result = []
-	with open("points1.txt", "rb") as fp:
-		for i in fp.readlines():
-			result.append(eval(i))
-	print(result[0:10])
+    result1 = []
+    result2 = []
+    with open("points1.txt", "rb") as fp:
+        for i in fp.readlines():
+            result1.append(eval(i))
+            cur = result1[-1]
+            result1[-1] = (cur[3], cur[4], cur[5], cur[0] * numVoxels, cur[1] * numVoxels, cur[2] * numVoxels)
+    with open("points2.txt", "rb") as fp:
+        for i in fp.readlines():
+            result2.append(eval(i))
+            cur = result2[-1]
+            result2[-1] = (cur[3], cur[4], cur[5], cur[0] * numVoxels, cur[1] * numVoxels, cur[2] * numVoxels)
+    print(result1[0:10])
+    start_time = time.time()
+    # print(naive_distance(result1, result2))
+    # print("--- %s seconds ---" % (time.time() - start_time))
+    print(distance_voxelized(result1, result2))
+    print(time.time()-start_time)
+
