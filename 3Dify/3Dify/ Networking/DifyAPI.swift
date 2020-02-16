@@ -34,8 +34,8 @@ extension NetworkingDifyAPI {
     request.addValue("application/json", forHTTPHeaderField: "Content-Type")
     
     let session = URLSession.shared
-    let task = session.dataTask(with: request, completionHandler: { data, response, _ -> Void in
-        print(response!)
+    let task = session.dataTask(with: request, completionHandler: { data, _, _ -> Void in
+//        print(response!)
         do {
           guard let json = try JSONSerialization.jsonObject(with: data!) as? [String: AnyObject] else {
             fatalError("JSON Serialization failed")

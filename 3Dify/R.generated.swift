@@ -89,7 +89,7 @@ struct R: Rswift.Validatable {
   }
 
   #if os(iOS) || os(tvOS)
-  /// This `R.storyboard` struct is generated, and contains static references to 5 storyboards.
+  /// This `R.storyboard` struct is generated, and contains static references to 6 storyboards.
   struct storyboard {
     /// Storyboard `DifyCloudVisualizerViewController`.
     static let difyCloudVisualizerViewController = _R.storyboard.difyCloudVisualizerViewController()
@@ -99,6 +99,8 @@ struct R: Rswift.Validatable {
     static let mainNavigationController = _R.storyboard.mainNavigationController()
     /// Storyboard `MainViewController`.
     static let mainViewController = _R.storyboard.mainViewController()
+    /// Storyboard `PointCloudEditorViewController`.
+    static let pointCloudEditorViewController = _R.storyboard.pointCloudEditorViewController()
     /// Storyboard `PortraitPhotoPickerViewController`.
     static let portraitPhotoPickerViewController = _R.storyboard.portraitPhotoPickerViewController()
 
@@ -127,6 +129,13 @@ struct R: Rswift.Validatable {
     /// `UIStoryboard(name: "MainViewController", bundle: ...)`
     static func mainViewController(_: Void = ()) -> UIKit.UIStoryboard {
       return UIKit.UIStoryboard(resource: R.storyboard.mainViewController)
+    }
+    #endif
+
+    #if os(iOS) || os(tvOS)
+    /// `UIStoryboard(name: "PointCloudEditorViewController", bundle: ...)`
+    static func pointCloudEditorViewController(_: Void = ()) -> UIKit.UIStoryboard {
+      return UIKit.UIStoryboard(resource: R.storyboard.pointCloudEditorViewController)
     }
     #endif
 
@@ -209,6 +218,9 @@ struct _R: Rswift.Validatable {
       try mainViewController.validate()
       #endif
       #if os(iOS) || os(tvOS)
+      try pointCloudEditorViewController.validate()
+      #endif
+      #if os(iOS) || os(tvOS)
       try portraitPhotoPickerViewController.validate()
       #endif
     }
@@ -267,6 +279,22 @@ struct _R: Rswift.Validatable {
 
       let bundle = R.hostingBundle
       let name = "MainViewController"
+
+      static func validate() throws {
+        if #available(iOS 11.0, tvOS 11.0, *) {
+        }
+      }
+
+      fileprivate init() {}
+    }
+    #endif
+
+    #if os(iOS) || os(tvOS)
+    struct pointCloudEditorViewController: Rswift.StoryboardResourceWithInitialControllerType, Rswift.Validatable {
+      typealias InitialController = PointCloudEditorViewController
+
+      let bundle = R.hostingBundle
+      let name = "PointCloudEditorViewController"
 
       static func validate() throws {
         if #available(iOS 11.0, tvOS 11.0, *) {

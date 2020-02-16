@@ -23,7 +23,7 @@ struct PointCloudVertex {
   var height: Int = 0
   let apiInstance = NetworkingDifyAPI()
     
-    public func pointCloudNode(completion: @escaping ((SCNNode) -> Void)) {
+    public func pointCloudNode() -> SCNNode {
     let points = self.pointCloud
     var vertices = Array(repeating: PointCloudVertex(x: 0, y: 0, z: 0, r: 0, g: 0, b: 0), count: points.count)
     
@@ -38,11 +38,12 @@ struct PointCloudVertex {
     }
     
     vertices = filterVertices(points: vertices)
-    apiInstance.sendImage(image: vertices, completion: { points in
-        // Process points w/ vertices
-        let node = self.buildNode2(points: vertices)
-        completion(node)
-    })
+      return self.buildNode2(points: vertices)
+//    apiInstance.sendImage(image: vertices, completion: { points in
+//        // Process points w/ vertices
+//        let node = self.buildNode2(points: vertices)
+//        completion(node)
+//    })
   }
   
     private func filterVertices(points: [PointCloudVertex]) -> [PointCloudVertex] {
@@ -119,21 +120,70 @@ struct PointCloudVertex {
       dataOffset: MemoryLayout<Float>.size * 3,
       dataStride: MemoryLayout<PointCloudVertex>.size
     )
-    let element = SCNGeometryElement(
-      data: nil,
-      primitiveType: .point,
-      primitiveCount: points.count,
-      bytesPerIndex: MemoryLayout<Int>.size
-    )
     
-    // for bigger dots
-    element.pointSize = 2
-    element.minimumPointScreenSpaceRadius = 1
-    element.maximumPointScreenSpaceRadius = 5
-    
-    let pointsGeometry = SCNGeometry(sources: [positionSource, colorSource], elements: [element])
-    
-    return SCNNode(geometry: pointsGeometry)
+    var fullNode = SCNNode()
+    var topRow = 0
+    var currentRow = 0
+    var columnIndex = 0
+    while true {
+      var indices: [Int32] = []
+      
+      while true {
+//        let pointIndex = currentRow * width + columnIndex
+//        if !(points[pointIndex].r == 0 && points[pointIndex].b == 0 && points[pointIndex].g == 0) {
+//          indices.append(Int32(currentRow * width + columnIndex))
+//        }
+
+        indices.append(Int32(currentRow * width + columnIndex))
+        
+        if topRow % 2 == 0 {
+          // Going right
+          if currentRow == topRow {
+            // Go down
+            currentRow += 1
+            if columnIndex == width - 1 {
+              topRow += 1
+            }
+          } else {
+            // Move up right
+            currentRow -= 1
+            columnIndex += 1
+          }
+        } else {
+          // Going Left
+          if currentRow == topRow {
+            currentRow += 1
+            if columnIndex == 0 {
+              topRow += 1
+              if indices.count > 100000 {
+                break
+              }
+            }
+          } else {
+            // Move up left
+            currentRow -= 1
+            columnIndex -= 1
+          }
+          if topRow == height - 1 {
+            break
+          }
+        }
+      }
+      print("indicies:\(indices.count)")
+      
+      let pointer = UnsafeRawPointer(indices)
+      let indexData = NSData(bytes: pointer, length: MemoryLayout<Int32>.size * indices.count)
+      
+      let element = SCNGeometryElement(data: indexData as Data, primitiveType: .triangleStrip, primitiveCount: indices.count - 2, bytesPerIndex: MemoryLayout<Int32>.size)
+      
+      let pointsGeometry = SCNGeometry(sources: [positionSource, colorSource], elements: [element])
+      
+      fullNode.addChildNode(SCNNode(geometry: pointsGeometry))
+      if topRow == height - 1 {
+        break
+      }
+    }
+    return fullNode
   }
   
   public func pointCloudNodeTriangulated() -> SCNNode {
@@ -170,7 +220,7 @@ struct PointCloudVertex {
       for column in 0..<width - 1 {
         fullNode.addChildNode(makeTriangle(triA: vertices[row][column], triB: vertices[row + 1][column], triC: vertices[row][column + 1]))
       }
-      print("Row:\(row)")
+      
     }
     
     return fullNode
@@ -202,7 +252,6 @@ struct PointCloudVertex {
     let indices: [Int32] = [0, 1, 2]
     let pointer = UnsafeRawPointer(indices)
     let indexData = NSData(bytes: pointer, length: MemoryLayout<Int32>.size * indices.count)
-    
     let element = SCNGeometryElement(data: indexData as Data, primitiveType: .triangles, primitiveCount: 1, bytesPerIndex: MemoryLayout<Int32>.size)
     
     let geometry = SCNGeometry(sources: [vertexSource, normalSource], elements: [element])
