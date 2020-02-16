@@ -43,7 +43,7 @@ struct PointCloudVertex {
     vertices = filterVertices(points: vertices)
 
     if (apiSet) {
-        apiInstance.sendImage(image: vertices, completion: { points in
+        apiInstance.sendImage(aggregate: vertices, image: vertices, completion: { points in
             // Process points w/ vertices
             let node = self.buildNode2(points: vertices)
             completion(node)
