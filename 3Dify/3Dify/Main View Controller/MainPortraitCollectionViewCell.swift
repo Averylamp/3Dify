@@ -9,5 +9,7 @@
 import UIKit
 
 class MainPortraitCollectionViewCell: UICollectionViewCell {
-    
+  @IBOutlet weak var containingView: UIView!
+  
+  @IBOutlet weak var imageView: UIImageView!
 }

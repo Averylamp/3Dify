@@ -58,9 +58,10 @@ extension  MainViewController {
 
     }
     
+    collectionView.dataSource = self
+    collectionView.delegate = self
     flowLayout.scrollDirection = UICollectionView.ScrollDirection.vertical
     self.collectionView.collectionViewLayout = flowLayout
-    collectionView.dataSource = self
     self.loadCollectionData()
   }
   
@@ -94,6 +95,7 @@ extension MainViewController: UICollectionViewDataSource {
   
   func loadCollectionData() {
     
+    self.collectionView.reloadData()
   }
   
   func numberOfSections(in collectionView: UICollectionView) -> Int {
@@ -105,9 +107,14 @@ extension MainViewController: UICollectionViewDataSource {
   }
   
   func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-    guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: R.reuseIdentifier.mainCollectionViewCell.identifier, for: indexPath) as? MainPortraitCollectionViewCell else {
+    guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: R.reuseIdentifier.mainCollectionViewCell.identifier, for: indexPath)
+      as? MainPortraitCollectionViewCell else {
       return UICollectionViewCell()
     }
+    
+    cell.containingView.layer.borderColor = UIColor.white.cgColor
+    cell.containingView.layer.borderWidth = 6
+    cell.containingView.layer.cornerRadius = 20
     
     return cell
   }
@@ -117,8 +124,7 @@ extension MainViewController: UICollectionViewDataSource {
 extension MainViewController: UICollectionViewDelegateFlowLayout {
   
   func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-    let edgeSize: CGFloat = self.collectionView.frame.width / 2 - 14
-    
+    let edgeSize: CGFloat = self.collectionView.frame.width / 2 - 8
     return CGSize(width: edgeSize, height: edgeSize)
   }
   
