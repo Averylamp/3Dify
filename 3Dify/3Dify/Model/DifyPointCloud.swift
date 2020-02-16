@@ -41,6 +41,24 @@ struct PointCloudVertex {
       }
     }
     
+    func vertexDistance(v1: SCNVector3, v2: SCNVector3) -> Float {
+      return (v2.x - v1.x)  * (v2.x - v1.x) + (v2.y - v1.y) * (v2.y - v1.y) + (v2.z - v1.z) * (v2.z - v1.z)
+    }
+    
+    for i in 1..<(points.count-1) {
+      let pa = points[i - 1]
+      let pb = points[i ]
+      let pc = points[i + 1]
+      let pab = vertexDistance(v1: pa, v2: pb)
+      let pbc = vertexDistance(v1: pb, v2: pc)
+      let threshold: Float = 0.00100
+      if pab > threshold || pbc > threshold {
+        vertices[i - 1].a = 0
+        vertices[i ].a = 0
+        vertices[i + 1].a = 0
+      }
+    }
+    
     return self.buildNode2(points: vertices)
   }
   
