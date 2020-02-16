@@ -206,5 +206,3 @@ if __name__ == "__main__":
 		if cur_dist < best_dist:
 			best_dist = cur_dist
 	print("best dist", best_dist)
-
-
