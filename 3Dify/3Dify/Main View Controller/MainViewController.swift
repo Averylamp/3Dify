@@ -64,7 +64,17 @@ class MainViewController: UIViewController {
   }
   
   @IBAction func mergeButtonClicked(_ sender: Any) {
-    
+    guard let model1Index = self.selectedIndices.first,
+      let model2Index = self.selectedIndices.last,
+      model1Index != model2Index else {
+        return
+    }
+    guard let mergeRotationVC = MergeRotationViewController.instantiate(model1: DataStore.shared.allModels[model1Index.row],
+                                                                        model2: DataStore.shared.allModels[model2Index.row]) else {
+                                                                          print("Unable to instantiate roate vc")
+                                                                          return
+    }
+    self.navigationController?.pushViewController(mergeRotationVC, animated: true)
   }
 }
 
@@ -158,13 +168,14 @@ extension MainViewController: UICollectionViewDataSource {
         return UICollectionViewCell()
     }
     
-    cell.containingView.layer.borderColor = UIColor.white.cgColor
     cell.containingView.layer.borderWidth = 6
     cell.containingView.layer.cornerRadius = 20
     
     if self.selectedIndices.contains(indexPath) {
       cell.selectedImageView.image = R.image.iconSelected()
+      cell.containingView.layer.borderColor = UIColor(red: 0.84, green: 0.59, blue: 0.73, alpha: 1.00).cgColor
     } else {
+      cell.containingView.layer.borderColor = UIColor.white.cgColor
       cell.selectedImageView.image = R.image.iconUnselected()
     }
     

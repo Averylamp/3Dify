@@ -27,7 +27,6 @@ class PointCloudEditorViewController: UIViewController {
   
   var model: StoredModel!
   
-  let indicatorView = NVActivityIndicatorView(frame: CGRect.zero)
   var sceneVC: DifyCloudVisualizerViewController?
 
   /// Factory method for creating this view controller.
@@ -74,17 +73,6 @@ extension  PointCloudEditorViewController {
   
   /// Setup should only be called once
   func setup() {
-
-    self.view.addSubview(indicatorView)
-    indicatorView.color = UIColor.white
-    indicatorView.type = .ballGridPulse
-    self.indicatorView.frame = CGRect(x: 0, y: 0, width: 50, height: 50)
-    self.indicatorView.center = self.sceneViewContainer.center
-    
-    self.indicatorView.startAnimating()
-    self.delay(delay: 0.3) {
-      self.indicatorView.stopAnimating()
-    }
     
     self.backgroundSlider.value = self.model.zThreshold
     
@@ -93,7 +81,6 @@ extension  PointCloudEditorViewController {
   
   override func viewDidAppear(_ animated: Bool) {
     super.viewDidAppear(animated)
-    self.indicatorView.center = self.sceneViewContainer.center
   }
   
   func loadSceneView() {
@@ -146,9 +133,7 @@ extension  PointCloudEditorViewController {
       sceneVC.zScale = self.model.zScale
       sceneVC.zThreshold = self.model.zThreshold
       sceneVC.smoothing = self.model.smoothing
-      self.indicatorView.startAnimating()
       sceneVC.update()
-      self.indicatorView.stopAnimating()
     }
   }
   

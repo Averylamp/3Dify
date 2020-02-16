@@ -10,6 +10,7 @@ import UIKit
 import Photos
 import SceneKit
 import Vision
+import NVActivityIndicatorView
 
 class DifyCloudVisualizerViewController: UIViewController {
   
@@ -24,7 +25,9 @@ class DifyCloudVisualizerViewController: UIViewController {
   var distance: Float = 2
   var smoothing: Int = 10
   private let scene = SCNScene()
-  private var anchorNode = SCNNode()
+  var anchorNode = SCNNode()
+  
+  let indicatorView = NVActivityIndicatorView(frame: CGRect.zero)
   
   @IBOutlet weak var sceneView: SCNView!
   /// Factory method for creating this view controller.
@@ -51,9 +54,20 @@ extension  DifyCloudVisualizerViewController {
     self.loadAsset(self.phAsset)
   }
   
+  override func viewDidAppear(_ animated: Bool) {
+    super.viewDidAppear(animated)
+    self.indicatorView.center = self.view.center
+  }
+  
   /// Setup should only be called once
   func setup() {
     setupScene()
+    self.view.addSubview(indicatorView)
+    indicatorView.color = UIColor.white
+    indicatorView.type = .ballGridPulse
+    self.indicatorView.frame = CGRect(x: 0, y: 0, width: 50, height: 50)
+    self.indicatorView.center = self.view.center
+    
   }
   
   func createLightNode(position: SCNVector3, type: SCNLight.LightType = .omni) -> SCNNode {
@@ -111,6 +125,7 @@ extension  DifyCloudVisualizerViewController {
 
 extension DifyCloudVisualizerViewController {
   func getPointCloud() -> SCNNode {
+    self.indicatorView.startAnimating()
     guard let colorImage = image, let cgColorImage = colorImage.cgImage else { fatalError() }
     guard let depthData = depthData else { fatalError() }
     
@@ -201,6 +216,7 @@ extension DifyCloudVisualizerViewController {
     
     let pcNode = pc.pointCloudNode()
     pcNode.position = SCNVector3(x: 0, y: 0, z: 0)
+    self.indicatorView.stopAnimating()
     return pcNode
   }
   

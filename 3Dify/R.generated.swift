@@ -408,12 +408,14 @@ struct R: Rswift.Validatable {
     fileprivate init() {}
   }
 
-  /// This `R.image` struct is generated, and contains static references to 6 images.
+  /// This `R.image` struct is generated, and contains static references to 7 images.
   struct image {
     /// Image `3DifyBanner`.
     static let difyBanner = Rswift.ImageResource(bundle: R.hostingBundle, name: "3DifyBanner")
     /// Image `3DifyLogo`.
     static let difyLogo = Rswift.ImageResource(bundle: R.hostingBundle, name: "3DifyLogo")
+    /// Image `icon-back`.
+    static let iconBack = Rswift.ImageResource(bundle: R.hostingBundle, name: "icon-back")
     /// Image `icon-many-images`.
     static let iconManyImages = Rswift.ImageResource(bundle: R.hostingBundle, name: "icon-many-images")
     /// Image `icon-selected`.
@@ -434,6 +436,13 @@ struct R: Rswift.Validatable {
     /// `UIImage(named: "3DifyLogo", bundle: ..., traitCollection: ...)`
     static func difyLogo(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
       return UIKit.UIImage(resource: R.image.difyLogo, compatibleWith: traitCollection)
+    }
+    #endif
+
+    #if os(iOS) || os(tvOS)
+    /// `UIImage(named: "icon-back", bundle: ..., traitCollection: ...)`
+    static func iconBack(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
+      return UIKit.UIImage(resource: R.image.iconBack, compatibleWith: traitCollection)
     }
     #endif
 

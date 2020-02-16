@@ -38,7 +38,7 @@
                             </button>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="0gO-rg-eSg">
                                 <rect key="frame" x="0.0" y="44" width="414" height="260"/>
-                                <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="260" id="ye8-ct-0KG"/>
                                 </constraints>
@@ -50,28 +50,32 @@
                                     <constraint firstAttribute="height" constant="2" id="IzT-ij-uPn"/>
                                 </constraints>
                             </view>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Orient image 2 in the same direction as image 1." textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="t9D-Le-FbL">
-                                <rect key="frame" x="30" y="324" width="354" height="152"/>
-                                <fontDescription key="fontDescription" name="IBMPlexSans" family="IBM Plex Sans" pointSize="25"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Orient image 2  in the same direction  as image 1." textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="t9D-Le-FbL">
+                                <rect key="frame" x="100" y="324" width="214" height="152"/>
+                                <fontDescription key="fontDescription" name="IBMPlexSans" family="IBM Plex Sans" pointSize="17"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="I9E-pb-LUT">
                                 <rect key="frame" x="0.0" y="484" width="414" height="260"/>
-                                <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <gestureRecognizers/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="260" id="Ogq-rt-uin"/>
                                 </constraints>
+                                <connections>
+                                    <outletCollection property="gestureRecognizers" destination="uxv-bL-mdA" appends="YES" id="oaD-1Y-qvZ"/>
+                                </connections>
                             </view>
                         </subviews>
                         <color key="backgroundColor" red="0.1019607843" green="0.066666666669999999" blue="0.2666666667" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                         <constraints>
                             <constraint firstItem="EVS-nR-AUd" firstAttribute="trailing" secondItem="0gO-rg-eSg" secondAttribute="trailing" id="0dp-j5-t9y"/>
                             <constraint firstItem="GDr-2N-BAV" firstAttribute="leading" secondItem="EVS-nR-AUd" secondAttribute="leading" id="3Tl-p8-dJA"/>
-                            <constraint firstItem="EVS-nR-AUd" firstAttribute="trailing" secondItem="t9D-Le-FbL" secondAttribute="trailing" constant="30" id="6i5-4K-PKh"/>
+                            <constraint firstItem="EVS-nR-AUd" firstAttribute="trailing" secondItem="t9D-Le-FbL" secondAttribute="trailing" constant="100" id="6i5-4K-PKh"/>
                             <constraint firstItem="I9E-pb-LUT" firstAttribute="top" secondItem="t9D-Le-FbL" secondAttribute="bottom" constant="8" symbolic="YES" id="9iq-x4-3gG"/>
                             <constraint firstItem="t9D-Le-FbL" firstAttribute="centerX" secondItem="EVS-nR-AUd" secondAttribute="centerX" id="BxM-ik-cfT"/>
-                            <constraint firstItem="t9D-Le-FbL" firstAttribute="leading" secondItem="EVS-nR-AUd" secondAttribute="leading" constant="30" id="F10-8W-25i"/>
+                            <constraint firstItem="t9D-Le-FbL" firstAttribute="leading" secondItem="EVS-nR-AUd" secondAttribute="leading" constant="100" id="F10-8W-25i"/>
                             <constraint firstItem="EVS-nR-AUd" firstAttribute="bottom" secondItem="dUM-Ct-yTh" secondAttribute="bottom" constant="10" id="Kra-Jc-MkB"/>
                             <constraint firstItem="0gO-rg-eSg" firstAttribute="top" secondItem="EVS-nR-AUd" secondAttribute="top" id="L90-tz-AmV"/>
                             <constraint firstItem="dUM-Ct-yTh" firstAttribute="top" secondItem="I9E-pb-LUT" secondAttribute="bottom" constant="8" symbolic="YES" id="ReY-9i-nD8"/>
@@ -93,6 +97,11 @@
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="3PC-dy-lYK" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+                <panGestureRecognizer minimumNumberOfTouches="1" id="uxv-bL-mdA">
+                    <connections>
+                        <action selector="panGestureRecognizerSwiped:" destination="T3L-xD-xEX" id="4Rg-Te-Ide"/>
+                    </connections>
+                </panGestureRecognizer>
             </objects>
             <point key="canvasLocation" x="137.68115942028987" y="134.59821428571428"/>
         </scene>
