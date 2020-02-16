@@ -1,22 +1,15 @@
 //
-//  PHAssetExtensions.swift
-//  3Dify
+//  PhotosUtils.swift
+//  iOS-Depth-Sampler
 //
-//  Created by Avery Lamp on 2/15/20.
-//  Copyright © 2020 Avery Lamp. All rights reserved.
+//  Created by Shuichi Tsutsumi on 2018/09/12.
+//  Copyright © 2018 Shuichi Tsutsumi. All rights reserved.
 //
 
-import UIKit
 import Photos
+import UIKit
 
 extension PHAsset {
-  func requestColorImage(handler: @escaping (UIImage?) -> Void) {
-    let requestOptions = PHImageRequestOptions()
-    requestOptions.isSynchronous = true
-    PHImageManager.default().requestImage(for: self, targetSize: PHImageManagerMaximumSize, contentMode: PHImageContentMode.aspectFit, options: requestOptions) { (image, _) in
-      handler(image)
-    }
-  }
   
   func getURL(completionHandler : @escaping ((_ responseURL: URL?) -> Void)) {
     let options: PHContentEditingInputRequestOptions = PHContentEditingInputRequestOptions()
@@ -33,16 +26,50 @@ extension PHAsset {
     
   }
   
+  class func fetchAssetsWithDepth() -> [PHAsset] {
+    let resultCollections = PHAssetCollection.fetchAssetCollections(
+      with: .smartAlbum,
+      subtype: .smartAlbumDepthEffect,
+      options: nil)
+    var assets: [PHAsset] = []
+    resultCollections.enumerateObjects({ collection, _, _ in
+      let result = PHAsset.fetchAssets(in: collection, options: nil)
+      result.enumerateObjects({ asset, _, _ in
+        assets.append(asset)
+      })
+    })
+    return assets
+  }
+  
+  func requestColorImage(handler: @escaping (UIImage?) -> Void) {
+    let imageRequestOption = PHImageRequestOptions()
+    imageRequestOption.isSynchronous = true
+    PHImageManager.default().requestImage(for: self, targetSize: PHImageManagerMaximumSize, contentMode: PHImageContentMode.aspectFit, options: imageRequestOption) { (image, _) in
+      handler(image)
+    }
+  }
+  
+  func hasPortraitMatte() -> Bool {
+    var result: Bool = false
+    let semaphore = DispatchSemaphore(value: 0)
+    requestContentEditingInput(with: nil) { contentEditingInput, _ in
+      let imageSource = contentEditingInput?.createImageSource()
+      result = imageSource?.getMatteData() != nil
+      semaphore.signal()
+    }
+    semaphore.wait()
+    return result
+  }
 }
 
 extension PHContentEditingInput {
-    func createDepthImage() -> CIImage {
-        guard let url = fullSizeImageURL else { fatalError() }
-        return CIImage(contentsOf: url, options: [CIImageOption.auxiliaryDisparity: true])!
-    }
-    
-    func createImageSource() -> CGImageSource {
-        guard let url = fullSizeImageURL else { fatalError() }
-        return CGImageSourceCreateWithURL(url as CFURL, nil)!
-    }
+  func createDepthImage() -> CIImage {
+    guard let url = fullSizeImageURL else { fatalError() }
+    return CIImage(contentsOf: url, options: [CIImageOption.auxiliaryDisparity: true])!
+  }
+  
+  func createImageSource() -> CGImageSource {
+    guard let url = fullSizeImageURL else { fatalError() }
+    return CGImageSourceCreateWithURL(url as CFURL, nil)!
+  }
 }

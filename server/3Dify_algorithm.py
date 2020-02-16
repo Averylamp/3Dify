@@ -1,5 +1,6 @@
 import itertools
 from collections import defaultdict
+<<<<<<< HEAD
 import math
 import numpy as np
 import random
@@ -8,6 +9,17 @@ import time
 # 	hello = sorted(cloud_1)
 # 	return random.random()
 times = []
+=======
+import time
+
+numVoxels = 40
+
+
+
+def point_cloud_distance(cloud_1, cloud_2):
+	raise('Point cloud distance is not yet implemented.')
+
+>>>>>>> 1fd8b0ae6ea45acb8ec120db4f85d9044fd04f82
 def choose_y_slice(cloud_1, cloud_2, step_size=4):
 
 	cloud_1 = sorted(cloud_1, key=lambda y: y[4])
@@ -150,16 +162,16 @@ def distance_voxelized(cloud_1, cloud_2):
 	voxel_x = 1
 	voxel_y = 1
 	voxel_z = 1
-	max_x = 1000
-	max_y = 1000
-	max_z = 1000
+	max_x = numVoxels
+	max_y = numVoxels
+	max_z = numVoxels
 	voxel_map_1 = defaultdict(list)
 	voxel_map_2 = defaultdict(list)
 
 	for point in cloud_1:
-		voxel_map_1[math.floor(point[3]), math.floor(point[4]), math.floor(point[5])] = point
+		voxel_map_1[math.floor(point[3]), math.floor(point[4]), math.floor(point[5])].append(point)
 	for point in cloud_2:
-		voxel_map_2[math.floor(point[3]), math.floor(point[4]), math.floor(point[5])] = point
+		voxel_map_2[math.floor(point[3]), math.floor(point[4]), math.floor(point[5])].append(point)
 
 	for top_corner in voxel_map_1:
 		cur_x = top_corner[0]
@@ -169,9 +181,10 @@ def distance_voxelized(cloud_1, cloud_2):
 		range_y = range(cur_y - voxel_y, cur_y + voxel_y)
 		range_z = range(cur_z - voxel_z, cur_z + voxel_z)
 		for tx, ty, tz in itertools.product(range_x, range_y, range_z):
-			for point1 in voxel_map_1[top_corner]:
-				if (tx, ty, tz) in voxel_map_2:
-					total_distance += sum([cost(point1, point2) for point2 in voxel_map_2[(tx, ty, tz)]])
+			if (tx, ty, tz) in voxel_map_2:
+				p1 = voxel_map_1[top_corner][0]
+				p2 = voxel_map_2[(tx, ty, tz)][0]
+				total_distance += cost(p1, p2)
 	return total_distance
 
 def round_nearest(x, a):
@@ -237,13 +250,22 @@ if __name__ == "__main__":
 	print(rotated_points_2)
 	choose_x_slice(points_1, rotated_points_2)
 
-
-
-
-
-
-
-
-
-
+    # result1 = []
+    # result2 = []
+    # with open("points1.txt", "rb") as fp:
+    #     for i in fp.readlines():
+    #         result1.append(eval(i))
+    #         cur = result1[-1]
+    #         result1[-1] = (cur[3], cur[4], cur[5], cur[0] * numVoxels, cur[1] * numVoxels, cur[2] * numVoxels)
+    # with open("points2.txt", "rb") as fp:
+    #     for i in fp.readlines():
+    #         result2.append(eval(i))
+    #         cur = result2[-1]
+    #         result2[-1] = (cur[3], cur[4], cur[5], cur[0] * numVoxels, cur[1] * numVoxels, cur[2] * numVoxels)
+    # print(result1[0:10])
+    # start_time = time.time()
+    # # print(naive_distance(result1, result2))
+    # # print("--- %s seconds ---" % (time.time() - start_time))
+    # print(distance_voxelized(result1, result2))
+    # print(time.time()-start_time)
 

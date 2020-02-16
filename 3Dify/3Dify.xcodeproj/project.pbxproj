@@ -25,6 +25,8 @@
 		BB75B66723F87B9C00A13363 /* AVDepthData+Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB75B66623F87B9C00A13363 /* AVDepthData+Utils.swift */; };
 		BB75B66923F87C9100A13363 /* CIImage+Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB75B66823F87C9100A13363 /* CIImage+Utils.swift */; };
 		BB75B66B23F87D1400A13363 /* DifyPointCloud.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB75B66A23F87D1400A13363 /* DifyPointCloud.swift */; };
+		BB85347A23F90BA400D6C43A /* UIImage+Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB85347923F90BA400D6C43A /* UIImage+Utils.swift */; };
+		BB85347C23F90C0F00D6C43A /* CVPixelBuffer+CIImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB85347B23F90C0F00D6C43A /* CVPixelBuffer+CIImage.swift */; };
 		BBBF081123F7D99600E177DF /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = BBBF081023F7D99600E177DF /* AppDelegate.swift */; };
 		BBBF081523F7D99600E177DF /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BBBF081423F7D99600E177DF /* MainViewController.swift */; };
 		BBBF081823F7D99600E177DF /* MainViewController.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = BBBF081623F7D99600E177DF /* MainViewController.storyboard */; };
@@ -72,6 +74,8 @@
 		BB75B66623F87B9C00A13363 /* AVDepthData+Utils.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "AVDepthData+Utils.swift"; sourceTree = "<group>"; };
 		BB75B66823F87C9100A13363 /* CIImage+Utils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CIImage+Utils.swift"; sourceTree = "<group>"; };
 		BB75B66A23F87D1400A13363 /* DifyPointCloud.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DifyPointCloud.swift; sourceTree = "<group>"; };
+		BB85347923F90BA400D6C43A /* UIImage+Utils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImage+Utils.swift"; sourceTree = "<group>"; };
+		BB85347B23F90C0F00D6C43A /* CVPixelBuffer+CIImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CVPixelBuffer+CIImage.swift"; sourceTree = "<group>"; };
 		BBBF080D23F7D99600E177DF /* 3Dify.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = 3Dify.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		BBBF081023F7D99600E177DF /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		BBBF081423F7D99600E177DF /* MainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
@@ -183,9 +187,11 @@
 			isa = PBXGroup;
 			children = (
 				BB0D3E5223F87452002AD13E /* PHAsset+Utils.swift */,
+				BB85347B23F90C0F00D6C43A /* CVPixelBuffer+CIImage.swift */,
 				BB75B66423F87B5C00A13363 /* CGImageSource+Depth.swift */,
 				BB75B66623F87B9C00A13363 /* AVDepthData+Utils.swift */,
 				BB75B66823F87C9100A13363 /* CIImage+Utils.swift */,
+				BB85347923F90BA400D6C43A /* UIImage+Utils.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -462,7 +468,7 @@
 			outputFileListPaths = (
 			);
 			outputPaths = (
-				"$SRCROOT/R.generated.swift",
+				$SRCROOT/R.generated.swift,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -483,9 +489,11 @@
 				BB0D3E3A23F7E335002AD13E /* PortraitPhotoPickerViewController.swift in Sources */,
 				BB0D3E4423F7F349002AD13E /* DifyAPI.swift in Sources */,
 				BBBF081523F7D99600E177DF /* MainViewController.swift in Sources */,
+				BB85347C23F90C0F00D6C43A /* CVPixelBuffer+CIImage.swift in Sources */,
 				BB0D3E5323F87452002AD13E /* PHAsset+Utils.swift in Sources */,
 				BB0D3E4E23F85853002AD13E /* SceneDelegate.swift in Sources */,
 				BB75B66923F87C9100A13363 /* CIImage+Utils.swift in Sources */,
+				BB85347A23F90BA400D6C43A /* UIImage+Utils.swift in Sources */,
 				BBBF081123F7D99600E177DF /* AppDelegate.swift in Sources */,
 				BB75B66523F87B5C00A13363 /* CGImageSource+Depth.swift in Sources */,
 				BB0D3E4223F7F323002AD13E /* Result.swift in Sources */,
