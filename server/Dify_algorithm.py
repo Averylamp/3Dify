@@ -49,8 +49,8 @@ def choose_y_slice(cloud_1, cloud_2, shift_x_1, shift_x_2, step_size=4):
 			min_shift_2 = shift_2
 
 		i += 1
-	print('final i:', i)
-	print('mindist', min_distance)
+	# print('final i:', i)
+	# print('mindist', min_distance)
 	return (min_distance, min_shift_1, min_shift_2, shift_x_1, shift_x_2)
 
 
@@ -66,7 +66,7 @@ def compute_arguments(cloud_1, cloud_2, low_1, high_1, low_2, high_2, slice_size
 		shift_2 = -included_2[0][3]
 		all_args.append((translate_x_y(included_1, x_shift=shift_1), translate_x_y(included_2, x_shift=shift_2), shift_1, shift_2, step_size))
 		i += 1
-	print(all_args[0])
+	# print(all_args[0])
 	return all_args
 
 def choose_x_slice(cloud_1, cloud_2, step_size=4):
@@ -245,11 +245,14 @@ if __name__ == "__main__":
 	print('total number of points_2, original:', len(points_2))
 
 	# Amount to sample
-	# sample_proportion = 0.05
-	# points_1 = random.sample(points_1, math.floor(len(points_1) * sample_proportion))
-	# print('sampled number of points_1:', len(points_1))
-	# points_2 = random.sample(points_2, math.floor(len(points_2) * sample_proportion))
-	# print('sampled number of points_2:', len(points_2))
+	sample_proportion = 0.01
+	points_1 = random.sample(points_1, math.floor(len(points_1) * sample_proportion))
+	print('sampled number of points_1:', len(points_1))
+	points_2 = random.sample(points_2, math.floor(len(points_2) * sample_proportion))
+	print('sampled number of points_2:', len(points_2))
+
+	# print('p1', points_1)
+	# print('p2', points_2)
 
 	# Rotate 
 	rotated_points_2 = rotate_z(points_2, 20)
