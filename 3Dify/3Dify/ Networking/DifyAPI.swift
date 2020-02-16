@@ -14,21 +14,17 @@ enum DifyAPIError: Error {
 }
 
 protocol DifyAPI {
-  func sendImage(image: UIImage,
-                 completion: @escaping(Result<[DifyPoint], DifyAPIError>) -> Void)
+  func sendImage(image: [PointCloudVertex],
+                 completion: @escaping (([String: AnyObject]) -> Void))
 }
 
 class NetworkingDifyAPI {
   static let shared = NetworkingDifyAPI()
-  
-  private init() {
-  }
-
 }
 
-extension NetworkingDifyAPI: DifyAPI {
+extension NetworkingDifyAPI {
 
-  func sendImage(image: UIImage, completion: @escaping (Result<[DifyPoint], DifyAPIError>) -> Void) {
+  func sendImage(image: [PointCloudVertex], completion: @escaping (([String: AnyObject]) -> Void)) {
     print("Initiating request")
     let params = ["todo": 1] as [String: Int]
 
@@ -44,7 +40,7 @@ extension NetworkingDifyAPI: DifyAPI {
           guard let json = try JSONSerialization.jsonObject(with: data!) as? [String: AnyObject] else {
             fatalError("JSON Serialization failed")
           }
-            print(json)
+            completion(json)
         } catch {
             print("error")
         }

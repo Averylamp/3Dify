@@ -196,10 +196,12 @@ extension DifyCloudVisualizerViewController {
     pc.colors = pixelDataColor
     pc.width = width
     pc.height = height
-    let pcNode = pc.pointCloudNode()
+    pc.pointCloudNode(completion: { pcNode in
+        pcNode.position = SCNVector3(x: 0, y: 0, z: 0)
+        scene.rootNode.addChildNode(pcNode)
+    })
 //    let pcNode = pc.pointCloudNodeTriangulated()
-    pcNode.position = SCNVector3(x: 0, y: 0, z: 0)
-    scene.rootNode.addChildNode(pcNode)
+    
     //        pcNode.runAction(SCNAction.repeatForever(SCNAction.rotateBy(x: 0, y: 2, z: 0, duration: 1)))
     
     // Draw with Sphere nodes
