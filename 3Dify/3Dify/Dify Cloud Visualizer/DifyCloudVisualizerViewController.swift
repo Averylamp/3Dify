@@ -11,8 +11,6 @@ import Photos
 import SceneKit
 import Vision
 
-// swiftlint:ignore identifier_name
-
 class DifyCloudVisualizerViewController: UIViewController {
   
   var phAsset: PHAsset!
@@ -39,7 +37,6 @@ class DifyCloudVisualizerViewController: UIViewController {
   }
   
 }
-
 // MARK: Life Cycle
 extension  DifyCloudVisualizerViewController {
   
@@ -47,15 +44,30 @@ extension  DifyCloudVisualizerViewController {
     super.viewDidLoad()
     self.setup()
     self.stylize()
+    self.loadAsset(self.phAsset)
   }
   
   /// Setup should only be called once
   func setup() {
-    self.setupScene()
-    self.loadImageCloud()
+    setupScene()
+    
+    PHPhotoLibrary.requestAuthorization({ status in
+      switch status {
+      case .authorized:
+        self.phAsset.getURL { (url) in
+          if let url = url {
+            self.loadImage(at: url)
+          }
+        }
+        
+      default:
+        fatalError()
+      }
+    })
+    
   }
   
-  private func  setupScene() {
+  private func setupScene() {
     let cameraNode = SCNNode()
     cameraNode.camera = SCNCamera()
     cameraNode.camera?.zNear = 0.0
@@ -74,14 +86,28 @@ extension  DifyCloudVisualizerViewController {
     sphere.firstMaterial?.diffuse.contents = UIColor.blue
     pointNode = SCNNode(geometry: sphere)
     
-    self.sceneView.scene = scene
-    self.sceneView.allowsCameraControl = true
-    self.sceneView.showsStatistics = true
-    self.sceneView.backgroundColor = UIColor.white
+    sceneView.scene = scene
+    sceneView.allowsCameraControl = true
+    sceneView.showsStatistics = true
+    sceneView.backgroundColor = UIColor.white
   }
   
-  private func loadImageCloud() {
-    self.loadImage()
+  private func loadImage(at url: URL) {
+    let imageSource = CGImageSourceCreateWithURL(url as CFURL, nil)!
+    depthData = imageSource.getDisparityData()
+    guard let image = UIImage(contentsOfFile: url.path) else { fatalError() }
+    self.image = image
+  }
+  
+  private func loadAsset(_ asset: PHAsset) {
+    asset.requestColorImage { image in
+      self.image = image    
+      asset.requestContentEditingInput(with: nil) { contentEditingInput, _ in
+        let imageSource = contentEditingInput!.createImageSource()
+        self.depthData = imageSource.getDisparityData()
+        self.update()
+      }
+    }
   }
   
   /// Stylize should only be called once
@@ -91,75 +117,9 @@ extension  DifyCloudVisualizerViewController {
   
 }
 
-// MARK: Vision
 extension DifyCloudVisualizerViewController {
-    private func vision(img: UIImage) {
-        var orientation:Int32 = 0
-        
-        // detect image orientation, we need it to be accurate for the face detection to work
-        switch img.imageOrientation {
-        case .up:
-            orientation = 1
-        case .right:
-            orientation = 6
-        case .down:
-            orientation = 3
-        case .left:
-            orientation = 8
-        default:
-            orientation = 1
-        }
-        
-        let faceLandmarksRequest = VNDetectFaceLandmarksRequest(completionHandler: self.handleFaceFeatures)
-        
-        let imageRequestHandler = VNImageRequestHandler(cgImage: img.cgImage!, orientation: CGImagePropertyOrientation(rawValue: CGImagePropertyOrientation.RawValue(orientation))! ,options: [:])
-    }
-    
-    func handleFaceFeatures(request: VNRequest, error: Error?) {
-        guard let observations = request.results as? [VNFaceObservation] else { fatalError("Could not process Vision request") }
-        
-        DispatchQueue.main.async {
-            for feature in observations {
-                // Do something with features
-            }
-        }
-    }
-}
-
-// MARK: Loading
-extension DifyCloudVisualizerViewController {
-  private func loadImage() {
-    self.scene.rootNode.childNodes.forEach {
-      $0.removeFromParentNode()
-    }
-    var count = 2
-    self.phAsset.requestColorImage { image in
-      self.image = image
-      count -= 1
-      print("Loaded color image")
-      if count == 0 {
-        DispatchQueue.main.async {
-          self.drawPointCloud()
-        }
-      }
-    }
-    self.phAsset.requestContentEditingInput(with: nil) { contentEditingInput, _ in
-      let imageSource = contentEditingInput!.createImageSource()
-      print("Loaded Depth Data")
-      self.depthData = imageSource.getDisparityData()
-      count -= 1
-      if count == 0 {
-        DispatchQueue.main.async {
-          self.drawPointCloud()
-        }
-      }
-    }
-  }
-}
-
-// MARK: Drawing
-extension DifyCloudVisualizerViewController {
-  func drawPointCloud() {
+  private func drawPointCloud() {
+    print("Drawing point cloud")
     guard let colorImage = image, let cgColorImage = colorImage.cgImage else { fatalError() }
     guard let depthData = depthData else { fatalError() }
     
@@ -172,9 +132,9 @@ extension DifyCloudVisualizerViewController {
     guard let pixelDataColor = resizedColorImage.createCGImage().pixelData() else { fatalError() }
     
     // Applying Histogram Equalization
-//    let depthImage = CIImage(cvPixelBuffer: depthPixelBuffer).applyingFilter("YUCIHistogramEqualization")
-//    let context = CIContext(options: nil)
-//    context.render(depthImage, to: depthPixelBuffer, bounds: depthImage.extent, colorSpace: nil)
+    //        let depthImage = CIImage(cvPixelBuffer: depthPixelBuffer).applyingFilter("YUCIHistogramEqualization")
+    //        let context = CIContext(options: nil)
+    //        context.render(depthImage, to: depthPixelBuffer, bounds: depthImage.extent, colorSpace: nil)
     
     let pixelDataDepth: [Float32]
     pixelDataDepth = depthPixelBuffer.grayPixelData()
@@ -190,60 +150,55 @@ extension DifyCloudVisualizerViewController {
     let pointCloud: [SCNVector3] = pixelDataDepth.enumerated().map {
       let index = $0.offset
       // Adjusting scale and translating to the center
-      
-      let xPoint = Float(index % width - width / 2) * xyScale
-      let yPoint = Float(height / 2 - index / width) * xyScale
+      let x = Float(index % width - width / 2) * xyScale
+      let y = Float(height / 2 - index / width) * xyScale
       // z comes as Float32 value
-      let zPoint = Float($0.element) * zScale
-      return SCNVector3(xPoint, yPoint, zPoint)
+      let z = Float($0.element) * zScale
+      return SCNVector3(x, y, z)
     }
     
     // Draw as a custom geometry
-    let pCloud = DifyPointCloud()
-    pCloud.pointCloud = pointCloud
-    pCloud.colors = pixelDataColor
-    pCloud.width = width
-    pCloud.height = height
-    let pcNode = pCloud.pointCloudNode()
-//    let pcNode = pCloud.pointCloudNodeTriangulated()
+    let pc = PointCloud()
+    pc.pointCloud = pointCloud
+    pc.colors = pixelDataColor
+    let pcNode = pc.pointCloudNode()
     pcNode.position = SCNVector3(x: 0, y: 0, z: 0)
-
     scene.rootNode.addChildNode(pcNode)
-//    pcNode.runAction(SCNAction.repeatForever(SCNAction.rotateBy(x: 0, y: 2, z: 0, duration: 1)))
+    //        pcNode.runAction(SCNAction.repeatForever(SCNAction.rotateBy(x: 0, y: 2, z: 0, duration: 1)))
     
-    let lightNode = SCNNode()
-    lightNode.light = SCNLight()
-    lightNode.light!.type = .omni
-    lightNode.position = SCNVector3(x: 0, y: 0, z: 0)
-    scene.rootNode.addChildNode(lightNode)
-//
-//    // Draw with Sphere nodes
-//    print("Nodes: \(pointCloud.count)")
-//    pointCloud.enumerated().forEach {
-//      let scale: Float = 0.001
-//      let index = $0.offset * 4
-//      let red = pixelDataColor[index]
-//      let green = pixelDataColor[index + 1]
-//      let blue = pixelDataColor[index + 2]
-//
-//      let pos = $0.element
-//      // reducing the points
-//      guard Int(pos.x / scale) % 10 == 0 else { return }
-//      guard Int(pos.y / scale) % 10 == 0 else { return }
-//      let clone = pointNode.clone()
-//      clone.position = SCNVector3(pos.x, pos.y, pos.z)
-//
-//      // Creating a new geometry and a new material to color for each
-//      // https://stackoverflow.com/questions/39902802/stop-sharing-nodes-geometry-with-its-clone-programmatically
-//      guard let newGeometry = pointNode.geometry?.copy() as? SCNGeometry else { fatalError() }
-//      guard let newMaterial = newGeometry.firstMaterial?.copy() as? SCNMaterial else { fatalError() }
-//      newMaterial.diffuse.contents = UIColor(red: CGFloat(red)/255, green: CGFloat(green)/255, blue: CGFloat(blue)/255, alpha: 1)
-//      newGeometry.materials = [newMaterial]
-//      clone.geometry = newGeometry
-//
-//      scene.rootNode.addChildNode(clone)
-//    }
+    // Draw with Sphere nodes
+    //        pointCloud.enumerated().forEach {
+    //            let index = $0.offset * 4
+    //            let r = pixelDataColor[index]
+    //            let g = pixelDataColor[index + 1]
+    //            let b = pixelDataColor[index + 2]
+    //
+    //            let pos = $0.element
+    //            // reducing the points
+    //            guard Int(pos.x / scale) % 10 == 0 else { return }
+    //            guard Int(pos.y / scale) % 10 == 0 else { return }
+    //            let clone = pointNode.clone()
+    //            clone.position = SCNVector3(pos.x, pos.y, pos.z)
+    //
+    //            // Creating a new geometry and a new material to color for each
+    //            // https://stackoverflow.com/questions/39902802/stop-sharing-nodes-geometry-with-its-clone-programmatically
+    //            guard let newGeometry = pointNode.geometry?.copy() as? SCNGeometry else { fatalError() }
+    //            guard let newMaterial = newGeometry.firstMaterial?.copy() as? SCNMaterial else { fatalError() }
+    //            newMaterial.diffuse.contents = UIColor(red: CGFloat(r)/255, green: CGFloat(g)/255, blue: CGFloat(b)/255, alpha: 1)
+    //            newGeometry.materials = [newMaterial]
+    //            clone.geometry = newGeometry
+    //
+    //            scene.rootNode.addChildNode(clone)
+    //        }
   }
+  
+  private func update() {
+    scene.rootNode.childNodes.forEach { childNode in
+      childNode.removeFromParentNode()
+    }
+    drawPointCloud()
+  }
+  
 }
 
 extension CGImage {
