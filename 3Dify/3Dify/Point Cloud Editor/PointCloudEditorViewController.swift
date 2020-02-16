@@ -7,21 +7,27 @@
 //
 
 import UIKit
+import NVActivityIndicatorView
 
 class PointCloudEditorViewController: UIViewController {
   
   @IBOutlet weak var sceneViewContainer: UIView!
-  
-  @IBOutlet weak var depthLabel: UILabel!
-  @IBOutlet weak var depthSlider: UISlider!
 
+  @IBOutlet weak var distanceLabel: UILabel!
+  @IBOutlet weak var distanceSlider: UISlider!
+  
   @IBOutlet weak var backgroundLabel: UILabel!
   @IBOutlet weak var backgroundSlider: UISlider!
   
-  @IBOutlet weak var otherLabel: UILabel!
+  @IBOutlet weak var depthLabel: UILabel!
+  @IBOutlet weak var depthSlider: UISlider!
+  
+  @IBOutlet weak var smoothingLabel: UILabel!
+  @IBOutlet weak var smoothingSlider: UISlider!
   
   var model: StoredModel!
   
+  let indicatorView = NVActivityIndicatorView(frame: CGRect.zero)
   var sceneVC: DifyCloudVisualizerViewController?
 
   /// Factory method for creating this view controller.
@@ -37,6 +43,24 @@ class PointCloudEditorViewController: UIViewController {
     return pointCloudEditorVC
   }
   
+  @IBAction func updateButtonClicked(_ sender: Any) {
+    self.updateSceneView()
+  }
+  @IBAction func continueButtonClicked(_ sender: Any) {
+    var found = false
+    for i in 0..<DataStore.shared.allModels.count {
+      if DataStore.shared.allModels[i].uid == self.model.uid {
+        found = true
+        DataStore.shared.allModels[i] = self.model
+        break
+      }
+    }
+    if !found {
+      DataStore.shared.allModels.append(self.model)
+    }
+    DataStore.shared.saveAllModelsToUserDefaults()
+    self.navigationController?.popViewController(animated: true)
+  }
 }
 
 // MARK: Life Cycle
@@ -50,9 +74,25 @@ extension  PointCloudEditorViewController {
   
   /// Setup should only be called once
   func setup() {
+
+    self.view.addSubview(indicatorView)
+    indicatorView.color = UIColor.white
+    indicatorView.type = .ballGridPulse
+    self.indicatorView.frame = CGRect(x: 0, y: 0, width: 50, height: 50)
+    
+    self.indicatorView.startAnimating()
+    self.delay(delay: 0.3) {
+      self.indicatorView.stopAnimating()
+    }
+    
+    self.backgroundSlider.value = self.model.zThreshold
     
     self.loadSceneView()
-    
+  }
+  
+  override func viewDidAppear(_ animated: Bool) {
+    super.viewDidAppear(animated)
+    self.indicatorView.center = self.sceneViewContainer.center
   }
   
   func loadSceneView() {
@@ -66,6 +106,11 @@ extension  PointCloudEditorViewController {
     guard let visualizerVC = DifyCloudVisualizerViewController.instantiate(phAsset: self.model.phAsset) else {
       fatalError("Failed to instantiate visualizer")
     }
+    
+    visualizerVC.distance = self.model.distance
+    visualizerVC.zScale = self.model.zScale
+    visualizerVC.zThreshold = self.model.zThreshold
+    visualizerVC.smoothing = self.model.smoothing
     
     self.sceneVC  = visualizerVC
     self.addChild(visualizerVC)
@@ -84,14 +129,34 @@ extension  PointCloudEditorViewController {
     ])
     
     visualizerVC.didMove(toParent: self)
-    
+  }
+  
+  func updateModelWithSliders() {
+    self.model.distance = self.distanceSlider.value
+    self.model.zScale = self.depthSlider.value
+    self.model.zThreshold = self.backgroundSlider.value
+    self.model.smoothing = Int(self.smoothingSlider.value)
+  }
+  
+  func updateSceneView() {
+    if let sceneVC = self.sceneVC {
+      self.updateModelWithSliders()
+      sceneVC.distance = self.model.distance
+      sceneVC.zScale = self.model.zScale
+      sceneVC.zThreshold = self.model.zThreshold
+      sceneVC.smoothing = self.model.smoothing
+      self.indicatorView.startAnimating()
+      sceneVC.update()
+      self.indicatorView.stopAnimating()
+    }
   }
   
   /// Stylize should only be called once
   func stylize() {
     self.depthLabel.addCharacterSpacing(kernValue: 5)
     self.backgroundLabel.addCharacterSpacing(kernValue: 5)
-    self.otherLabel.addCharacterSpacing(kernValue: 5)
+    self.distanceLabel.addCharacterSpacing(kernValue: 5)
+    self.smoothingLabel.addCharacterSpacing(kernValue: 5)
   }
   
 }

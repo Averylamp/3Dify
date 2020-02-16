@@ -21,6 +21,7 @@ struct PointCloudVertex {
   var colors: [UInt8] = []
   var width: Int = 0
   var height: Int = 0
+  var smoothing: Int = 0
   let apiInstance = NetworkingDifyAPI()
   
   public func pointCloudNode() -> SCNNode {
