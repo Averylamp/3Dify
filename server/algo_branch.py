@@ -1,30 +1,24 @@
-import itertools
-from collections import defaultdict
 import math
 import numpy as np
-import random
+import itertools
+from collections import defaultdict
 import time
 
-# def point_cloud_distance(cloud_1, cloud_2):
-# 	hello = sorted(cloud_1)
-# 	return random.random()
+numVoxels = 40
 
-times = []
-# numVoxels = 40
 
 
 def point_cloud_distance(cloud_1, cloud_2):
 	raise('Point cloud distance is not yet implemented.')
 
 def choose_y_slice(cloud_1, cloud_2, step_size=4):
-
 	cloud_1 = sorted(cloud_1, key=lambda y: y[4])
 	cloud_2 = sorted(cloud_2, key=lambda y: y[4])
-	
-	low_1 = min([y[4] for y in cloud_1])
-	high_1 = max([y[4] for y in cloud_1])
-	low_2 = min([y[4] for y in cloud_2])
-	high_2 = max([y[4] for y in cloud_2])
+
+	low_1 = min(cloud_1, key=lambda y: y[4])
+	high_1 = max(cloud_1, key=lambda y: y[4])
+	low_2 = min(cloud_2, key=lambda y: y[4])
+	high_2 = max(cloud_2, key=lambda y: y[4])
 
 	# TODO: figure out what granularity to use if sizes are disproportional
 	slice_size = min(high_1 - low_1, high_2 - low_2) / step_size
@@ -38,15 +32,13 @@ def choose_y_slice(cloud_1, cloud_2, step_size=4):
 
 		shift_1 = -included_1[0][4]
 		shift_2 = -included_2[0][4]
-		start = time.time()
 		distance_y = point_cloud_distance(translate_x_y(included_1, y_shift=shift_1), translate_x_y(included_2, y_shift=shift_2))
-		times.append(time.time() - start)
-		
+
 		if distance_y < min_distance:
 			min_distance = distance_y
 
 		i += 1
-	print('final i:', i)
+
 	return min_distance
 
 
@@ -55,10 +47,10 @@ def choose_x_slice(cloud_1, cloud_2, step_size=4):
 	cloud_1 = sorted(cloud_1, key=lambda x: x[3])
 	cloud_2 = sorted(cloud_2, key=lambda x: x[3])
 
-	low_1 = min([x[3] for x in cloud_1])
-	high_1 = max([x[3] for x in cloud_1])
-	low_2 = min([x[3] for x in cloud_2])
-	high_2 = max([x[3] for x in cloud_2])
+	low_1 = min(cloud_1, key=lambda x: x[3])
+	high_1 = max(cloud_1, key=lambda x: x[3])
+	low_2 = min(cloud_2, key=lambda x: x[3])
+	high_2 = max(cloud_2, key=lambda x: x[3])
 
 	# TODO: figure out what granularity to use if sizes are disproportional
 	slice_size = min(high_1 - low_1, high_2 - low_2) / step_size
@@ -66,7 +58,6 @@ def choose_x_slice(cloud_1, cloud_2, step_size=4):
 	min_distance = math.inf
 
 	i = 1
-	# print(datetime.now())
 	while i * slice_size < (high_1 - low_1) + (high_2 - low_2):
 		included_1 = [p for p in cloud_1 if p[3] < cloud_1[0][3] + i * slice_size]
 		included_2 = [p for p in cloud_2 if p[3] > cloud_2[-1][3] - i * slice_size]
@@ -74,16 +65,12 @@ def choose_x_slice(cloud_1, cloud_2, step_size=4):
 		shift_1 = -included_1[0][3]
 		shift_2 = -included_2[0][3]
 		distance_y = choose_y_slice(translate_x_y(included_1, x_shift=shift_1), translate_x_y(included_2, x_shift=shift_2), step_size)
-		print('distance_y:', distance_y)
 
 		if distance_y < min_distance:
 			min_distance = distance_y
 
 		i += 1
-	print(sum(times))
-	return
-	print('i:', i)
-	print('final_distance:', min_distance)
+
 	return min_distance
 
 
@@ -183,85 +170,39 @@ def distance_voxelized(cloud_1, cloud_2):
 				total_distance += cost(p1, p2)
 	return total_distance
 
-def round_nearest(x, a):
-    return round(round(x / a) * a, -int(math.floor(math.log10(a))))
-
-def point_cloud_distance(cloud_1, cloud_2, round_val=0.003):
-	cloud_dict = {}
-
-	for point in cloud_1:
-		index = (round_nearest(point[3], round_val), round_nearest(point[4], round_val), round_nearest(point[5], round_val))
-		cloud_dict[index] = (point[0], point[1], point[2])
-
-	total_distance = 0
-	for point in cloud_2:
-		index = (round_nearest(point[3], round_val), round_nearest(point[4], round_val), round_nearest(point[5], round_val))
-		if index in cloud_dict:
-			total_distance += (point[0] - cloud_dict[index][0])**2 + (point[1] - cloud_dict[index][1])**2 + (point[2] - cloud_dict[index][2])**2
-			break
-		found = False
-		for i in [-1, 0, 1]:
-			for j in [-1, 0, 1]:
-				for k in [-1, 0, 1]:
-					if found: break
-					neighbor = (index[0] + i, index[1] + j, index[2] + k)
-					if neighbor in cloud_dict:
-						total_distance += (point[0] - cloud_dict[neighbor][0])**2 + (point[1] - cloud_dict[neighbor][1])**2 + (point[2] - cloud_dict[neighbor][2])**2
-						found = True
-		# if not found:
-		# 	total_distance += 0.5 # arbitrary
-
-	return total_distance
-
-
-
 if __name__ == "__main__":
-
-	# points_1 object is left alone, points_2 is rotated and translated
-	points_1 = []
-	points_2 = []
-
-	# Read in points
+	result1 = []
+	result2 = []
 	with open("points1.txt", "rb") as fp:
 		for i in fp.readlines():
-			l = eval(i)
-			points_1.append((l[3], l[4], l[5], l[0], l[1], l[2]))
-	print('total number of points_1, original:', len(points_1))
-
+			result1.append(eval(i))
+			cur = result1[-1]
+			result1[-1] = (cur[3], cur[4], cur[5], cur[0] * numVoxels, cur[1] * numVoxels, cur[2] * numVoxels)
 	with open("points2.txt", "rb") as fp:
 		for i in fp.readlines():
-			l = eval(i)
-			points_2.append((l[3], l[4], l[5], l[0], l[1], l[2]))
-	print('total number of points_2, original:', len(points_2))
+			result2.append(eval(i))
+			cur = result2[-1]
+			result2[-1] = (cur[3], cur[4], cur[5], cur[0] * numVoxels, cur[1] * numVoxels, cur[2] * numVoxels)
+	print(result1[0:10])
+	start_time = time.time()
+	# print(naive_distance(result1, result2))
+	# print("--- %s seconds ---" % (time.time() - start_time))
 
-	# Amount to sample
-	sample_proportion = 0.05
-	points_1 = random.sample(points_1, math.floor(len(points_1) * sample_proportion))
-	print('sampled number of points_1:', len(points_1))
-	points_2 = random.sample(points_2, math.floor(len(points_2) * sample_proportion))
-	print('sampled number of points_2:', len(points_2))
+	# original
+	print(distance_voxelized(result1, result2))
+	print(time.time()-start_time)
+	# 30 deg rotation
+	print(distance_voxelized(result1, rotate_z(result2, 30)))
+	start_time = time.time()
+	print(time.time()-start_time)
+	start_time = time.time()
+	print(distance_voxelized(result1, rotate_z(result2, -30)))
+	print(time.time()-start_time)
 
-	# Rotate 
-	rotated_points_2 = rotate_z(points_2, 20)
-	print(rotated_points_2)
-	choose_x_slice(points_1, rotated_points_2)
-
-    # result1 = []
-    # result2 = []
-    # with open("points1.txt", "rb") as fp:
-    #     for i in fp.readlines():
-    #         result1.append(eval(i))
-    #         cur = result1[-1]
-    #         result1[-1] = (cur[3], cur[4], cur[5], cur[0] * numVoxels, cur[1] * numVoxels, cur[2] * numVoxels)
-    # with open("points2.txt", "rb") as fp:
-    #     for i in fp.readlines():
-    #         result2.append(eval(i))
-    #         cur = result2[-1]
-    #         result2[-1] = (cur[3], cur[4], cur[5], cur[0] * numVoxels, cur[1] * numVoxels, cur[2] * numVoxels)
-    # print(result1[0:10])
-    # start_time = time.time()
-    # # print(naive_distance(result1, result2))
-    # # print("--- %s seconds ---" % (time.time() - start_time))
-    # print(distance_voxelized(result1, result2))
-    # print(time.time()-start_time)
-
+	best_dist = math.inf
+	for i in range(-50, 50):
+		cur_dist = distance_voxelized(result1, rotate_z(result2, i))
+		print(i, cur_dist)
+		if cur_dist < best_dist:
+			best_dist = cur_dist
+	print("best dist", best_dist)
