@@ -22,6 +22,7 @@ struct PointCloudVertex {
   var width: Int = 0
   var height: Int = 0
   let apiInstance = NetworkingDifyAPI()
+  let apiSet = false
     
     public func pointCloudNode(completion: @escaping ((SCNNode) -> Void)) {
     let points = self.pointCloud
@@ -38,11 +39,16 @@ struct PointCloudVertex {
     }
     
     vertices = filterVertices(points: vertices)
-    apiInstance.sendImage(image: vertices, completion: { points in
-        // Process points w/ vertices
+    if (apiSet) {
+        apiInstance.sendImage(image: vertices, completion: { points in
+            // Process points w/ vertices
+            let node = self.buildNode2(points: vertices)
+            completion(node)
+        })
+    } else {
         let node = self.buildNode2(points: vertices)
         completion(node)
-    })
+    }
   }
   
     private func filterVertices(points: [PointCloudVertex]) -> [PointCloudVertex] {
