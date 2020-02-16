@@ -61,6 +61,8 @@ def choose_x_slice(cloud_1, cloud_2, step_size=4):
 	slice_size = min(high_1 - low_1, high_2 - low_2) / step_size
 
 	min_distance = math.inf
+	min_shift_1 = math.inf
+	min_shift_2 = math.inf
 
 	i = 1
 	# print(datetime.now())
@@ -75,13 +77,14 @@ def choose_x_slice(cloud_1, cloud_2, step_size=4):
 
 		if distance_y < min_distance:
 			min_distance = distance_y
+			min_shift_1 = shift_1
+			min_shift_2 = shift_2
 
 		i += 1
 	print(sum(times))
-	return
 	print('i:', i)
 	print('final_distance:', min_distance)
-	return min_distance
+	return ((min_shift_1, min_distance), (min_shift_2, min_distance))
 
 
 # NAIVE - Returns the aggregate distance between two point clouds
