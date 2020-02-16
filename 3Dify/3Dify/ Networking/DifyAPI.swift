@@ -35,7 +35,7 @@ extension NetworkingDifyAPI {
     var request = URLRequest(url: URL(string: "http://seacow.averylamp.me:5000/upload/photo")!)
     request.httpMethod = "POST"
 
-    guard let payload = try? JSONSerialization.data(withJSONObject: data_to_send, options: .prettyPrinted) else {
+    guard let payload = try? JSONSerialization.data(withJSONObject: data_to_send, options: .fragmentsAllowed) else {
       fatalError("Failed to serialize json")
     }
     

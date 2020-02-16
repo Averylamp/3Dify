@@ -40,7 +40,9 @@ struct PointCloudVertex {
         vertices[i].a = 0
       }
     }
-    
+    NetworkingDifyAPI.shared.sendImage(aggregate: vertices, image: vertices) { (result) in
+      print(result)
+    }
     return self.buildNode2(points: vertices)
   }
   
@@ -112,7 +114,7 @@ struct PointCloudVertex {
       dataStride: MemoryLayout<PointCloudVertex>.size
     )
     
-    var fullNode = SCNNode()
+    let fullNode = SCNNode()
     var topRow = 0
     var currentRow = 0
     var columnIndex = 0
