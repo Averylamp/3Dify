@@ -15,10 +15,8 @@ def convert_points(points):
 def process_photo():
     input_data = request.data
     # Example input data:
-    # {0: [(x,y,z,r,g,b), (x,y,z,r,g,b)],
-    #  1: [(x,y,z,r,g,b)]}
-    for i in range(0, len(input_data)):
-        convert_points(input_data[i])
+    # {0: [(r,g,b,x,y,z), (r,g,b,x,y,z)],
+    #  1: [(r,g,b,x,y,z)]}
     points_1 = input_data[0]
     points_2 = input_data[1]
 
