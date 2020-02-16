@@ -79,6 +79,7 @@ extension  PointCloudEditorViewController {
     indicatorView.color = UIColor.white
     indicatorView.type = .ballGridPulse
     self.indicatorView.frame = CGRect(x: 0, y: 0, width: 50, height: 50)
+    self.indicatorView.center = self.sceneViewContainer.center
     
     self.indicatorView.startAnimating()
     self.delay(delay: 0.3) {

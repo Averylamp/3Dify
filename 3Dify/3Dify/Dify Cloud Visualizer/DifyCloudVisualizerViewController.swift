@@ -199,7 +199,7 @@ extension DifyCloudVisualizerViewController {
     pc.colors = pixelDataColor
     pc.width = width
     pc.height = height
-    pc.smoothing = smoothing
+//    pc.smoothing = smoothing
     
     let pcNode = pc.pointCloudNode()
     pcNode.position = SCNVector3(x: 0, y: 0, z: 0)

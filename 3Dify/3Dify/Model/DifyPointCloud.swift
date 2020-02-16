@@ -22,10 +22,9 @@ struct PointCloudVertex {
   var width: Int = 0
   var height: Int = 0
   let apiInstance = NetworkingDifyAPI()
-  let apiSet = false
-    
+  let apiSet = true
 
-    public func pointCloudNode(completion: @escaping ((SCNNode) -> Void)) {
+    public func pointCloudNode() -> SCNNode {
     var points = self.pointCloud
 
     var vertices = Array(repeating: PointCloudVertex(x: 0, y: 0, z: 0, r: 0, g: 0, b: 0), count: points.count)
@@ -41,23 +40,13 @@ struct PointCloudVertex {
     }
     
     vertices = filterVertices(points: vertices)
-
-    if (apiSet) {
-        apiInstance.sendImage(aggregate: vertices, image: vertices, completion: { points in
-            // Process points w/ vertices
-            let node = self.buildNode2(points: vertices)
-            completion(node)
-        })
-    } else {
-        let node = self.buildNode2(points: vertices)
-        completion(node)
-    }
-
-//    apiInstance.sendImage(image: vertices, completion: { points in
-//        // Process points w/ vertices
-//        let node = self.buildNode2(points: vertices)
-//        completion(node)
-//    })
+  
+      apiInstance.sendImage(aggregate: vertices, image: vertices, completion: { _ in
+          // Process points w/ vertices
+      })
+      let node = self.buildNode2(points: vertices)
+      return node
+    
   }
   
     private func processPoints(points: [PointCloudVertex], radians: Float, translation: Float) -> [PointCloudVertex] {
@@ -75,7 +64,7 @@ struct PointCloudVertex {
         let back_z = res[0].z
         let fore_z = res[res.count/2].z
         for i in 0...res.count-1 {
-            if (res[i].z > back_z && res[i].z < fore_z + 0.7*(fore_z - back_z)) {
+            if res[i].z > back_z && res[i].z < fore_z + 0.7*(fore_z - back_z) {
                 res[i] = PointCloudVertex(x: 0, y: 0, z: 0, r: 0, g: 0, b: 0)
             }
         }

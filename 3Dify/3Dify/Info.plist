@@ -55,6 +55,11 @@
 	<string>We need to access your photos</string>
 	<key>UIFileSharingEnabled</key>
 	<true/>
+	<key>NSAppTransportSecurity</key>
+	<dict>
+		<key>NSAllowsArbitraryLoads</key>
+		<true/>
+	</dict>
 	<key>UIAppFonts</key>
 	<array>
 		<string>IBMPlexSans-Regular.ttf</string>

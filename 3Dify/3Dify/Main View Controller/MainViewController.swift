@@ -161,6 +161,11 @@ extension MainViewController: UICollectionViewDelegate {
   
   func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
     print("Collection View selected item at: \(indexPath.item)")
+    guard let modelEditorVC = PointCloudEditorViewController.instantiate(model: DataStore.shared.allModels[indexPath.row]) else {
+      fatalError("Failed to instantiate model editor" )
+    }
+    self.navigationController?.pushViewController(modelEditorVC, animated: true)
+
   }
   
 }
