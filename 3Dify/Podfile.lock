@@ -1,4 +1,5 @@
 PODS:
+  - LTMorphingLabel (0.7.0)
   - NVActivityIndicatorView (4.8.0):
     - NVActivityIndicatorView/Presenter (= 4.8.0)
   - NVActivityIndicatorView/Presenter (4.8.0)
@@ -12,6 +13,7 @@ PODS:
   - SwiftyJSON (5.0.0)
 
 DEPENDENCIES:
+  - LTMorphingLabel
   - NVActivityIndicatorView
   - R.swift
   - SDWebImage
@@ -20,6 +22,7 @@ DEPENDENCIES:
 
 SPEC REPOS:
   trunk:
+    - LTMorphingLabel
     - NVActivityIndicatorView
     - R.swift
     - R.swift.Library
@@ -28,6 +31,7 @@ SPEC REPOS:
     - SwiftyJSON
 
 SPEC CHECKSUMS:
+  LTMorphingLabel: 22147fb1ec2b0306537ccc348b36ea8617179b03
   NVActivityIndicatorView: d24b7ebcf80af5dcd994adb650e2b6c93379270f
   R.swift: 8cbc4fc69b740305b6a17c8a8ed968eb788962d9
   R.swift.Library: fa85ce1e0d0b7e818cd9e080df910ba54d2776cc
@@ -35,6 +39,6 @@ SPEC CHECKSUMS:
   SwiftLint: 8f5d2f903e1c9bcbc832fd16771e80a263ac6cbb
   SwiftyJSON: 36413e04c44ee145039d332b4f4e2d3e8d6c4db7
 
-PODFILE CHECKSUM: f953b854c364aa1a7aff2f89cfb17c9d8841596c
+PODFILE CHECKSUM: 56a0a94686c88585de41b8417c5693eba6818c22
 
 COCOAPODS: 1.8.4

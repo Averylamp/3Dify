@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import LTMorphingLabel
 
 class MergeRotationViewController: UIViewController {
   
@@ -21,6 +22,7 @@ class MergeRotationViewController: UIViewController {
   weak var model1VC: DifyCloudVisualizerViewController?
   weak var model2VC: DifyCloudVisualizerViewController?
   
+  let rotationLabel = UILabel()
   var rotation: Double = 0.0
   
   /// Factory method for creating this view controller.
@@ -41,6 +43,7 @@ class MergeRotationViewController: UIViewController {
     print(translation)
     if let model2VC = self.model2VC {
       rotation += Double(translation) / 100
+      self.rotationLabel.text = "Rotation: \(Double(round(1000 * rotation)/1000))"
       sender.setTranslation(CGPoint.zero, in: self.model2ContainerView)
       model2VC.anchorNode.eulerAngles.y += Float(translation) / 100
     }
@@ -65,6 +68,18 @@ extension  MergeRotationViewController {
   func setup() {
     self.setupModel1()
     self.setupModel2()
+    self.view.addSubview(rotationLabel)
+    rotationLabel.translatesAutoresizingMaskIntoConstraints = false
+    rotationLabel.textColor = UIColor.white
+    if let font = R.font.ibmPlexSans(size: 16) {
+      rotationLabel.font = font
+    }
+    self.view.addConstraints([
+      NSLayoutConstraint(item: rotationLabel, attribute: .centerX, relatedBy: .equal,
+                         toItem: self.view, attribute: .centerX, multiplier: 1.0, constant: 0.0),
+      NSLayoutConstraint(item: rotationLabel, attribute: .bottom, relatedBy: .equal,
+      toItem: self.confirmButton, attribute: .top, multiplier: 1.0, constant: -8.0)
+    ])
   }
   
   func setupModel1() {

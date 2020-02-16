@@ -6,7 +6,7 @@ target '3Dify' do
   use_frameworks!
 
   # Pods for 3Dify
-
+  pod 'LTMorphingLabel'
   pod 'SDWebImage'
   pod 'SwiftyJSON'
   pod 'NVActivityIndicatorView'
