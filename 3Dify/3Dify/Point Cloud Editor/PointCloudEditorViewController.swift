@@ -77,8 +77,10 @@ extension  PointCloudEditorViewController {
       fatalError("Failed to instantiate visualizer")
     }
     
-    visualizerVC.zThreshold = model.zThreshold
-    visualizerVC.distance = model.distance
+    visualizerVC.distance = self.model.distance
+    visualizerVC.zScale = self.model.zScale
+    visualizerVC.zThreshold = self.model.zThreshold
+    visualizerVC.smoothing = self.model.smoothing
     
     self.sceneVC  = visualizerVC
     self.addChild(visualizerVC)
@@ -103,7 +105,7 @@ extension  PointCloudEditorViewController {
     self.model.distance = self.distanceSlider.value
     self.model.zScale = self.depthSlider.value
     self.model.zThreshold = self.backgroundSlider.value
-//    self.model.zScale = self.smoothingSlider.value
+    self.model.smoothing = Int(self.smoothingSlider.value)
   }
   
   func updateSceneView() {
@@ -112,6 +114,7 @@ extension  PointCloudEditorViewController {
       sceneVC.distance = self.model.distance
       sceneVC.zScale = self.model.zScale
       sceneVC.zThreshold = self.model.zThreshold
+      sceneVC.smoothing = self.model.smoothing
       sceneVC.update()
     }
   }

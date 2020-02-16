@@ -18,6 +18,7 @@ enum StoredModelCodingKeys: String, CodingKey {
   case zThreshold
   case zScale
   case distance
+  case smoothing
 }
 
 class StoredModel: Codable {
@@ -26,25 +27,28 @@ class StoredModel: Codable {
   var zThreshold: Float
   var zScale: Float
   var distance: Float
+  var smoothing: Int
   
   init(phAsset: PHAsset) {
     self.phAsset = phAsset
     self.zThreshold = 0.4
     self.zScale = 0.022
     self.distance = 0.5
+    self.smoothing = 0
   }
   
   required init(from decoder: Decoder) throws {
     let values = try decoder.container(keyedBy: StoredModelCodingKeys.self)
     let phAssetString = try values.decode(String.self, forKey: .phAsset)
     
-    guard let phAssetItem =  PHAsset.fetchAssets(withLocalIdentifiers: [], options: nil).firstObject else {
+    guard let phAssetItem =  PHAsset.fetchAssets(withLocalIdentifiers: [phAssetString], options: nil).firstObject else {
       throw StoredModelError.unknown
     }
     self.phAsset = phAssetItem
     self.zThreshold = try values.decode(Float.self, forKey: .zThreshold)
     self.distance = try values.decode(Float.self, forKey: .distance)
     self.zScale = try values.decode(Float.self, forKey: .zScale)
+    self.smoothing = try values.decode(Int.self, forKey: .smoothing)
   }
   
   func encode(to encoder: Encoder) throws {
@@ -53,6 +57,7 @@ class StoredModel: Codable {
     try container.encode(zThreshold, forKey: .zThreshold)
     try container.encode(distance, forKey: .distance)
     try container.encode(zScale, forKey: .zScale)
+    try container.encode(smoothing, forKey: .smoothing)
   }
   
 }

@@ -22,6 +22,7 @@ class DifyCloudVisualizerViewController: UIViewController {
   var zScale: Float = 0.022
   var zThreshold: Float = 0.5
   var distance: Float = 2
+  var smoothing: Int = 10
   private let scene = SCNScene()
   private var anchorNode = SCNNode()
   
@@ -55,6 +56,14 @@ extension  DifyCloudVisualizerViewController {
     setupScene()
   }
   
+  func createLightNode(position: SCNVector3, type: SCNLight.LightType = .omni) -> SCNNode {
+    let lightNode = SCNNode()
+    lightNode.light = SCNLight()
+    lightNode.light!.type = type
+    lightNode.position = position
+    return lightNode
+  }
+  
   private func setupScene() {
     let cameraNode = SCNNode()
     cameraNode.camera = SCNCamera()
@@ -63,12 +72,13 @@ extension  DifyCloudVisualizerViewController {
     scene.rootNode.addChildNode(cameraNode)
     
     cameraNode.position = SCNVector3(x: 0, y: 0, z: zCamera)
+//    cameraNode.addChildNode(createLightNode(position: SCNVector3(0, 0, 0)))
     
-    let lightNode = SCNNode()
-    lightNode.light = SCNLight()
-    lightNode.light!.type = .omni
-    lightNode.position = SCNVector3(x: 0, y: 3, z: 3)
-    scene.rootNode.addChildNode(lightNode)
+    scene.rootNode.addChildNode(createLightNode(position: SCNVector3(4, 0, 0)))
+    scene.rootNode.addChildNode(createLightNode(position: SCNVector3(-4, 0, 0)))
+    scene.rootNode.addChildNode(createLightNode(position: SCNVector3(0, -4, 0)))
+    scene.rootNode.addChildNode(createLightNode(position: SCNVector3(0, 4, 0)))
+    scene.rootNode.addChildNode(createLightNode(position: SCNVector3(0, 0, 4)))
     
     let sphere = SCNSphere(radius: 0.001)
     sphere.firstMaterial?.diffuse.contents = UIColor.blue
@@ -102,7 +112,7 @@ extension  DifyCloudVisualizerViewController {
 extension DifyCloudVisualizerViewController {
   private func drawPointCloud() {
     print("Drawing point cloud")
-    print("Parameters\nzThresh: \(self.zThreshold)\nDistance: \(distance)\nzScale: \(zScale)")
+    print("Parameters\nzThresh: \(self.zThreshold)\nDistance: \(distance)\nzScale: \(zScale)\nSmoothing:\(smoothing)")
     guard let colorImage = image, let cgColorImage = colorImage.cgImage else { fatalError() }
     guard let depthData = depthData else { fatalError() }
     
@@ -127,7 +137,7 @@ extension DifyCloudVisualizerViewController {
     print("z scale: \(zScale)")
     let xyScale: Float = 0.0002
     
-    let pointCloud: [SCNVector3] = pixelDataDepth.enumerated().map {
+    var pointCloud: [SCNVector3] = pixelDataDepth.enumerated().map {
       let index = $0.offset
       // Adjusting scale and translating to the center
       let x = Float(index % width - width / 2) * xyScale
@@ -143,12 +153,53 @@ extension DifyCloudVisualizerViewController {
       return SCNVector3(x, y, z)
     }
     
+    var zSmoothingDepths: [Float] = Array(repeating: Float(-1), count: pointCloud.count)
+    if smoothing > 0 {
+      let smoothingFloat = Float(smoothing)
+      let smoothAhead = Int(smoothing / 2) * 2 + 1
+    
+      for i in 0..<pointCloud.count {
+        zSmoothingDepths[i] = pointCloud[i].z / Float(smoothAhead * 2 + 1)
+      }
+      var rowDepths: [Float] = Array(repeating: Float(), count: pointCloud.count)
+      var colDepths: [Float] = Array(repeating: Float(), count: pointCloud.count)
+      
+      func getInd(row: Int, col: Int) -> Int {
+        return row * width + col
+      }
+      
+      var sum: Float = 0
+      for ind in smoothAhead..<pointCloud.count - smoothAhead - 1 {
+        rowDepths[ind] = sum
+        sum += zSmoothingDepths[ind + smoothAhead + 1]
+        sum -= zSmoothingDepths[ind - smoothAhead]
+        if ind % width < smoothAhead || ind % width > width - smoothAhead - 1 {
+          sum = 0
+        }
+      }
+      
+      for col in 0..<width {
+        sum = 0
+        for row in smoothAhead..<height - smoothAhead - 1 {
+          colDepths[col + row * width] = sum
+          sum += zSmoothingDepths[col + (row + smoothAhead + 1) * width]
+          sum -= zSmoothingDepths[col + (row - smoothAhead) * width]
+        }
+      }
+      
+      for i in 0..<pointCloud.count {
+        pointCloud[i].z = (rowDepths[i] + colDepths[i]) / 2
+      }
+      
+    }
+
     // Draw as a custom geometry
     let pc = PointCloud()
     pc.pointCloud = pointCloud
     pc.colors = pixelDataColor
     pc.width = width
     pc.height = height
+    pc.smoothing = smoothing
     
     let pcNode = pc.pointCloudNode()
     pcNode.position = SCNVector3(x: 0, y: 0, z: 0)
