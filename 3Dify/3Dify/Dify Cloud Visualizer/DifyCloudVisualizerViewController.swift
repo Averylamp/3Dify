@@ -21,9 +21,9 @@ class DifyCloudVisualizerViewController: UIViewController {
   let zCamera: Float = 0.3
   var zScale: Float = 0.022
   var zThreshold: Float = 0.5
-//  var distance: Float =
+  var distance: Float = 2
   private let scene = SCNScene()
-  private var pointNode = SCNNode()
+  private var anchorNode = SCNNode()
   
   @IBOutlet weak var sceneView: SCNView!
   /// Factory method for creating this view controller.
@@ -53,21 +53,6 @@ extension  DifyCloudVisualizerViewController {
   /// Setup should only be called once
   func setup() {
     setupScene()
-    
-    PHPhotoLibrary.requestAuthorization({ status in
-      switch status {
-      case .authorized:
-        self.phAsset.getURL { (url) in
-          if let url = url {
-            self.loadImage(at: url)
-          }
-        }
-        
-      default:
-        fatalError()
-      }
-    })
-    
   }
   
   private func setupScene() {
@@ -87,7 +72,8 @@ extension  DifyCloudVisualizerViewController {
     
     let sphere = SCNSphere(radius: 0.001)
     sphere.firstMaterial?.diffuse.contents = UIColor.blue
-    pointNode = SCNNode(geometry: sphere)
+    anchorNode = SCNNode(geometry: sphere)
+    scene.rootNode.addChildNode(anchorNode)
     
     sceneView.scene = scene
     sceneView.allowsCameraControl = true
@@ -95,16 +81,8 @@ extension  DifyCloudVisualizerViewController {
     sceneView.backgroundColor = UIColor(red: 0.10, green: 0.07, blue: 0.27, alpha: 1.00)
   }
   
-  private func loadImage(at url: URL) {
-    let imageSource = CGImageSourceCreateWithURL(url as CFURL, nil)!
-    depthData = imageSource.getDisparityData()
-    guard let image = UIImage(contentsOfFile: url.path) else { fatalError() }
-    self.image = image
-  }
-  
   private func loadAsset(_ asset: PHAsset) {
     asset.requestColorImage { image in
-      
       self.image = image    
       asset.requestContentEditingInput(with: nil) { contentEditingInput, _ in
         let imageSource = contentEditingInput!.createImageSource()
@@ -124,6 +102,7 @@ extension  DifyCloudVisualizerViewController {
 extension DifyCloudVisualizerViewController {
   private func drawPointCloud() {
     print("Drawing point cloud")
+    print("Parameters\nzThresh: \(self.zThreshold)\nDistance: \(distance)\nzScale: \(zScale)")
     guard let colorImage = image, let cgColorImage = colorImage.cgImage else { fatalError() }
     guard let depthData = depthData else { fatalError() }
     
@@ -133,7 +112,7 @@ extension DifyCloudVisualizerViewController {
     
     let resizeScale = CGFloat(width) / colorImage.size.width
     let resizedColorImage = CIImage(cgImage: cgColorImage).transformed(by: CGAffineTransform(scaleX: resizeScale, y: resizeScale))
-    guard var pixelDataColor = resizedColorImage.createCGImage().pixelData() else { fatalError() }
+    guard let pixelDataColor = resizedColorImage.createCGImage().pixelData() else { fatalError() }
         
     let pixelDataDepth: [Float32]
     pixelDataDepth = depthPixelBuffer.grayPixelData()
@@ -173,13 +152,14 @@ extension DifyCloudVisualizerViewController {
     
     let pcNode = pc.pointCloudNode()
     pcNode.position = SCNVector3(x: 0, y: 0, z: 0)
-    self.scene.rootNode.addChildNode(pcNode)
+    self.anchorNode.addChildNode(pcNode)
   }
   
-  private func update() {
-    scene.rootNode.childNodes.forEach { childNode in
+  public func update() {
+    self.anchorNode.childNodes.forEach { childNode in
       childNode.removeFromParentNode()
     }
+    
     drawPointCloud()
   }
   

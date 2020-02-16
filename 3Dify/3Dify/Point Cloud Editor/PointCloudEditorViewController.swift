@@ -11,14 +11,18 @@ import UIKit
 class PointCloudEditorViewController: UIViewController {
   
   @IBOutlet weak var sceneViewContainer: UIView!
-  
-  @IBOutlet weak var depthLabel: UILabel!
-  @IBOutlet weak var depthSlider: UISlider!
 
+  @IBOutlet weak var distanceLabel: UILabel!
+  @IBOutlet weak var distanceSlider: UISlider!
+  
   @IBOutlet weak var backgroundLabel: UILabel!
   @IBOutlet weak var backgroundSlider: UISlider!
   
-  @IBOutlet weak var otherLabel: UILabel!
+  @IBOutlet weak var depthLabel: UILabel!
+  @IBOutlet weak var depthSlider: UISlider!
+  
+  @IBOutlet weak var smoothingLabel: UILabel!
+  @IBOutlet weak var smoothingSlider: UISlider!
   
   var model: StoredModel!
   
@@ -37,6 +41,11 @@ class PointCloudEditorViewController: UIViewController {
     return pointCloudEditorVC
   }
   
+  @IBAction func updateButtonClicked(_ sender: Any) {
+    self.updateSceneView()
+  }
+  @IBAction func continueButtonClicked(_ sender: Any) {
+  }
 }
 
 // MARK: Life Cycle
@@ -51,8 +60,9 @@ extension  PointCloudEditorViewController {
   /// Setup should only be called once
   func setup() {
     
-    self.loadSceneView()
+    self.backgroundSlider.value = self.model.zThreshold
     
+    self.loadSceneView()
   }
   
   func loadSceneView() {
@@ -66,6 +76,9 @@ extension  PointCloudEditorViewController {
     guard let visualizerVC = DifyCloudVisualizerViewController.instantiate(phAsset: self.model.phAsset) else {
       fatalError("Failed to instantiate visualizer")
     }
+    
+    visualizerVC.zThreshold = model.zThreshold
+    visualizerVC.distance = model.distance
     
     self.sceneVC  = visualizerVC
     self.addChild(visualizerVC)
@@ -84,14 +97,31 @@ extension  PointCloudEditorViewController {
     ])
     
     visualizerVC.didMove(toParent: self)
-    
+  }
+  
+  func updateModelWithSliders() {
+    self.model.distance = self.distanceSlider.value
+    self.model.zScale = self.depthSlider.value
+    self.model.zThreshold = self.backgroundSlider.value
+//    self.model.zScale = self.smoothingSlider.value
+  }
+  
+  func updateSceneView() {
+    if let sceneVC = self.sceneVC {
+      self.updateModelWithSliders()
+      sceneVC.distance = self.model.distance
+      sceneVC.zScale = self.model.zScale
+      sceneVC.zThreshold = self.model.zThreshold
+      sceneVC.update()
+    }
   }
   
   /// Stylize should only be called once
   func stylize() {
     self.depthLabel.addCharacterSpacing(kernValue: 5)
     self.backgroundLabel.addCharacterSpacing(kernValue: 5)
-    self.otherLabel.addCharacterSpacing(kernValue: 5)
+    self.distanceLabel.addCharacterSpacing(kernValue: 5)
+    self.smoothingLabel.addCharacterSpacing(kernValue: 5)
   }
   
 }
