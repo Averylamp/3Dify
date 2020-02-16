@@ -33,7 +33,7 @@ def process_photo():
 
     result = choose_x_slice(points_1, rotated_points_2)
 
-    return {0: result[0], 1: result[1]}
+    return {0: (result[1], result[2]), 1: (result[3], result[4])}
 
 if __name__ == "__main__":
     app.run()
