@@ -16,6 +16,8 @@ class MainViewController: UIViewController {
   let flowLayout = UICollectionViewFlowLayout()
   let cachingImageManager = PHCachingImageManager()
   
+  var selectedIndices: [IndexPath] = []
+  
   /// Factory method for creating this view controller.
   ///
   /// - Returns: Returns an instance of this view controller.
@@ -125,6 +127,12 @@ extension MainViewController: UICollectionViewDataSource {
     cell.containingView.layer.borderColor = UIColor.white.cgColor
     cell.containingView.layer.borderWidth = 6
     cell.containingView.layer.cornerRadius = 20
+    
+    if self.selectedIndices.contains(indexPath) {
+      cell.selectedImageView.image = R.image.iconSelected()
+    } else {
+      cell.selectedImageView.image = R.image.iconUnselected()
+    }
     
     let currentTag: Int = indexPath.row
     cell.tag = currentTag

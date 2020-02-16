@@ -390,7 +390,7 @@ struct R: Rswift.Validatable {
     fileprivate init() {}
   }
 
-  /// This `R.image` struct is generated, and contains static references to 4 images.
+  /// This `R.image` struct is generated, and contains static references to 6 images.
   struct image {
     /// Image `3DifyBanner`.
     static let difyBanner = Rswift.ImageResource(bundle: R.hostingBundle, name: "3DifyBanner")
@@ -398,8 +398,12 @@ struct R: Rswift.Validatable {
     static let difyLogo = Rswift.ImageResource(bundle: R.hostingBundle, name: "3DifyLogo")
     /// Image `icon-many-images`.
     static let iconManyImages = Rswift.ImageResource(bundle: R.hostingBundle, name: "icon-many-images")
+    /// Image `icon-selected`.
+    static let iconSelected = Rswift.ImageResource(bundle: R.hostingBundle, name: "icon-selected")
     /// Image `icon-single-image`.
     static let iconSingleImage = Rswift.ImageResource(bundle: R.hostingBundle, name: "icon-single-image")
+    /// Image `icon-unselected`.
+    static let iconUnselected = Rswift.ImageResource(bundle: R.hostingBundle, name: "icon-unselected")
 
     #if os(iOS) || os(tvOS)
     /// `UIImage(named: "3DifyBanner", bundle: ..., traitCollection: ...)`
@@ -423,9 +427,23 @@ struct R: Rswift.Validatable {
     #endif
 
     #if os(iOS) || os(tvOS)
+    /// `UIImage(named: "icon-selected", bundle: ..., traitCollection: ...)`
+    static func iconSelected(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
+      return UIKit.UIImage(resource: R.image.iconSelected, compatibleWith: traitCollection)
+    }
+    #endif
+
+    #if os(iOS) || os(tvOS)
     /// `UIImage(named: "icon-single-image", bundle: ..., traitCollection: ...)`
     static func iconSingleImage(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
       return UIKit.UIImage(resource: R.image.iconSingleImage, compatibleWith: traitCollection)
+    }
+    #endif
+
+    #if os(iOS) || os(tvOS)
+    /// `UIImage(named: "icon-unselected", bundle: ..., traitCollection: ...)`
+    static func iconUnselected(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
+      return UIKit.UIImage(resource: R.image.iconUnselected, compatibleWith: traitCollection)
     }
     #endif
 

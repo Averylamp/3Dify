@@ -45,6 +45,13 @@
                                                         <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="htR-RG-8cP">
                                                             <rect key="frame" x="0.0" y="0.0" width="120" height="120"/>
                                                         </imageView>
+                                                        <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="M82-5X-Ofn">
+                                                            <rect key="frame" x="92" y="8" width="20" height="20"/>
+                                                            <constraints>
+                                                                <constraint firstAttribute="width" constant="20" id="1fI-Sl-Syx"/>
+                                                                <constraint firstAttribute="height" constant="20" id="VLC-S5-E5C"/>
+                                                            </constraints>
+                                                        </imageView>
                                                     </subviews>
                                                     <color key="backgroundColor" red="0.1019607843" green="0.066666666669999999" blue="0.2666666667" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                                     <constraints>
@@ -52,6 +59,8 @@
                                                         <constraint firstItem="htR-RG-8cP" firstAttribute="height" secondItem="Zg0-7X-aOx" secondAttribute="height" id="HHG-Zd-L8H"/>
                                                         <constraint firstItem="htR-RG-8cP" firstAttribute="centerX" secondItem="Zg0-7X-aOx" secondAttribute="centerX" id="Lpo-Tj-aWD"/>
                                                         <constraint firstItem="htR-RG-8cP" firstAttribute="centerY" secondItem="Zg0-7X-aOx" secondAttribute="centerY" id="NBm-0D-t74"/>
+                                                        <constraint firstItem="M82-5X-Ofn" firstAttribute="top" secondItem="Zg0-7X-aOx" secondAttribute="top" constant="8" id="ubK-RP-r57"/>
+                                                        <constraint firstAttribute="trailing" secondItem="M82-5X-Ofn" secondAttribute="trailing" constant="8" id="w0o-5a-5us"/>
                                                     </constraints>
                                                 </view>
                                             </subviews>
@@ -67,6 +76,7 @@
                                         <connections>
                                             <outlet property="containingView" destination="Zg0-7X-aOx" id="bYn-Rf-9Cp"/>
                                             <outlet property="imageView" destination="htR-RG-8cP" id="9ug-Zb-a2i"/>
+                                            <outlet property="selectedImageView" destination="M82-5X-Ofn" id="qnC-FA-gnL"/>
                                         </connections>
                                     </collectionViewCell>
                                 </cells>
