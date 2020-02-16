@@ -6,6 +6,10 @@ app = Flask(__name__)
 def root():
     return "3dify"
 
+@app.route("/ping")
+def ping():
+    return "pong"
+
 def convert_points(points):
     for i in range(0, len(points)):
         points[i] = (points[i][3], points[i][4], points[i][5], points[i][0], points[i][1], points[i][2])
@@ -36,4 +40,4 @@ def process_photo():
     return {0: (result[1], result[2]), 1: (result[3], result[4])}
 
 if __name__ == "__main__":
-    app.run()
+    app.run(host="0.0.0.0")
